@@ -1,0 +1,856 @@
+\documentclass{article}
+
+\usepackage[italian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{mathabx}
+\usepackage{rsfso}
+\usepackage{cancel}
+\usepackage{cmll}
+\usepackage{halloweenmath}
+\usepackage{dsfont}
+
+\theoremstyle{plain}
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposizione}{Proposizione}[section]
+\newtheorem*{corollario}{Corollario}
+\newtheorem*{principio}{Principio}
+
+\theoremstyle{definition}
+\newtheorem{definizione}{Definizione}[section]
+\newtheorem*{notazione}{Notazione}
+\newtheorem{osservazione}{Osservazione}[section]
+\newtheorem{esercizio}{Esercizio}[section]
+\newtheorem{esempio}{Esempio}[section]
+
+\theoremstyle{remark}
+\newtheorem*{nota}{Nota}
+\newtheorem*{NB}{NB}
+
+\newenvironment{solution}
+	{\renewcommand\qedsymbol{$\mathwitch*$}\begin{proof}[Soluzione]}
+	{\end{proof}}
+
+\renewcommand{\qedsymbol}{CVD}
+
+\title{Appunti di Probabilità e Statistica}
+\author{Riccardo Agatea}
+
+\begin{document}
+\pagenumbering{gobble}
+\maketitle
+\newpage
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+\section{Introduzione} % (fold)
+\label{sec:introduzione}
+La probabilità si prefigge di studiare eventi casuali in modo matematico. Per evento casuale non si intende solo un evento prettamente aleatorio, come il lancio di un dado, ma anche un evento essenzialmente deterministico che richiederebbe, per essere previsto, lo studio di un sistema complesso, influenzato da un numero così alto di variabili, che risulta più semplice ed efficiente studiarlo come se fosse casuale. Inoltre, in alcune situazioni la probabilità può intervenire nonostante il caso sia completamente assente: uno degli esempi più importanti è l'integrazione con il metodo Monte Carlo. Considerato un integrale
+\begin{equation*}
+	I=\int_0^1 f(x)dx
+\end{equation*}
+difficilmente risolvibile individuando un'antiderivata di $f(x)$, dal teorema della media integrale è noto che
+\begin{equation*}
+	\exists\xi\in [0,1]\colon\int_0^1 f(x)dx=f(\xi)\text{.}
+\end{equation*}
+Per ricavare una stima di $I$ è possibile considerare un insieme $X=\{x_1,x_2,...,x_n\}s$ di valori casuali tale che $X\subseteq [0,1]$. La media dei valori assunti dalla funzione in questi punti, per le leggi dei grandi numeri, tende a $I$ per $n\to+\infty$:
+\begin{equation*}
+	\frac{1}{n}*\sum_{i=1}^{n}f(x_i)\xrightarrow[n\to+\infty]{}I\text{.}
+\end{equation*}
+% section introduzione (end)
+\section{Concetti di Base} % (fold)
+\label{sec:concetti_di_base}
+\subsection{Definizioni} % (fold)
+\label{sub:definizioni}
+\begin{definizione}
+	Sia $\Omega$ un insieme non vuoto, sia $\mathcal{F}$ una famiglia di sottoinsiemi di $\Omega$ (cioè un insieme di sottoinsiemi di $\Omega$), e sia
+	\begin{equation*}
+		P:\mathcal{F}\to[0,1]
+	\end{equation*}
+	una funzione tale che $P(\Omega)=1$. Si chiama spazio di probabilità la terna ordinata
+	\begin{equation*}
+		(\Omega,\mathcal{F},P)\text{.}
+	\end{equation*}
+\end{definizione}
+\begin{itemize}
+	\item $\Omega$ si chiama spazio degli eventi elementari, contiene tutti i risultati possibili di un dato esperimento. I suoi elementi si dicono eventi elementari o esiti specifici.
+	\item $\mathcal{F}$ ha la struttura di una \sigma-algebra (concetto che verrà studiato più avanti); intuitivamente contiene tutti gli eventi che si vogliono studiare in senso probabilistico.
+	\item P si dice misura di probabilità. Se $E\in\mathcal{F}$, e quindi $E$ è un evento, $P(E)$ è la probabilità che $E$ si realizzi. Si intende che se $P(E)=0$ allora $E$ non si verifica mai, se $P(E)=1$ allora $E$ si verifica sempre.
+\end{itemize}
+\begin{NB}
+	Per uno stesso esperimento $\Omega$, $\mathcal{F}$ e $P$ non sono necessariamente unici. Generalmente si cerca di scegliere $\Omega$ in modo che sia il più ridotto possibile, per cercare di minimizzare la complessità degli eventi da studiare.
+\end{NB}
+Sono dati alcuni esempi di esperimenti, e dei relativi spazi degli eventi elementari.
+\begin{esempio}
+	Esperimento: lancio di una moneta.
+	\begin{equation*}
+		\Omega=\{T,C\}
+	\end{equation*}
+\end{esempio}
+\begin{esempio}
+	Esperimento: 3 lanci consecutivi di una moneta.
+	\begin{equation*}
+		\Omega=\{TTT, TTC, TCT, TCC, CTT, CTC, CCT, CCC\}
+	\end{equation*}
+\end{esempio}
+\begin{esempio}
+	Esperimento: conteggio del numero di volte in cui esce testa su 3 lanci di una moneta.
+	\begin{equation*}
+		\Omega=\{0,1,2,3\}
+	\end{equation*}
+\end{esempio}
+\begin{esempio}
+	Esperimento: conteggio del numero di lanci necessari affinchè esca testa la prima volta.
+	\begin{equation*}
+		\Omega=\{1,2,3,...\}=\mathbb{N}
+	\end{equation*}
+\end{esempio}
+\begin{esempio}
+	Esperimento: misura della durata di vita di una lampadina (supponendo che la sensibilità del sistema di misura sia essenzialmente nulla, cioè che le misure siano corrette fino all'infinitesima cifra significativa).
+	\begin{equation*}
+		\Omega=\mathds{R}_+\quad\text{oppure}\quad\Omega=[0,a]\subsetneqq\mathds{R}_+
+	\end{equation*}
+\end{esempio}
+\begin{nota}
+	Introduciamo due concetti:
+	\begin{definizione}
+		Uno spazio di probabilità $(\Omega,\mathcal{F},P)$ si dice discreto se $\Omega$ è finito o numerabile:
+		\begin{equation*}
+			\lvert\Omega\rvert\leq\lvert\mathbb{N}\rvert
+		\end{equation*}
+	\end{definizione}
+	\begin{definizione}
+		Uno spazio di probabilità $(\Omega,\mathcal{F},P)$ si dice continuo se $\Omega$ è non numerabile:
+		\begin{equation*}
+			\lvert\Omega\rvert=\lvert\mathds{R}\rvert
+		\end{equation*}
+	\end{definizione}
+\end{nota}
+\begin{definizione}
+	Sia $\omega\in\Omega$ il risultato osservato dall'esecuzione di un dato esperimento, e sia $E\in\mathcal{F}$ un evento. Si dice che $E$ si è verificato se e solo se 
+	\begin{equation*}
+		\omega\in E\text{.}
+	\end{equation*}
+\end{definizione}
+\begin{esempio}
+	Esperimento: 3 lanci consecutivi di una moneta.
+	Consideriamo:
+	\begin{align*}
+		\Omega&=\{TTT, TTC, TCT, TCC, CTT, CTC, CCT, CCC\}\\
+		E&=\{\omega\in\Omega\mid\text{testa e croce si alternano}\}
+	\end{align*}
+	Dall'esecuzione dell'esperimento, si osserva $\omega=TTC$.
+	\begin{equation*}
+		\omega\notin E \Rightarrow E\ \text{non si è verificato}
+	\end{equation*}
+	Ripetendo l'esperimento si osserva $\omega=TCT$.
+	\begin{equation*}
+		\omega\in E \Rightarrow E\ \text{si è verificato}
+	\end{equation*}
+\end{esempio}
+Due particolari eventi sempre presenti in $\mathcal{F}$ sono:
+\begin{itemize}
+	\item $\emptyset$ rappresenta il non presentarsi di alcuno degli eventi elementari in $\Omega$. Chiaramente almeno uno degli eventi elementari si deve presentare, quindi $\emptyset$ non si verifica mai.
+	\item $\Omega$ rappresenta il presentarsi di uno degli eventi elementari, senza limitazioni, e quindi si verifica sempre.
+\end{itemize}
+% subsection definizioni (end)
+\subsection{Operazioni sugli Insiemi} % (fold)
+\label{sub:operazioni_sugli_insiemi}
+Consideriamo uno spazio di probabilità $(\Omega,\mathcal{F},P)$, e due eventi $E,F\in\mathcal{F}$. Essendo $\mathcal{F}$ una famiglia di sottoinsiemi di $\Omega$, $E$ e $F$ sono insiemi, e quindi si possono applicare ad essi le comuni operazioni sugli insiemi. Quelli che si ottengono sono ancora eventi di $\mathcal{F}$, di cui si può studiare il verificarsi in funzione del verificarsi di $E$ e $F$.
+\begin{itemize}
+	\item $E\cap F$ si verifica $\Leftrightarrow$ sia $E$ che $F$ si verificano
+	\item $E\cup F$ si verifica $\Leftrightarrow$ almeno uno fra $E$ e $F$ si verifica
+	\item $E^C$ si verifica $\Leftrightarrow$ $E$ non si verifica
+	\item $E\smallsetminus F$ si verifica $\Leftrightarrow$ $E$ si verifica e $F$ non si verifica
+	\item $E\Delta F$ si verifica $\Leftrightarrow$ solo uno fra $E$ ed $F$ si verifica
+\end{itemize}
+\begin{definizione}
+	$E$ ed $F$ si dicono incompatibili se sono disgiunti:
+	\begin{equation*}
+		E\cap F=\emptyset
+	\end{equation*}
+\end{definizione}
+Chiaramente, per gli elementi di $\mathcal{F}$ continuano a valere la proprietà distributiva dell'intersezione sull'unione e dell'unione sull'intersezione, e le due leggi di De Morgan. Usando le leggi di De Morgan, è sempre possibile esprimere un'espressione in funzione del complemento e di una fra unione e intersezione.
+\paragraph{Partizioni} % (fold)
+\label{par:partizioni}
+Ricordiamo la definizione di partizione di un insieme:
+\begin{definizione}
+	Sia $A$ un insieme, sia $(A_i)_i$ una famiglia di suoi sottoinsiemi. $(A_i)_i$ si dice partizione di $A$ se e solo se
+	\begin{align*}
+		&\bigcup_i A_i =A\\
+		&A_i\cap A_j =\emptyset \quad\forall i\not =j\text{.}\\
+	\end{align*}
+\end{definizione}
+Se l'insieme considerato è uno spazio degli eventi $\Omega$, allora una sua partizione rappresenta una famiglia di eventi incompatibili, ma per i quali c'è la garanzia che uno e uno solo di essi si verifichi. Dato un evento $F\subseteq\Omega$ e una partizione $(E_i)_i$ di $\Omega$, è sempre possibile \textit{scomporre} $F$ rispetto $(E_i)_i$, cioè si può sempre rappresentare $F$ come l'unione delle intersezioni di $F$ con gli insiemi di $(E_i)_i$:
+\begin{equation*}
+	F=\bigcup_i (F\cap E_i)\text{.}
+\end{equation*}
+Chiaramente, siccome $(E_i)_i$ è una partizione di $\Omega$, $(F\cap E_i)_i$ è una partizione di $F$. In modo simile, è sempre possibile scomporre l'unione di due eventi in una sua partizione: se $E,F\subseteq\Omega$ allora
+\begin{equation*}
+	E\cup F=(E\cap F^C)\cup(E^C\cap F)\cup (E\cap F)\text{.}
+\end{equation*}
+Concettualmente, significa che "o si verifica solo $E$, o si verifica solo $F$, oppure si verificano entrambi".Un'altra scomposizione, più generalizzabile è:
+\begin{equation*}
+	E\cup F=E\cup(F\smallsetminus E)\text{.}
+\end{equation*}
+In questo caso, il significato è "o si verifica $E$, e non ci interessiamo di $F$, oppure se $E$ non si verifica, allora si verifica $F$". Questa scomposizione si può generalizzare alla generica famiglia di eventi $\{E_n\}_n$:
+\begin{equation*}%Non so mica se è giusta. Non si capisce se alla fine sia un'unione grande o un'intersezione grande
+	\bigcup_n E_n=E_1 \cup(\bigcup_{k\neq2} E_k\smallsetminus(\bigcup_{i=1}^{k-1} E_j))
+\end{equation*}
+\begin{esercizio}
+	Dati tre eventi $E,F,G$, trovare l'evento corrispondente a
+	\begin{itemize}
+		\item si verifica solo $E$
+		\item si verificano $E$ e $F$, ma non $G$
+		\item si verifica esattamente uno degli eventi $E$, $F$, o $G$
+		\item si verifica almeno uno dei tre
+		\item si verificano esattamente due degli eventi
+	\end{itemize}
+\end{esercizio}
+% paragraph partizioni (end)
+% subsection operazioni_sugli_insiemi (end)
+\subsection{\sigma-algebra $\mathcal{F}$} % (fold)
+\label{sub:sigma_algebra_f}
+Abbiamo etto che $\mathcal{F}$ è una famiglia di sottoinsiemi di $\Omega$ che contiene tutti gli eventi che ci interessa analizzare. Diamo una definizione formale di evento:
+\begin{definizione}
+	Un sottoinsieme $E$ di $\Omega$ si dice evento se e solo se $E\in\mathcal{F}$.
+\end{definizione}
+Il fatto che $\mathcal{F}$ contenga gli eventi che ci interessano ha delle conseguenze, nello specifico significa che se un evento è presente devono essere presenti anche tutti gli eventi "equivalenti". Ad esempio, se l'evento "è uscita sempre testa" è presente, anche "non è uscita mai croce" deve essere presente, perchè danno la stessa informazione. Per questo $\mathcal{F}$ è una \sigma-algebra:
+\begin{definizione}
+	Dato un insieme $A$ e una famiglia di suoi sottoinsiemi $\mathcal{A}$, $\mathcal{A}$ è una \sigma-algebra se e solo se:
+	\begin{enumerate}
+		\item $\mathcal{A}\neq\emptyset$
+		\item $\forall B\subseteq\Omega\quad B\in\mathcal{A}\Rightarrow B^C\in\mathcal{A}$
+		\item Presa comunque una famiglia numerabile $(B_n)_n$ di sottoinsiemi di $A$, vale
+		\begin{equation*}
+			\forall n\ B_n\in\mathcal{A}\Rightarrow\bigcup_i B_i\in\mathcal{A}
+		\end{equation*}
+	\end{enumerate}
+\end{definizione}
+Bastano queste condizioni perchè, come abbiamo detto, tutte le operazioni fra insiemi possono essere ridotte a combinazioni di complemento e unione. Due esempi particolarmente importanti di \sigma-algebre su un dato spazio degli eventi elementari $\Omega$ sono:
+\begin{esempio}
+	\begin{equation*}
+		\mathcal{F}=\{\emptyset, \Omega\}
+	\end{equation*}
+	Questa è una \sigma-algebra perchè:
+	\begin{enumerate}
+		\item Chiaramente non è vuota
+		\item $\emptyset^C=\Omega\in\mathcal{F}$ e $\Omega^C=\emptyset\in\mathcal{F}$
+		\item $\emptyset\cup\Omega=\Omega\in\mathcal{F}$
+	\end{enumerate}
+\end{esempio}
+\begin{esempio}
+	\begin{equation*}
+		\mathcal{F}=\mathds{P}(\Omega)
+	\end{equation*}
+	Con $\mathds{P}(\Omega)$ indichiamo l'insieme delle parti di $\Omega$. La dimostrazione è triviale.
+\end{esempio}
+\begin{definizione}
+	Sia $E\subseteq\Omega$, la \sigma-algebra generata da $E$ è
+	\begin{equation*}
+		\mathcal{F}=\{\emptyset,\Omega,E,E^C\}
+	\end{equation*}
+\end{definizione}
+Si dimostra che è una \sigma-algebra:
+\begin{proof}
+	\begin{enumerate}
+		\item Trivialmente, $\mathcal{F}\neq\emptyset$
+		\item 
+		\begin{align*}
+			\emptyset^C=\Omega&\in\mathcal{F}\\
+			\Omega^C=\emptyset&\in\mathcal{F}\\
+			E^C&\in\mathcal{F}\\
+			(E^C)^C=E&\in\mathcal{F}\\
+		\end{align*}
+		\item Per dimostrare che $\mathcal{F}$ è chiusa rispetto l'unione non è necessario considerare le unioni con $\Omega$, perchè $\Omega\cup x=\Omega\ \forall x$. Non è necessario considerare neanche $\emptyset$, perchè esso è l'elemento neutro dell'unione, e quindi $\emptyset\cup x\in\mathcal{F}\Leftrightarrow x\in\mathcal{F}\ \forall x$. Resta da dimostrare che $E\cup E^C\in\mathcal{F}$, che è triviale in quanto $E\cup E^C=\Omega$.
+	\end{enumerate}
+\end{proof}
+Le proprietà di una \sigma-algebra sono:
+\begin{itemize}
+	\item $\emptyset,\Omega\in\mathcal{F}\quad\forall\mathcal{F}$
+	\begin{proof}
+		\begin{align*}
+			&\mathcal{F}\neq\emptyset\\
+			\Rightarrow&\exists G\in\mathcal{F}\\
+			\Rightarrow&G^C\in\mathcal{F}\\
+			\Rightarrow&G\cup G^c \in\mathcal{F}\\
+			\Rightarrow&\Omega\in\mathcal{F}\\
+			\Rightarrow&\Omega^C=\emptyset\in\mathcal{F}\qedhere
+		\end{align*}
+	\end{proof}
+	\item $\mathcal{F}$ è chiusa rispetto le unioni finite
+	\begin{proof}
+		Sia $\{E_1,...,E_n\}\subseteq\mathcal{F}$ una famiglia finita di sottoinsiemi di $\Omega$. Questa può essere estesa definendo $E_i=\emptyset\ \forall i>n$; segue:
+		\begin{equation*}
+			\bigcup_{i=1}^n B_i\in\mathcal{F}=\bigcup_{i\in\mathbb{N}} B_i\in\mathcal{F}\qedhere
+		\end{equation*}
+	\end{proof}
+	\item $\mathcal{F}$ è chiusa rispetto le intersezioni
+	\begin{proof}
+		Sia $(E_n)_n\subseteq\mathcal{F}$ una famiglia numerabile di sottoinsiemi di $\Omega$.
+		\begin{align*}
+			 &\forall i\ E_i\in\mathcal{F}\\
+			 &\Rightarrow\forall i\ E_i^C\in\mathcal{F}\\
+			 &\Rightarrow\bigcup_i E_i^C\in\mathcal{F}\\
+			 &\Rightarrow(\bigcup_i E_i^C)^C\in\mathcal{F}\\
+			 &\Rightarrow\bigcap_i E_i\in\mathcal{F}\qedhere
+		\end{align*}
+	\end{proof}
+\end{itemize}
+\begin{proposizione}
+	Se $\Omega$ è discreto, allora si può sempre prendere $\mathcal{F}=\mathds{P}(\Omega)$, ed è quello che si fa di solito.
+\end{proposizione}
+% subsection sigma_algebra_f (end)
+\subsection{Misura di probabilità} % (fold)
+\label{sub:misura_di_probabilità}
+Diamo una definizione di misura di probabilità:
+\begin{definizione}
+	Una funzione
+	\begin{equation*}
+		P\colon\mathcal{F}\to[0,1]
+	\end{equation*}
+	si dice misura di probabilità se
+	\begin{enumerate}
+		\item $P(\Omega)=1$
+		\item $P$ è \sigma-additiva, cioè: sia $(E_i)_i\subseteq\mathcal{F}$ una famiglia numerabile di eventi mutualmente incompatibili, allora
+		\begin{equation*}
+			P(\bigcup_i E_i)=\sum_i P(E_i)
+		\end{equation*}
+	\end{enumerate}
+\end{definizione}
+Le proprietà di $P$ sono:
+\begin{itemize}
+	\item $\forall E\in\mathcal{F}\quad P(E^C)=1-P(E)$
+	\begin{proof}
+		\begin{align*}
+			&E\cup E^C=\Omega\\
+			&\Rightarrow P(E\cup E^C)=P(\Omega)\\
+			&\Rightarrow P(E)+P(E^C)=1\\
+			&\Rightarrow P(E^C)=1-P(E)\qedhere
+		\end{align*}
+	\end{proof}
+	\item $\forall E,F\in\mathcal{F}\quad E\subseteq F\Rightarrow P(E)\leq P(F)$
+	\begin{proof}
+		\begin{align*}
+			F&=(F\cap E)\cup(F\cap E^C)\\
+			&=E\cup(F\cap E^C)\\
+			\Rightarrow P(F)&=P(E)+P(F\cap E^C)
+		\end{align*}
+		Essendo $P(F\cap E^C)\geq0$, segue la tesi.
+	\end{proof}
+	\item $\forall E,F\in\mathcal{F}\quad P(E\cup F)=P(E)+P(F)-P(E\cap F)$
+	\begin{proof}
+		Per definizione di misura di probabilità, $P$ è additiva su unioni disgiunte, quindi:
+		\begin{align*}
+			E\cup F&=E\cup (F\smallsetminus E)\\
+			\Rightarrow P(E\cup F)&=P(E)+P(F\smallsetminus E)\\
+		\end{align*}
+		Ricordiamo che, per definizione:
+		\begin{equation*}
+			F\smallsetminus E=F\cap E^C
+		\end{equation*}
+		Inoltre:
+		\begin{equation*}
+			F=(F\cap E)\cup(F\cap E^C)
+		\end{equation*}
+		Sostituendo:
+		\begin{equation*}
+			F\smallsetminus E=F\cap E^C
+		\end{equation*}
+		(ecc)%finisci
+	\end{proof}
+	\item La precedente si può generalizzare a una famiglia $\{E_n\}_n$ di eventi non necessariamente disgiunti:
+	\begin{equation*}
+		P(\bigcup_n E_n)\leq \sum_n P(E_n)
+	\end{equation*}
+	\begin{proof}
+		(ecc)
+	\end{proof}
+	\item $P(E\cup F\cup G)=P(E)+P(F)+P(G)-P(E\cap F)-P(E\cap G)-P(F\cap G)+P(E\cap F\cap G)$
+	\begin{proof}
+		(per casa)
+	\end{proof}
+	\item $P(E\Delta F)=P(E)+P(F)-2P(E\cap F)$
+\end{itemize}
+Chiaramente, $P$ non è determinata univocamente da $\Omega$ e $\mathcal{F}$, però ci sono dei metodi "standard" per costruirla, soprattutto nelle applicazioni pratiche.
+\subsubsection{Misura Empirica} % (fold)
+\label{subs:misura_empirica}
+Consideriamo una coppia $(\Omega,\mathcal{F})$ fissata in modo da rappresentare un esperimento ripetibile. Eseguendo l'esperimento $n$ volte si otterrà una sequenza di $n$ risultati
+\begin{equation*}
+	(\omega_1,...,\omega_n)\quad \omega_i\in\Omega\ \forall i\in\{1,...,n\}
+\end{equation*}
+Sia $E\in\mathcal{F}$, definiamo una quantità $n_E$ che rappresenti il numero di volte in cui $E$ si è verificato
+\begin{equation*}
+	n_E:=\lvert\{i\in\{1,...,n\}:\omega_i\in E\}\rvert
+\end{equation*}
+\begin{definizione}
+	Si dice misura di probabilità empirica la funzione
+	\begin{align*}
+		\hat{P_n}:\mathcal{F}&\to[0,1]\\
+		E&\mapsto\frac{n_E}{n}
+	\end{align*}
+\end{definizione}
+Questa misura in modo empirico il numero di volte in cui un dato evento si è verificato. Il limite più importante è che l'esperimento deve essere ripetibile.
+% subsubsection misura_empirica (end)
+\subsubsection{$\Omega$ discreto} % (fold)
+\label{subs:omega_discreto}
+Nel caso in cui $\Omega$ sia discreto e $\mathcal{F}=\mathds{P}(\Omega)$, si può dimostrare che per identificare univocamente $P$ è sufficiente identificare i valori $p_\omega$ tali che
+\begin{equation*}
+	p_\omega=P(\{\omega\})\quad\text{con }\sum_{\omega\in\Omega}p_\omega=1
+\end{equation*}
+Segue dalla \sigma-additività di $P$ che:
+\begin{equation*}
+	P(E)=\sum_{\omega\in E} p_\omega\quad\forall E\in\mathcal{F}
+\end{equation*}
+Si ricava che se $\Omega$ è finito
+\begin{equation*}
+	\Omega=\{\omega_1,...,\omega_n\}
+\end{equation*}
+identificare $P$ equivale ad identificare una famiglia
+\begin{equation*}
+	\{p_1,...,p_n\}
+\end{equation*}
+tale che 
+\begin{equation*}
+	\sum_{i=1}^n p_i=1
+\end{equation*}
+\begin{osservazione}
+	In realtà sono sufficienti $n-1$ valori $p_i$, perchè vale necessariamente:
+	\begin{equation*}
+		p_n=1-\sum_{i=1}^{n-1}p_i
+	\end{equation*}
+\end{osservazione}
+Se invece $\Omega$ è numerabile, identificare $P$ equivale ad identificare una successione $(p_n)_n$ tale che
+\begin{equation*}
+	\sum_{i=1}^{+\infty}p_i=1
+\end{equation*}
+% subsubsection omega_discreto (end)
+\subsubsection{Probabilità Uniforme} % (fold)
+\label{subs:probabilità_uniforme}
+Un caso particolare del punto precedente si ha se $\Omega$ è finito e tutti gli eventi elementari hanno la stessa probabilità:
+\begin{definizione}
+	Sia $\Omega$ spazio di probabilità finito, la funzione di probabilità uniforme è la misura di probabilità identificata dalla famiglia di valori $p_i$ tali che:
+	\begin{equation*}
+		p_i=\frac{1}{n}\quad\forall i\in\{1,...,n\}
+	\end{equation*}
+\end{definizione}
+In questo caso, vale che dato un evento $E\in\mathcal{F}:$
+\begin{align*}
+	P(E)&=\sum_{\omega\in E} P(\{\omega\})\\
+	&=\sum_{\omega\in E} p_\omega\\
+	&=\sum_{\omega\in E} \frac{1}{n}\\
+	&=\frac{1}{n}*\sum_{\omega\in E} 1\\
+	&=\frac{1}{n}*\lvert E\rvert\\
+	&=\frac{\lvert E\rvert}{\lvert\Omega\rvert}
+\end{align*}
+In altre parole, la probabilità di un evento $E$ è pari al numero di risultati favorevoli ad $E$ diviso per il numero totale di risultati.
+% subsubsection probabilità_uniforme (end)
+% subsection misura_di_probabilità (end)
+% section concetti_di_base (end)
+\section{Approfondimenti sulla Probabilità} % (fold)
+\label{sec:approfondimenti_sulla_probabilità}
+\subsection{Principio Fondamentale del Conteggio} % (fold)
+\label{sub:principio_fondamentale_del_conteggio}
+\begin{principio}[Fondamentale del Conteggio]
+	Dovendo eseguire $R$ scelte consecutive tali che
+	\begin{enumerate}
+		\item $\forall r\in\{1,...,R\}$ la scelta va eseguita fra $n_r$ elementi
+		\item $\forall r\in\{1,...,R\}$ la scelta non dipende dalle precedenti
+		\item da due successioni distinte di $R$ scelte si giunge a risultati diversi
+	\end{enumerate}
+	Il numero totale di risultati possibili è
+	\begin{equation*}
+		\prod_{i=1}^R n_i
+	\end{equation*}
+\end{principio}
+In generale, i problemi in cui interviene il principio fondamentale del conteggio riguardano il campionamento, secondo uno schema riconducibile all'estrazione di $k$ palline da un'urna che ne contiene $n$. Ci sono due possibilità riguardo le palline, ed altrettante riguardo l'estrazione:
+\begin{itemize}
+	\item Per quanto riguarda le palline, possono essere:
+	\begin{itemize}
+		\item tutte diverse (e quindi, virtualmente numerabili da $1$ a $n$)
+		\item diverse a gruppi (con $m<n$ gruppi)
+	\end{itemize}
+	\item Per quanto riguarda l'estrazione, può essere:
+	\begin{itemize}
+		\item con reinserimento (con la possibilità di estrarre $k\in\mathbb{N}$ palline)
+		\item senza reinserimento (limitando il numero di estrazioni a $k\leq n$)
+	\end{itemize}
+\end{itemize}
+Inoltre è possibile distinguere fra due possibilità sugli aspetti interessanti delle palline estratte:
+\begin{itemize}
+	\item ci interessa la disposizione delle palline estratte (cioè ci interessa quali palline sono estratte e in quale ordine)
+	\item ci interessa la combinazione delle palline estratte (cioè ci interessa solo quali palline sono estratte, ma non in quale ordine, e quindi ci interessa quante palline di ciascun tipo sono state estratte)
+\end{itemize}
+I problemi si possono quindi analizzare in base alle loro caratteristiche attraverso il calcolo combinatorio.
+\paragraph{Disposizione con reinserimento} % (fold)
+\label{par:disposizione_con_reinserimento}
+In questo caso, assumendo che le palline siano tutte diverse, ad ogni estrazione ci sono $n$ possibilità diverse di estrarre la pallina, e quindi le possibili disposizioni sono:
+\begin{equation*}
+	\underbrace{n\cdot n\cdot \ldots \cdot n}_{k \text{ volte}} = n^k
+\end{equation*}
+% paragraph disposizione_con_reinserimento (end)
+\paragraph{Disposizione senza reinserimento} % (fold)
+\label{par:disposizione_senza_reinserimento}
+Problema molto simile al precedente, con la differenza che le palline non vengono reinserite nell'urna. Ad ogni estrazione il numero di palline che è possibile estrarre diminuisce di 1. Le possibili disposizioni sono:
+\begin{equation*}
+	n\cdot (n-1) \cdot \ldots\cdot(n-k+1) = \frac{n!}{(n-k)!}
+\end{equation*}
+Un caso particolare si ha quando $k=n$, cioè se vengono estratte tutte le palline dall'urna. In questo caso, le disposizioni sono:
+\begin{equation*}
+	\frac{n!}{(n-k)!}=\frac{n!}{(n-n)!}=\frac{n!}{0!}=n!
+\end{equation*}
+Queste si dicono permutazioni, in quanto sono modi diversi di disporre gli stessi elementi.
+% paragraph disposizione_senza_reinserimento (end)
+\paragraph{Combinazioni senza reinserimento} % (fold)
+\label{par:combinazioni_senza_reinserimento}
+Anche in questo caso ad ogni estrazione il numero di palline che è possibile estrarre diminuisce di 1; inoltre, data una sequenza di palline estratte, questa è equivalente a tutte le sue permutazioni. Il numero di combinazioni si può quindi ottenere dividendo il numero di disposizioni ottenibili in questa situazione per il numero di permutazioni possibili della sequenza estratta:
+\begin{equation*}
+	\frac{n!}{(n-k)!\cdot k!}=\binom{n}{k}
+\end{equation*}
+Per convenzione si pone:
+\begin{equation*}
+	\binom{0}{0}=\binom{n}{0}=\binom{n}{n}=1
+\end{equation*}
+Un'applicazione importante del coefficiente binomiale è la formula del binomio di Newton:
+\begin{equation*}
+	(a+b)^n=\sum_{k=0}^n \binom{n}{k} a^k b^{n-k}
+\end{equation*}
+Alcune proprietà sono:
+\begin{align*}
+	2^n&=\sum_{k=0}^n \binom{n}{k}\\
+	\binom{n}{k}&=\binom{n}{n-k}\\
+	\binom{n}{k}&=\binom{n-1}{k}+\binom{n-1}{k-1}\\
+\end{align*}
+% paragraph combinazioni_senza_reinserimento (end)
+\paragraph{Permutazioni con palline uguali} % (fold)
+\label{par:permutazioni_con_palline_uguali}
+Nel caso i colori siano $m<n$, e ci siano $n_i$ palline dell'$i$-esimo colore, il numero di modi di estrarle tutte si può ottenere dividendo il numero di modi di estrarre tutte le palline se fossero tutte diverse per il numero di modi di scambiare fra di loro le palline uguali:
+\begin{equation*}
+	\frac{n!}{n_1!\cdot n_2!\cdot\ldots\cdot n_m!}
+\end{equation*}
+Questo caso corrisponde al trovare il numero di anagrammi di una parola con lettere ripetute.
+% paragraph permutazioni_con_palline_uguali (end)
+% subsection principio_fondamentale_del_conteggio (end)
+\subsection{Probabilità Condizionata} % (fold)
+\label{sub:probabilità_condizionata}
+Finora abbiamo visto situazioni in cui la probabilità di un dato evento $E$ dipende esclusivamente da $E$, cioè in cui la misura di quanto verosimile sia $E$ è basata solo sulle caratteristiche "di partenza" dello spazio di probabilità. In alcuni casi, è utile valutare come varia la probabilità di $E$ se sono fornite informazioni aggiuntive; l'obiettivo è formalizzare il concetto molto intuitivo che, ad esempio, la probabilità che piova quando è sereno è diversa dalla probabilità che piova quando è nuvoloso. In particolare, l'informazione relativa al clima deve avere un effetto sulla probabilità che piova. Questo viene formalizzato introducendo la misura di probabilità condizionata:
+\begin{definizione}
+	Sia $(\Omega,\mathcal{F},P)$ uno spazio di probabilità, sia $F\in\mathcal{F}$ tale che $P(F)>0$; si definisce misura di probabilità condizionata a $F$ la funzione
+	\begin{align*}
+		P(\cdot|F):\mathcal{F}&\to[0,1]\\
+		E&\mapsto P(E|F)\\
+	\end{align*}
+	dove:
+	\begin{equation*}
+		P(E|F)=\frac{P(E\cap F)}{P(F)}\quad \forall E\in\mathcal{F}
+	\end{equation*}
+\end{definizione}
+La probabilità $P(E|F)$ misura la probabilità che se si verifica $F$, si verifichi anche $E$. Si dimostra che la misura di probabilità condizionata $P(\cdot|F)$è effettivamente una misura di probabilità:
+\begin{proof}
+	\begin{enumerate}
+		\item 
+		\begin{align*}
+			P(\Omega|F)&=\frac{P(\Omega\cap F)}{P(F)}\\
+			&=\frac{P(F)}{P(F)}=1\\
+		\end{align*}
+		\item Considerando una famiglia $\{E_n\}_n$ di sottoinsiemi di $\Omega$:
+		\begin{align*}
+			P\left(\left.\bigcup_n E_n\right|F \right)&=\frac{P\left(\left(\bigcup_n E_n\right)\cap F\right)}{P(F)}\\
+			&=\frac{P\left(\bigcup_n (E_n\cap F)\right)}{P(F)}\\
+			&=\sum_n \frac{P(E_n\cap F)}{P(F)}
+		\end{align*}
+	\end{enumerate}
+	\qedhere
+\end{proof}
+\begin{nota}
+	Chiaramente, ha senso considerare la probabilità di $E$ condizionata a $F$ solo se $P(F)>0$.
+\end{nota}
+Alcune proprietà:
+\begin{itemize}
+	\item $P(E^C|F)=1-P(E|F)\quad\forall E\in\mathcal{F}$
+	\item $E\cap F=\emptyset \Rightarrow P(E|F)=0$
+	\item $F\subseteq E \Rightarrow P(E|F)=1$
+	\item $P(E)=0 \Rightarrow P(E|F)=0$
+	\item $P(E)=1 \Rightarrow P(E|F)=1$
+	\item \textit{Formula di moltiplicazione}: sia $\{E_n\}_n$ una famiglia di eventi non necessariamente disgiunti, allora vale
+	\begin{align*}
+		P\left(\bigcap_{i=1}^n E_i\right)&=P\left(E_n|\bigcap_{i=1}^{n-1} E_i\right)\cdot\ldots\cdot P(E_1)\\
+		&=\prod_{k=2}^n P\left(E_k|\bigcap_{i=1}^{k-1} E_i\right)\cdot P(E_1)
+	\end{align*}
+	\item Dalla precedente, per $n=2$, si ricava
+	\begin{equation*}
+		P(E\cap F)=P(E|F)\cdot P(F)
+	\end{equation*}
+\end{itemize}
+\begin{nota}
+	Nel contesto della probabilità condizionata, $P(E)$ si dice anche probabilità a priori di $E$, mentre $P(E|F)$ è detta, per contrasto, probabilità a posteriori.
+\end{nota}
+Vediamo adesso alcune formule legate alla probabilità condizionata.
+\paragraph{Formula di Probabilità Totale} % (fold)
+\label{par:formula_di_probabilità_totale}
+Partendo dalla formula di moltiplicazione:
+\begin{align*}
+	P(E\cap F)&=P(E|F)\cdot P(F)\\
+	P(E\cap F^C)&=P(E|F^C)\cdot P(F^C)\\
+\end{align*}
+$E\cap F$ e $E\cap F^C$ sono eventi disgiunti, e vale $(E\cap F)\cup(E\cap F^C)=E$. Segue:
+\begin{align*}
+	P(E)&=P(E\cap F)+P(E\cap F^C)\\
+	&=P(E|F)P(F)+P(E|F^C)P(F^C)\\
+\end{align*}
+Questa formula si può generalizzare: consideriamo una partizione $\{F_n\}_n$ di $\Omega$, cioè una famiglia di sottoinsiemi di $\Omega$ tale che
+\begin{align*}
+	\bigcup_i F_i&=\Omega\\
+	F_i\cap F_j&=\emptyset\quad\forall i\neq j\\
+\end{align*}
+Inoltre, imponiamo che
+\begin{equation*}
+	P(F_i)>0\quad\forall i
+\end{equation*}
+Allora, dato un evento $E\in\mathcal{F}$ si può scrivere:
+\begin{equation*}
+	P(E)=\sum_{i=1}^n P(E|F_i)\cdot P(F_i)
+\end{equation*}
+\begin{proof}
+	Essendo $\{F_n\}_n$ una partizione di $\Omega$, vale:
+	\begin{align*}
+		E&=\bigcup_{i=1}^n (E\cap F_i)\\
+		\Rightarrow P(E)&=P\left(\bigcup_{i=1}^n (E\cap F_i)\right)\\
+		&=\sum_{i=1}^n P(E\cap F_i)\\
+		&=\sum_{i=1}^n \frac{P(E\cap F_i)}{P(F_i)}P(F_i)\\
+		&=\sum_{i=1}^n P(E|F_i)P(F_i)\qedhere
+	\end{align*}
+\end{proof}
+% paragraph formula_di_probabilità_totale (end)
+\paragraph{Formula di Bayes} % (fold)
+\label{par:formula_di_bayes}
+La formula di Bayes segue da un'interpretazione della formula di probabilità totale: ciascuno degli eventi $F_i$ si può interpretare come una possibile causa di $E$. Ciascuno degli addendi $P(E|F_i)P(F_i)$ rappresenta la probabilità che $E$ si verifichi dopo che si è verificato $F_i$. Ci chiediamo ora quale sia la probabilità che, avendo osservato che $E$ si verifica, si sia verificato $F_i$. Applicando le formule di moltiplicazione e di probabilità totale, considerando uno specifico evento $F_k$ della partizione, segue:
+\begin{align*}
+	P(F_k|E)&=\frac{P(F_k\cap E)}{P(E)}\\
+&=\frac{P(E|F_k)P(F_k)}{\sum_{i=1}^n P(E|F_i)P(F_i)}
+\end{align*}
+\begin{esempio}
+	Un'applicazione della formula di Bayes si ha in molti casi in cui si cerca di studiare un dato fenomeno non direttamente osservabile, e che quindi porta alla necessità di effettuare un test indiretto per valutare il presentarsi o meno del fenomeno. In modo semplificato, possiamo considerare che per l'evento ha $\{D,d\}$ come possibili outcome, rappresentanti rispettivamente il verificarsi o meno dell'evento, e il test ha $\{T,t\}$ come possibili risultati, che rappresentano rispettivamente il rilevare il verificarsi o il non verificarsi del fenomeno. Gli outcome dell'esperimento sono quindi:
+	\begin{itemize}
+		\item $TD$ se il test ha correttamente rilevato il verificarsi dell'esperimento
+		\item $td$ se il test ha correttamente rilevato il non verificarsi dell'esperimento
+		\item $Td$ se il test ha rilevato un falso positivo, detto anche errore di prima specie
+		\item $tD$ se il test ha rilevato un falso negativo, detto anche errore di seconda specie
+	\end{itemize}
+	Due probabilità che caratterizzano l'esperimento sono:
+	\begin{itemize}
+		\item $P(T|D)$, detta sensibilità
+		\item $P(t|d)$, detta specificità
+	\end{itemize}
+	In particolare, date queste probabilità, è possibile ricavare quanto probabile sia che il fenomeno si sia verificato dopo aver ricevuto un risultato positivo al test:
+	\begin{equation*}
+		P(D|T)=\frac{P(T|D)P(D)}{P(T|D)P(D)+P(T|d)P(d)}%BAYES
+	\end{equation*}
+\end{esempio}
+% paragraph formula_di_bayes (end)
+% subsection probabilità_condizionata (end)
+\subsection{Indipendenza} % (fold)
+\label{sub:indipendenza}
+\begin{definizione}
+	Dati due eventi $E,F\in\mathcal{F}$, $E$ e $F$ si dicono indipendenti, e si indica
+	\begin{equation*}
+		E\Bot F
+	\end{equation*}
+	se e solo se
+	\begin{equation*}
+		P(E\cap F)=P(E)P(F)
+	\end{equation*}
+\end{definizione}
+Il concetto di eventi indipendenti formalizza l'idea che se due eventi sono completamente slegati, allora la probabilità che uno si verifichi non ha nessuna influenza sulla probabilità che si verifichi anche l'altro. Alcune proprietà:
+\begin{itemize}
+	\item $E\Bot \emptyset$
+	\item $E\Bot\Omega$
+	\item $E\Bot E\Leftrightarrow E=\Omega\vee E=\emptyset$
+	\item Se $P(E)>0$ e $P(F)>0$, allora vale
+	\begin{equation*}
+		E\Bot F\Leftrightarrow P(E|F)=P(E) \Leftrightarrow P(F|E)=P(F)
+	\end{equation*}
+	\item $E\Bot F\Leftrightarrow E^C\Bot F\Leftrightarrow E\Bot F^C\Leftrightarrow E^C\Bot F^C$
+\end{itemize}
+Per tre eventi, la definizione di indipendenza è lievemente più complessa:
+\begin{definizione}
+	Dati tre eventi $E,F,G\in\mathcal{F}$, questi si dicono indipendenti se e solo se
+	\begin{enumerate}
+		\item
+		\begin{equation*}
+			E\Bot F\wedge E\Bot G\wedge F\Bot G
+		\end{equation*}
+		\item 
+		\begin{equation*}
+			P(E\cap F\cap G)=P(E)P(F)P(G)
+		\end{equation*}
+	\end{enumerate}
+\end{definizione}
+\begin{NB}
+	Le due condizioni sono slegate: ci sono casi in cui gli eventi sono indipendenti a due a due, ma la loro intersezione non ha probabilità pari al prodotto delle singole probabilità, o viceversa la probabilità dell'intersezione coincide con il prodotto delle probabilità, ma gli eventi non sono indipendenti a due a due.
+\end{NB}
+Il concetto di indipendenza si estende a più eventi:
+\begin{definizione}
+	Data una famiglia finita di eventi $\{E_n\}_n\subseteq\mathcal{F}$, si dice famiglia di eventi indipendenti se e solo se $\forall r\in \{2,3,...,n\}$ ogni sottofamiglia di $\{E_n\}_n$ composta da $r$ eventi è indipendente.
+\end{definizione}
+Le due condizioni continuano ad essere slegate. Si nota che il numero di casi da considerare aumenta quadraticamente al crescere del numero di eventi.
+\begin{definizione}
+	Data una famiglia numerabile di eventi $\{E_n\}_n\subseteq\mathcal{F}$, si dice famiglia di eventi indipendenti se $\forall \{F_k\}_k\subseteq\{E_n\}_n$ con $\{F_k\}_k$ famiglia finita, $\{F_k\}_k$ è famiglia di eventi indipendenti.
+\end{definizione}
+\begin{osservazione}
+	Se $\{A_n\}_n$ è una famiglia di eventi indipendenti (non importa quanti), allora anche la famiglia formata sostituendo alcuni (non necessariamente tutti) eventi con i rispettivi complementari è indipendente.
+\end{osservazione}
+\begin{esercizio}
+	Dimostrare che se $\{A,B\}$ sono indipendenti, anche $\{A^C,B^C\}$ sono indipendenti
+	\begin{solution}
+		\begin{align*}
+			P(A^C\cap B^C)&=P((A\cup B)^C)\\
+			&\\%continua
+		\end{align*}
+	\end{solution}
+\end{esercizio}
+\begin{esercizio}
+	A tre studenti viene posta la stessa domanda. Sappiamo che il primo risponde correttamente con probabilità $\frac{1}{2}$, il secondo con probabilità $\frac{2}{3}$, il terzo con probabilità $\frac{1}{3}$. Gli studenti non possono comunicare fra loro. Vogliamo calcolare la probabilità che, se un solo studente ha risposto correttamente, sia stato il secondo.
+	\begin{solution}
+		Consideriamo gli eventi relativi ai possibili outcome di cui ci può interessare:
+		\begin{align*}
+			S_i&=\text{"l'$i$-esimo studente ha risposto correttamente"}\\
+			E_i&=\text{"ci sono state $i$ risposte esatte"}\\
+		\end{align*}
+		Siccome è noto che solo uno studente ha risposto correttamente, la probabilità da calcolare è la probabilità di $S_2$ condizionato a $E_1$:
+		\begin{equation*}
+			P(S_2|E_1)=\frac{P(S_2\cap E_1)}{P(E_1)}
+		\end{equation*}
+		Concettualmente, possiamo riscrivere $S_2\cap E_1$ ed $E_1$ come unioni ed intersezioni di eventi più semplici:
+		\begin{equation*}
+			P(S_2|E_1)=\frac{P(S_2\cap E_1)}{P(E_1)}=\frac{P(S_1^C\cap S_2\cap S_3^C)}{P((S_1\cap S_2^C\cap S_3^C)\cup(S_1^C\cap S_2\cap S_3^C)\cup(S_1^C\cap S_2^C\cap S_3))}
+		\end{equation*}
+		Siccome gli eventi parte dell'unione sono disgiunti, la probabilità si può distribuire:
+		\begin{equation*}
+			P(S_2|E_1)=\frac{P(S_2\cap E_1)}{P(E_1)}=\frac{P(S_1^C\cap S_2\cap S_3^C)}{P(S_1\cap S_2^C\cap S_3^C)+P(S_1^C\cap S_2\cap S_3^C)+P(S_1^C\cap S_2^C\cap S_3)}
+		\end{equation*}
+		Siccome gli studenti non possono comunicare, la risposta di ciascuno non influenza la risposta degli altri, e quindi possiamo assumere che i tre eventi siano indipendenti:
+		\begin{align*}
+			&\frac{P(S_1^C\cap S_2\cap S_3^C)}{P(S_1\cap S_2^C\cap S_3^C)+P(S_1^C\cap S_2\cap S_3^C)+P(S_1^C\cap S_2^C\cap S_3)}\\
+			&=\frac{P(S_1^C)P(S_2)P(S_3^C)}{P(S_1)P(S_2^C)P(S_3^C)+P(S_1^C)P(S_2)P(S_3^C)+P(S_1^C)P(S_2^C)P(S_3)}\\
+			&=\frac{P(\frac{1}{2})P(\frac{2}{3})P(\frac{2}{3})}{P(\frac{1}{2})P(\frac{1}{3})P(\frac{2}{3})+P(\frac{1}{2})P(\frac{2}{3})P(\frac{2}{3})+P(\frac{1}{2})P(\frac{1}{3})P(S_3)}~0.57\qedhere\\
+		\end{align*}
+	\end{solution}
+\end{esercizio}
+\subsubsection{Schema di Bernoulli} % (fold)
+\label{ssub:schema_di_bernoulli}
+Detto anche \textit{Modello Binomiale per Eventi}. Consideriamo un esperimento con queste caratteristiche:
+\begin{itemize}
+	\item Vengano eseguite $n$ prove identiche, effettuate in sequenza
+	\item Ciascuna prova ha solo due possibili risultati, che generalmente si indicano con $\{0,1\}$
+	\item Il risultato di ciascuna prova non influenza il risultato di nessuna delle altre
+\end{itemize}
+L'esperimento si può descrivere con un modello di probabilità dato da $\Omega=\{0,1\}^n$, $\mathcal{F}=\mathds{P}(\Omega)$, e da una misura di probabilità $P$ che rispetti le condizioni:
+\begin{itemize}
+	\item Gli eventi
+	\begin{equation*}
+		B_j=\{(b_1,...,b_n)|b_j=1\}
+	\end{equation*}
+	sono equiprobabili, cioè
+	\begin{equation*}
+		P(B_j)=p\quad\forall j\in\{1,...,n\}\text{ con }p\in[0,1]
+	\end{equation*}
+	\item La famiglia
+	\begin{equation*}
+		\{B_1,...,B_n\}
+	\end{equation*}
+	è una famiglia di eventi indipendenti.
+\end{itemize}
+\begin{esempio}
+	Consideriamo un sistema di comunicazione formato da $n$ componenti, ciascuno dei quali ha probabilità $p$ di funzionare. Nella sua totalità, il sistema funziona se almeno metà delle componenti funzionano. Ci chiediamo per quali valori di $p$ un sistema a tre componenti ha maggiore probabilità di funzionare rispetto a un sistema formato da un solo componente.
+	\begin{solution}
+		L'idea è di rappresentare il problema attraverso lo schema di Bernoulli. Identifichiamo:
+		\begin{itemize}
+			\item una prova con il test di un componente
+			\item il numero di prove ripetute con il numero di componenti
+			\item gli esiti $\{0,1\}$ con $\{"funziona","non\ funziona"\}$ come
+			\begin{align*}
+				"funziona"&\mapsto1\\
+				"non\ funziona"&\mapsto0\\
+			\end{align*}
+			\item la probabilità di successo con $P(B_j)=p$
+		\end{itemize}
+		Per il sistema a $3$ componenti vale:
+		\begin{align*}
+			&P(\text{"sistema funziona"})\\
+			&=P(\text{"almeno due componenti su tre funzionano"})\\
+			&=P(\{\text{"esattamente 2 componenti funzionano"}\}\cup\{\text{"esattamente 3 componenti funzionano"}\})\\
+			&=P(\{\text{"2 componenti su 3 funzionano"}\})+P(\{\text{"tutti e 3 i componenti funzionano"}\})\\
+			&=P(\bigcup_{I\subset\{1,2,3\}\wedge \lvert I\rvert=2}\{(b_1,b_2,b_3)\in\{0,1\}^3|b_j=1\Leftrightarrow j\in I\})+P(\{(1,1,1)\})\\
+			&\text{essendo gli eventi nell'unione disgiunti:}\\
+			&=\sum_{I\subset\{1,2,3\}\wedge \lvert I\rvert=2}P(\{(b_1,b_2,b_3)\in\{0,1\}^3|b_j=1\Leftrightarrow j\in I\})+P(\{(1,1,1)\})\\
+			&=\sum_{I\subset\{1,2,3\}\wedge \lvert I\rvert=2}\prod_{j\in I}P(B_j)\cdot\prod_{j\notin I}P(B_j^C)+P(\{(1,1,1)\})\\
+			&\text{siccome }\lvert I\rvert=2\text{:}\\
+			&=\sum_{I\subset\{1,2,3\}\wedge \lvert I\rvert=2}p^2 (1-p)+p^3\\
+			&=\binom{3}{2}p^2 (1-p)+p^3\\
+			&=3\cdot p^2 (1-p)+p^3\\
+		\end{align*}
+		Per il sistema ad una componente, chiaramente vale:
+		\begin{equation*}
+			P(\text{"sistema funziona"})=p
+		\end{equation*}
+		Quindi dobbiamo cercare $p$ tale che:
+		\begin{align*}
+			&3\cdot p^2 (1-p)+p^3>p\\
+			\Leftrightarrow&3p^2-2p^3>p\\
+			\Leftrightarrow&p>\frac{1}{2}\\
+		\end{align*}
+		Nel complesso, si ottiene che ha senso usare più componenti solo se ciascuna ha più probabilità di funzionare di $\frac{1}{2}$.
+	\end{solution}
+\end{esempio}
+% subsubsection schema_di_bernoulli (end)
+% subsection indipendenza (end)
+% section approfondimenti_sulla_probabilità (end)
+\section{Variabili Aleatorie} % (fold)
+\label{sec:variabili_aleatorie}
+Spesso, negli esperimenti concreti ha senso raccogliere i dati attraverso dei costrutti che si possano analizzare più approfonditamente degli spazi di probabilità.
+\begin{definizione}
+	Sia $(\Omega, \mathds{P}(\Omega), P)$ spazio di probabilità discreto. Si dice variabile aleatoria una mappa (funzione)
+	\begin{equation*}
+		X\colon \Omega\to\mathds{R}
+	\end{equation*}
+\end{definizione}
+\begin{definizione}
+	Data una variabile aleatoria $X$ si dice alfabeto di $X$ e si indica $\mathcal{X}$ l'immagine di $\Omega$ rispetto $X$:
+	\begin{equation*}
+		\mathcal{X}=\{x\in\mathds{R}\vert \exists \omega\in\Omega\colon X(\omega)=x\}
+	\end{equation*}
+\end{definizione}
+\begin{nota}
+	Dato uno spazio di probabilità ci sono infinite variabili aleatorie associate.
+\end{nota}
+Per un dato spazio di probabilità $(\Omega, \mathds{P}(\Omega), P)$ e un evento $E\in\mathds{P}(\Omega)$, una variabile aleatoria che si può sempre definire è detta \textit{uno grasso}, ed è definita come:
+\begin{equation*}
+	\mathds{1}_E(\omega)=
+	\begin{cases}
+		1&\text{ se }\omega\in E\\
+		0&\text{ se }\omega\notin E\\
+	\end{cases}
+\end{equation*}
+\begin{osservazione}
+	Le variabili aleatorie sono funzioni a valori reali, quindi se sono definite sullo stesso $\Omega$ si possono combinare attraverso le consuete operazioni aritmetiche fra reali.
+\end{osservazione}
+Possiamo assegnare ad un certo alfabeto $\mathcal{X}$ una probabilità, asegnando ai singoletti di $\mathcal{X}$ (cioè ai suoi sottoinsiemi di cardinalità $1$) una probabilità $P^X$ che sia compatibile con la misura di probabilità $P$ dello spazio di probabilità su cui è definita $X$.
+\begin{definizione}
+	Si dice misura di probabilità indotta la funzione
+	\begin{align*}
+		P^X&\to [0,1]\\
+		x_k&\mapsto P^X(x_k)=P(X^{-1}(x_k))\\
+	\end{align*}
+	dove $P$ è la misura di probabilità data dallo spazio di probabilità su cui è definita $X$.
+\end{definizione}
+$X^{-1}(x_k)$ è l'insieme degli eventi elementari che $X$ mappa in $x_k$, quindi $P^X(x_k)$ rappresenta la probabilità che l'esito dell'esperimento venga mappato nel numero $x_k$ da $X$. In altre parole, $P^X(x_k)$ rappresenta la probabilità dell'evento "si verifica un esito che viene mappato in $x_k$ da $X$".
+\begin{lemma}
+	La misura di probabilità indotta è una misura di probabilità, definita sullo spazio campionario $\mathcal{X}$ e sulla \sigma-algebra $\mathds{P}(\mathcal{X})$.
+\end{lemma}
+% section variabili_aleatorie (end)
+\end{document}
