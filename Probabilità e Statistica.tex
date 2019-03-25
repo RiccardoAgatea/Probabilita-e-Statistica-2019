@@ -6,7 +6,6 @@
 \usepackage{amsthm}
 \usepackage{mathtools}
 \usepackage{mathabx}
-\usepackage{rsfso}
 \usepackage{cancel}
 \usepackage{cmll}
 \usepackage{halloweenmath}
@@ -30,11 +29,11 @@
 \newtheorem*{nota}{Nota}
 \newtheorem*{NB}{NB}
 
-\newenvironment{solution}
+\newenvironment{soluzione}
 	{\renewcommand\qedsymbol{$\mathwitch*$}\begin{proof}[Soluzione]}
 	{\end{proof}}
 
-\renewcommand{\qedsymbol}{CVD}
+\renewcommand{\qedsymbol}{$\mathrightghost$}
 
 \title{Appunti di Probabilità e Statistica}
 \author{Riccardo Agatea}
@@ -706,16 +705,16 @@ Le due condizioni continuano ad essere slegate. Si nota che il numero di casi da
 \end{osservazione}
 \begin{esercizio}
 	Dimostrare che se $\{A,B\}$ sono indipendenti, anche $\{A^C,B^C\}$ sono indipendenti
-	\begin{solution}
+	\begin{soluzione}
 		\begin{align*}
 			P(A^C\cap B^C)&=P((A\cup B)^C)\\
 			&\\%continua
 		\end{align*}
-	\end{solution}
+	\end{soluzione}
 \end{esercizio}
 \begin{esercizio}
 	A tre studenti viene posta la stessa domanda. Sappiamo che il primo risponde correttamente con probabilità $\frac{1}{2}$, il secondo con probabilità $\frac{2}{3}$, il terzo con probabilità $\frac{1}{3}$. Gli studenti non possono comunicare fra loro. Vogliamo calcolare la probabilità che, se un solo studente ha risposto correttamente, sia stato il secondo.
-	\begin{solution}
+	\begin{soluzione}
 		Consideriamo gli eventi relativi ai possibili outcome di cui ci può interessare:
 		\begin{align*}
 			S_i&=\text{"l'$i$-esimo studente ha risposto correttamente"}\\
@@ -739,7 +738,7 @@ Le due condizioni continuano ad essere slegate. Si nota che il numero di casi da
 			&=\frac{P(S_1^C)P(S_2)P(S_3^C)}{P(S_1)P(S_2^C)P(S_3^C)+P(S_1^C)P(S_2)P(S_3^C)+P(S_1^C)P(S_2^C)P(S_3)}\\
 			&=\frac{P(\frac{1}{2})P(\frac{2}{3})P(\frac{2}{3})}{P(\frac{1}{2})P(\frac{1}{3})P(\frac{2}{3})+P(\frac{1}{2})P(\frac{2}{3})P(\frac{2}{3})+P(\frac{1}{2})P(\frac{1}{3})P(S_3)}~0.57\qedhere\\
 		\end{align*}
-	\end{solution}
+	\end{soluzione}
 \end{esercizio}
 \subsubsection{Schema di Bernoulli} % (fold)
 \label{ssub:schema_di_bernoulli}
@@ -767,7 +766,7 @@ L'esperimento si può descrivere con un modello di probabilità dato da $\Omega=
 \end{itemize}
 \begin{esempio}
 	Consideriamo un sistema di comunicazione formato da $n$ componenti, ciascuno dei quali ha probabilità $p$ di funzionare. Nella sua totalità, il sistema funziona se almeno metà delle componenti funzionano. Ci chiediamo per quali valori di $p$ un sistema a tre componenti ha maggiore probabilità di funzionare rispetto a un sistema formato da un solo componente.
-	\begin{solution}
+	\begin{soluzione}
 		L'idea è di rappresentare il problema attraverso lo schema di Bernoulli. Identifichiamo:
 		\begin{itemize}
 			\item una prova con il test di un componente
@@ -805,7 +804,7 @@ L'esperimento si può descrivere con un modello di probabilità dato da $\Omega=
 			\Leftrightarrow&p>\frac{1}{2}\\
 		\end{align*}
 		Nel complesso, si ottiene che ha senso usare più componenti solo se ciascuna ha più probabilità di funzionare di $\frac{1}{2}$.
-	\end{solution}
+	\end{soluzione}
 \end{esempio}
 % subsubsection schema_di_bernoulli (end)
 % subsection indipendenza (end)
@@ -848,9 +847,138 @@ Possiamo assegnare ad un certo alfabeto $\mathcal{X}$ una probabilità, asegnand
 	\end{align*}
 	dove $P$ è la misura di probabilità data dallo spazio di probabilità su cui è definita $X$.
 \end{definizione}
+% cerca la densità discreta di X nel libro
 $X^{-1}(x_k)$ è l'insieme degli eventi elementari che $X$ mappa in $x_k$, quindi $P^X(x_k)$ rappresenta la probabilità che l'esito dell'esperimento venga mappato nel numero $x_k$ da $X$. In altre parole, $P^X(x_k)$ rappresenta la probabilità dell'evento "si verifica un esito che viene mappato in $x_k$ da $X$".
 \begin{lemma}
 	La misura di probabilità indotta è una misura di probabilità, definita sullo spazio campionario $\mathcal{X}$ e sulla \sigma-algebra $\mathds{P}(\mathcal{X})$.
 \end{lemma}
+\begin{esercizio}
+	Lancio una moneta e un dado; se i risultati che ottengo hanno la stessa iniziale vinco 1€, altrimenti perdo 50cents. Sia $X$ la variabile aleatoria che descrive la vincita o la perdita. Determinare alfabeto e densità di X.
+	\begin{soluzione}
+		L'alfabeto è
+		\begin{equation*}
+			\mathcal{X}=\{1,-\frac{1}{2}\}
+		\end{equation*}
+		Per identificare la densità discreta è necessario identificare lo spazio campionario:
+		\begin{equation*}
+			\Omega=\{(x,y)|x\in\{T,C\}, y\in\{1,2,3,4,5,6\}\}
+		\end{equation*}
+		Si ricava:
+		\begin{equation*}
+			p_X(1)=P(X^{-1}(1))=P(\{(T,3),(C,5)\})=\frac{2}{12}
+		\end{equation*}
+		Notando che $X=-\frac{1}{2}\Leftrightarrow X\neq 1$:
+		\begin{equation*}
+			p_X(-\frac{1}{2})=P(X^{-1}(-\frac{1}{2}))=P(\{(T,3),(C,5)\}^C)=1-\frac{2}{12}=\frac{10}{12}
+		\end{equation*}
+	\end{soluzione}
+\end{esercizio}
+Si nota che alfabeto e densità di una variabile aleatoria non identificano l'esperimento originale. Mentre è sempre possibile, dato lo spazio di probabilità, ricavare la variabile aleatoria e la misura di probabilità indotta, molto più di frequente viene data direttamente la variabile aleatoria, caratterizzandola attraverso il suo alfabeto e la sua densità discreta:
+\begin{definizione}
+	Sia $X$ una variabile aleatoria, questa può essere definita indicando:
+	\begin{itemize}
+		\item il suo alfabeto $\mathcal{X}$
+		\item la sua densità discreta $p_X(x_k)$ $\forall x_k\in\mathcal{X}$, a condizione che
+		\begin{align*}
+			p_X(x_k)&\geq0\quad\forall x_k\in\mathcal{X}\\
+			\sum_k p_X(x_k)&=1\\
+		\end{align*}
+	\end{itemize}
+	Questa si dice definizione o descrizione probabilistica di $X$.
+\end{definizione}
+\begin{esercizio}
+	Estraiamo 3 carte da un mazzo di 52. Vinciamo 1€ pero ogni carta di picche estratta. Sia $X$ la variabile aleatoria che descrive la vincita; determinarne alfabeto e densità.
+	\begin{soluzione}
+		L'alfabeto è:
+		\begin{equation*}
+			\mathcal{X}=\{0,1,2,3\}
+		\end{equation*}
+		La densità si ricava dall'esperimento:
+		\begin{align*}
+			p_X(0)=P(X^{-1}(0))&=P(\text{"non sono estratte carte di picche"})\\
+			&=\frac{\binom{39}{3}}{\binom{52}{3}}=\frac{703}{1700}\\
+			p_X(1)=P(X^{-1}(1))&=P(\text{"è estratta una sola carta di picche"})\\
+			&=\frac{13\cdot\binom{39}{2}}{\binom{52}{3}}=\frac{741}{1700}\\
+			p_X(2)=P(X^{-1}(2))&=P(\text{"sono estratte due carte di picche"})\\
+			&=\frac{\binom{13}{2}\cdot39}{\binom{52}{3}}=\frac{234}{1700}\\
+			p_X(3)=P(X^{-1}(3))&=P(\text{"sono estratte tre carte di picche"})\\
+			&=\frac{\binom{13}{3}}{\binom{52}{3}}=\frac{22}{1700}\\
+		\end{align*}
+	\end{soluzione}
+\end{esercizio}
+A volte ha senso comporre una variabile aleatoria con una funzione reale, ottenendo un'altra variabile aleatoria. Vediamo un esempio:
+\begin{esempio}
+	Sia $X$ variabile aleatoria con alfabeto
+	\begin{equation*}
+		\mathcal{X}=\{-1,1,3\}
+	\end{equation*}
+	e densità discreta
+	\begin{align*}
+		p_X(-1)&=p_X(3)=\frac{1}{4}\\
+		p_x(1)&=\frac{1}{2}\\
+	\end{align*}
+	Caratterizziamo $Y=g(X)=X^2$, che è data dalla composizione di $X$ e la funzione
+	\begin{align*}
+		g:\mathds{R}&\to\mathds{R}\\
+		x&\mapsto x^2\\
+	\end{align*}
+	L'alfabeto di $Y$ è dato dall'applicazione di $g$ a tutti gli elementi di $\mathcal{X}$:
+	\begin{equation*}
+		\mathcal{Y}=\{1,9\}
+	\end{equation*}
+	Per calcolare la densità discreta di $Y$ bisogna ricondurre il problema alla variabile X:
+	\begin{align*}
+		p_Y(1)&=P(X^{-1}(-1)\cup X^{-1}(1))\\
+		&=P(X^{-1}(-1))+P(X^{-1}(1))\\
+		&=p_X(-1)+p_X(1)=\frac{3}{4}\\
+		p_Y(9)&=P(X^{-1}(3))\\
+		&=p_X(3)=\frac{1}{4}\\
+	\end{align*}
+\end{esempio}
+Questo concetto si formalizza:
+\begin{definizione}
+	Siano $X:\Omega\to\mathds{R}$ variabile aleatoria e $g:\mathds{R}\to\mathds{R}$ funzione reale di variabile reale. Si dice funzione di $X$ la composizione $Y=g\circ X$, la quale è ancora una variabile aleatoria caratterizzata da
+	\begin{itemize}
+		\item Un alfabeto, il quale è l'immagine di $\mathcal{X}$ attraverso $g$:
+		\begin{equation*}
+			\mathcal{Y}=g(\mathcal{X})
+		\end{equation*}
+		\item Una densità discreta %finisci
+	\end{itemize}
+\end{definizione}
+\subsection{Valor Medio} % (fold)
+\label{sub:valor_medio}
+Il valor medio di una variabile aleatoria $X$ rappresenta il valore attorno a cui si distribuiscono i valori assunti da $X$.
+\begin{definizione}
+	Sia $X$ variabile aleatoria discreta con alfabeto $\mathcal{X}$ e densità di probabilità $p_X$. Il valor medio di $X$ è definito come:
+	\begin{equation*}
+		E(X)=\sum_{x_k\in\mathcal{X}} x_k\cdot p_X(x_k)
+	\end{equation*}
+\end{definizione}
+Il valor medio ha anche molti altri nomi, fra cui media, speranza matematica, valore atteso, e molti altri.
+\begin{osservazione}
+	Se $X$ è discreta anche $\mathcal{X}$ lo è, ma non è detto che sia finito. Se è numerabile, il valor medio diventa la somma di una serie, la quale non è detto che esiste; se la serie non converge, il valor medio non esiste.
+\end{osservazione}
+Il valor medio si può intendere come il baricentro di un sistema formato da una serie di masse disposte su una sbarra, dove $x_k$ è il braccio della $k$-esima massa e $p_X(x_k)$ è il suo peso.
+\begin{teorema}[Fondamentale]
+	Sia $X:\Omega\to\mathds{R}$ variabile aleatoria discreta. Allora si ha
+	\begin{equation*}
+		E(X)=\sum_{\omega\in\Omega} X(\omega)\cdot P(\{\omega\})
+	\end{equation*}
+\end{teorema}
+\begin{proof}
+	\begin{align*}
+		E(X)&=\sum_{x_k\in\mathcal{X}}x_kP(x_k)\\
+		&=\sum_{x_k\in\mathcal{X}}x_kP(X^{-1}(x_k))\\
+		&=\sum_{x_k\in\mathcal{X}}x_kP(\{\omega\in\Omega|X(\omega)=x_k\})\\
+		&=\sum_{x_k\in\mathcal{X}}\sum_{w:X(\omega)=x_k}x_kP(\{\omega\})\\
+		&=\sum_{x_k\in\mathcal{X}}\sum_{w:X(\omega)=x_k}X(\omega)P(\{\omega\})
+	\end{align*}
+	Siccome al variare di $k$ gli insiemi $\{\omega|X(\omega)=x_k\}$ sono disgiunti, e i valori $x_k$ sono tutti scorsi dalla prima sommatoria, questi formano una partizione di $\Omega$, quindi le due sommatorie corrispondono ad un unica sommatoria su tutto $\Omega$ stesso:
+	\begin{equation*}
+		=\sum_{\omega\in\Omega}X(\omega)P(\{\omega\})\qedhere
+	\end{equation*}
+\end{proof}
+% subsection valor_medio (end)
 % section variabili_aleatorie (end)
 \end{document}
