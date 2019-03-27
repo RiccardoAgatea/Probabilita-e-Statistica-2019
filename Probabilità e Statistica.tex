@@ -10,6 +10,8 @@
 \usepackage{cmll}
 \usepackage{halloweenmath}
 \usepackage{dsfont}
+\usepackage{soulutf8}
+\usepackage{contour}
 
 \theoremstyle{plain}
 \newtheorem{teorema}{Teorema}[section]
@@ -34,6 +36,14 @@
 	{\end{proof}}
 
 \renewcommand{\qedsymbol}{$\mathrightghost$}
+
+\setuldepth{Flat}
+\contourlength{0.8pt}
+
+\newcommand{\uline}[1]{%
+  \ul{{\phantom{#1}}}%
+  \llap{\contour{white}{#1}}%
+}
 
 \title{Appunti di Probabilità e Statistica}
 \author{Riccardo Agatea}
@@ -61,8 +71,8 @@ Per ricavare una stima di $I$ è possibile considerare un insieme $X=\{x_1,x_2,.
 	\frac{1}{n}*\sum_{i=1}^{n}f(x_i)\xrightarrow[n\to+\infty]{}I\text{.}
 \end{equation*}
 % section introduzione (end)
-\section{Concetti di Base} % (fold)
-\label{sec:concetti_di_base}
+\section{Spazio di Probabilità} % (fold)
+\label{sec:spazio_di_probabilità}
 \subsection{Definizioni} % (fold)
 \label{sub:definizioni}
 \begin{definizione}
@@ -181,7 +191,7 @@ Ricordiamo la definizione di partizione di un insieme:
 	Sia $A$ un insieme, sia $(A_i)_i$ una famiglia di suoi sottoinsiemi. $(A_i)_i$ si dice partizione di $A$ se e solo se
 	\begin{align*}
 		&\bigcup_i A_i =A\\
-		&A_i\cap A_j =\emptyset \quad\forall i\not =j\text{.}\\
+		&A_i\cap A_j =\emptyset \quad\forall i\not =j\text{.}
 	\end{align*}
 \end{definizione}
 Se l'insieme considerato è uno spazio degli eventi $\Omega$, allora una sua partizione rappresenta una famiglia di eventi incompatibili, ma per i quali c'è la garanzia che uno e uno solo di essi si verifichi. Dato un evento $F\subseteq\Omega$ e una partizione $(E_i)_i$ di $\Omega$, è sempre possibile \textit{scomporre} $F$ rispetto $(E_i)_i$, cioè si può sempre rappresentare $F$ come l'unione delle intersezioni di $F$ con gli insiemi di $(E_i)_i$:
@@ -263,7 +273,7 @@ Si dimostra che è una \sigma-algebra:
 			\emptyset^C=\Omega&\in\mathcal{F}\\
 			\Omega^C=\emptyset&\in\mathcal{F}\\
 			E^C&\in\mathcal{F}\\
-			(E^C)^C=E&\in\mathcal{F}\\
+			(E^C)^C=E&\in\mathcal{F}
 		\end{align*}
 		\item Per dimostrare che $\mathcal{F}$ è chiusa rispetto l'unione non è necessario considerare le unioni con $\Omega$, perchè $\Omega\cup x=\Omega\ \forall x$. Non è necessario considerare neanche $\emptyset$, perchè esso è l'elemento neutro dell'unione, e quindi $\emptyset\cup x\in\mathcal{F}\Leftrightarrow x\in\mathcal{F}\ \forall x$. Resta da dimostrare che $E\cup E^C\in\mathcal{F}$, che è triviale in quanto $E\cup E^C=\Omega$.
 	\end{enumerate}
@@ -346,7 +356,7 @@ Le proprietà di $P$ sono:
 		Per definizione di misura di probabilità, $P$ è additiva su unioni disgiunte, quindi:
 		\begin{align*}
 			E\cup F&=E\cup (F\smallsetminus E)\\
-			\Rightarrow P(E\cup F)&=P(E)+P(F\smallsetminus E)\\
+			\Rightarrow P(E\cup F)&=P(E)+P(F\smallsetminus E)
 		\end{align*}
 		Ricordiamo che, per definizione:
 		\begin{equation*}
@@ -449,7 +459,7 @@ In questo caso, vale che dato un evento $E\in\mathcal{F}:$
 In altre parole, la probabilità di un evento $E$ è pari al numero di risultati favorevoli ad $E$ diviso per il numero totale di risultati.
 % subsubsection probabilità_uniforme (end)
 % subsection misura_di_probabilità (end)
-% section concetti_di_base (end)
+% section spazio_di_probabilità (end)
 \section{Approfondimenti sulla Probabilità} % (fold)
 \label{sec:approfondimenti_sulla_probabilità}
 \subsection{Principio Fondamentale del Conteggio} % (fold)
@@ -522,7 +532,7 @@ Alcune proprietà sono:
 \begin{align*}
 	2^n&=\sum_{k=0}^n \binom{n}{k}\\
 	\binom{n}{k}&=\binom{n}{n-k}\\
-	\binom{n}{k}&=\binom{n-1}{k}+\binom{n-1}{k-1}\\
+	\binom{n}{k}&=\binom{n-1}{k}+\binom{n-1}{k-1}
 \end{align*}
 % paragraph combinazioni_senza_reinserimento (end)
 \paragraph{Permutazioni con palline uguali} % (fold)
@@ -541,7 +551,7 @@ Finora abbiamo visto situazioni in cui la probabilità di un dato evento $E$ dip
 	Sia $(\Omega,\mathcal{F},P)$ uno spazio di probabilità, sia $F\in\mathcal{F}$ tale che $P(F)>0$; si definisce misura di probabilità condizionata a $F$ la funzione
 	\begin{align*}
 		P(\cdot|F):\mathcal{F}&\to[0,1]\\
-		E&\mapsto P(E|F)\\
+		E&\mapsto P(E|F)
 	\end{align*}
 	dove:
 	\begin{equation*}
@@ -554,7 +564,7 @@ La probabilità $P(E|F)$ misura la probabilità che se si verifica $F$, si verif
 		\item 
 		\begin{align*}
 			P(\Omega|F)&=\frac{P(\Omega\cap F)}{P(F)}\\
-			&=\frac{P(F)}{P(F)}=1\\
+			&=\frac{P(F)}{P(F)}=1
 		\end{align*}
 		\item Considerando una famiglia $\{E_n\}_n$ di sottoinsiemi di $\Omega$:
 		\begin{align*}
@@ -594,17 +604,17 @@ Vediamo adesso alcune formule legate alla probabilità condizionata.
 Partendo dalla formula di moltiplicazione:
 \begin{align*}
 	P(E\cap F)&=P(E|F)\cdot P(F)\\
-	P(E\cap F^C)&=P(E|F^C)\cdot P(F^C)\\
+	P(E\cap F^C)&=P(E|F^C)\cdot P(F^C)
 \end{align*}
 $E\cap F$ e $E\cap F^C$ sono eventi disgiunti, e vale $(E\cap F)\cup(E\cap F^C)=E$. Segue:
 \begin{align*}
 	P(E)&=P(E\cap F)+P(E\cap F^C)\\
-	&=P(E|F)P(F)+P(E|F^C)P(F^C)\\
+	&=P(E|F)P(F)+P(E|F^C)P(F^C)
 \end{align*}
 Questa formula si può generalizzare: consideriamo una partizione $\{F_n\}_n$ di $\Omega$, cioè una famiglia di sottoinsiemi di $\Omega$ tale che
 \begin{align*}
 	\bigcup_i F_i&=\Omega\\
-	F_i\cap F_j&=\emptyset\quad\forall i\neq j\\
+	F_i\cap F_j&=\emptyset\quad\forall i\neq j
 \end{align*}
 Inoltre, imponiamo che
 \begin{equation*}
@@ -708,7 +718,7 @@ Le due condizioni continuano ad essere slegate. Si nota che il numero di casi da
 	\begin{soluzione}
 		\begin{align*}
 			P(A^C\cap B^C)&=P((A\cup B)^C)\\
-			&\\%continua
+			&%continua
 		\end{align*}
 	\end{soluzione}
 \end{esercizio}
@@ -718,7 +728,7 @@ Le due condizioni continuano ad essere slegate. Si nota che il numero di casi da
 		Consideriamo gli eventi relativi ai possibili outcome di cui ci può interessare:
 		\begin{align*}
 			S_i&=\text{"l'$i$-esimo studente ha risposto correttamente"}\\
-			E_i&=\text{"ci sono state $i$ risposte esatte"}\\
+			E_i&=\text{"ci sono state $i$ risposte esatte"}
 		\end{align*}
 		Siccome è noto che solo uno studente ha risposto correttamente, la probabilità da calcolare è la probabilità di $S_2$ condizionato a $E_1$:
 		\begin{equation*}
@@ -736,7 +746,7 @@ Le due condizioni continuano ad essere slegate. Si nota che il numero di casi da
 		\begin{align*}
 			&\frac{P(S_1^C\cap S_2\cap S_3^C)}{P(S_1\cap S_2^C\cap S_3^C)+P(S_1^C\cap S_2\cap S_3^C)+P(S_1^C\cap S_2^C\cap S_3)}\\
 			&=\frac{P(S_1^C)P(S_2)P(S_3^C)}{P(S_1)P(S_2^C)P(S_3^C)+P(S_1^C)P(S_2)P(S_3^C)+P(S_1^C)P(S_2^C)P(S_3)}\\
-			&=\frac{P(\frac{1}{2})P(\frac{2}{3})P(\frac{2}{3})}{P(\frac{1}{2})P(\frac{1}{3})P(\frac{2}{3})+P(\frac{1}{2})P(\frac{2}{3})P(\frac{2}{3})+P(\frac{1}{2})P(\frac{1}{3})P(S_3)}~0.57\qedhere\\
+			&=\frac{P(\frac{1}{2})P(\frac{2}{3})P(\frac{2}{3})}{P(\frac{1}{2})P(\frac{1}{3})P(\frac{2}{3})+P(\frac{1}{2})P(\frac{2}{3})P(\frac{2}{3})+P(\frac{1}{2})P(\frac{1}{3})P(S_3)}~0.57\qedhere
 		\end{align*}
 	\end{soluzione}
 \end{esercizio}
@@ -774,7 +784,7 @@ L'esperimento si può descrivere con un modello di probabilità dato da $\Omega=
 			\item gli esiti $\{0,1\}$ con $\{"funziona","non\ funziona"\}$ come
 			\begin{align*}
 				"funziona"&\mapsto1\\
-				"non\ funziona"&\mapsto0\\
+				"non\ funziona"&\mapsto0
 			\end{align*}
 			\item la probabilità di successo con $P(B_j)=p$
 		\end{itemize}
@@ -791,7 +801,7 @@ L'esperimento si può descrivere con un modello di probabilità dato da $\Omega=
 			&\text{siccome }\lvert I\rvert=2\text{:}\\
 			&=\sum_{I\subset\{1,2,3\}\wedge \lvert I\rvert=2}p^2 (1-p)+p^3\\
 			&=\binom{3}{2}p^2 (1-p)+p^3\\
-			&=3\cdot p^2 (1-p)+p^3\\
+			&=3\cdot p^2 (1-p)+p^3
 		\end{align*}
 		Per il sistema ad una componente, chiaramente vale:
 		\begin{equation*}
@@ -801,7 +811,7 @@ L'esperimento si può descrivere con un modello di probabilità dato da $\Omega=
 		\begin{align*}
 			&3\cdot p^2 (1-p)+p^3>p\\
 			\Leftrightarrow&3p^2-2p^3>p\\
-			\Leftrightarrow&p>\frac{1}{2}\\
+			\Leftrightarrow&p>\frac{1}{2}
 		\end{align*}
 		Nel complesso, si ottiene che ha senso usare più componenti solo se ciascuna ha più probabilità di funzionare di $\frac{1}{2}$.
 	\end{soluzione}
@@ -811,6 +821,8 @@ L'esperimento si può descrivere con un modello di probabilità dato da $\Omega=
 % section approfondimenti_sulla_probabilità (end)
 \section{Variabili Aleatorie} % (fold)
 \label{sec:variabili_aleatorie}
+\subsection{Concetti Base} % (fold)
+\label{sub:concetti_base}
 Spesso, negli esperimenti concreti ha senso raccogliere i dati attraverso dei costrutti che si possano analizzare più approfonditamente degli spazi di probabilità.
 \begin{definizione}
 	Sia $(\Omega, \mathds{P}(\Omega), P)$ spazio di probabilità discreto. Si dice variabile aleatoria una mappa (funzione)
@@ -838,14 +850,17 @@ Per un dato spazio di probabilità $(\Omega, \mathds{P}(\Omega), P)$ e un evento
 \begin{osservazione}
 	Le variabili aleatorie sono funzioni a valori reali, quindi se sono definite sullo stesso $\Omega$ si possono combinare attraverso le consuete operazioni aritmetiche fra reali.
 \end{osservazione}
-Possiamo assegnare ad un certo alfabeto $\mathcal{X}$ una probabilità, asegnando ai singoletti di $\mathcal{X}$ (cioè ai suoi sottoinsiemi di cardinalità $1$) una probabilità $P^X$ che sia compatibile con la misura di probabilità $P$ dello spazio di probabilità su cui è definita $X$.
+Possiamo assegnare ad un certo alfabeto $\mathcal{X}$ una probabilità, asegnando ai singoletti di $\mathcal{X}$ (cioè ai suoi sottoinsiemi di cardinalità $1$) una probabilità $P^X$ che sia compatibile con la misura di probabilità $P$ dello spazio di probabilità su cui è definita $X$. Per farlo, consideriamo gli eventi definiti da
+\begin{equation*}
+	E_k=\{\omega\in\Omega|X(\omega)=x_k\}=X^{-1}(x_k)
+\end{equation*}
+Siccome $X$ è una funzione, questi eventi sono disgiunti e la loro unione è $\Omega$ (perchè per definizione di funzione \uline{ogni} $\omega\in\Omega$ viene mappato in \uline{uno e un solo} $x_k\in\mathcal{X}$), quindi formano una partizione di $\Omega$. Possiamo definire la probabilità $P^X$ come $P$ calcolata sugli eventi $E_k$:
 \begin{definizione}
-	Si dice misura di probabilità indotta la funzione
+	Sia $X$ variabile aleatoria sullo spazio di probabilità $(\Omega,\mathds{P}(\Omega,P)$. Si dice misura di probabilità indotta la funzione
 	\begin{align*}
 		P^X&\to [0,1]\\
-		x_k&\mapsto P^X(x_k)=P(X^{-1}(x_k))\\
+		x_k&\mapsto P^X(x_k)=P(X^{-1}(x_k))
 	\end{align*}
-	dove $P$ è la misura di probabilità data dallo spazio di probabilità su cui è definita $X$.
 \end{definizione}
 % cerca la densità discreta di X nel libro
 $X^{-1}(x_k)$ è l'insieme degli eventi elementari che $X$ mappa in $x_k$, quindi $P^X(x_k)$ rappresenta la probabilità che l'esito dell'esperimento venga mappato nel numero $x_k$ da $X$. In altre parole, $P^X(x_k)$ rappresenta la probabilità dell'evento "si verifica un esito che viene mappato in $x_k$ da $X$".
@@ -881,7 +896,7 @@ Si nota che alfabeto e densità di una variabile aleatoria non identificano l'es
 		\item la sua densità discreta $p_X(x_k)$ $\forall x_k\in\mathcal{X}$, a condizione che
 		\begin{align*}
 			p_X(x_k)&\geq0\quad\forall x_k\in\mathcal{X}\\
-			\sum_k p_X(x_k)&=1\\
+			\sum_k p_X(x_k)&=1
 		\end{align*}
 	\end{itemize}
 	Questa si dice definizione o descrizione probabilistica di $X$.
@@ -902,7 +917,7 @@ Si nota che alfabeto e densità di una variabile aleatoria non identificano l'es
 			p_X(2)=P(X^{-1}(2))&=P(\text{"sono estratte due carte di picche"})\\
 			&=\frac{\binom{13}{2}\cdot39}{\binom{52}{3}}=\frac{234}{1700}\\
 			p_X(3)=P(X^{-1}(3))&=P(\text{"sono estratte tre carte di picche"})\\
-			&=\frac{\binom{13}{3}}{\binom{52}{3}}=\frac{22}{1700}\\
+			&=\frac{\binom{13}{3}}{\binom{52}{3}}=\frac{22}{1700}
 		\end{align*}
 	\end{soluzione}
 \end{esercizio}
@@ -915,12 +930,12 @@ A volte ha senso comporre una variabile aleatoria con una funzione reale, ottene
 	e densità discreta
 	\begin{align*}
 		p_X(-1)&=p_X(3)=\frac{1}{4}\\
-		p_x(1)&=\frac{1}{2}\\
+		p_x(1)&=\frac{1}{2}
 	\end{align*}
 	Caratterizziamo $Y=g(X)=X^2$, che è data dalla composizione di $X$ e la funzione
 	\begin{align*}
 		g:\mathds{R}&\to\mathds{R}\\
-		x&\mapsto x^2\\
+		x&\mapsto x^2
 	\end{align*}
 	L'alfabeto di $Y$ è dato dall'applicazione di $g$ a tutti gli elementi di $\mathcal{X}$:
 	\begin{equation*}
@@ -932,7 +947,7 @@ A volte ha senso comporre una variabile aleatoria con una funzione reale, ottene
 		&=P(X^{-1}(-1))+P(X^{-1}(1))\\
 		&=p_X(-1)+p_X(1)=\frac{3}{4}\\
 		p_Y(9)&=P(X^{-1}(3))\\
-		&=p_X(3)=\frac{1}{4}\\
+		&=p_X(3)=\frac{1}{4}
 	\end{align*}
 \end{esempio}
 Questo concetto si formalizza:
@@ -946,6 +961,7 @@ Questo concetto si formalizza:
 		\item Una densità discreta %finisci
 	\end{itemize}
 \end{definizione}
+% subsection concetti_base (end)
 \subsection{Valor Medio} % (fold)
 \label{sub:valor_medio}
 Il valor medio di una variabile aleatoria $X$ rappresenta il valore attorno a cui si distribuiscono i valori assunti da $X$.
@@ -960,7 +976,7 @@ Il valor medio ha anche molti altri nomi, fra cui media, speranza matematica, va
 	Se $X$ è discreta anche $\mathcal{X}$ lo è, ma non è detto che sia finito. Se è numerabile, il valor medio diventa la somma di una serie, la quale non è detto che esiste; se la serie non converge, il valor medio non esiste.
 \end{osservazione}
 Il valor medio si può intendere come il baricentro di un sistema formato da una serie di masse disposte su una sbarra, dove $x_k$ è il braccio della $k$-esima massa e $p_X(x_k)$ è il suo peso.
-\begin{teorema}[Fondamentale]
+\begin{teorema}[Fondamentale del valor medio]
 	Sia $X:\Omega\to\mathds{R}$ variabile aleatoria discreta. Allora si ha
 	\begin{equation*}
 		E(X)=\sum_{\omega\in\Omega} X(\omega)\cdot P(\{\omega\})
@@ -979,6 +995,143 @@ Il valor medio si può intendere come il baricentro di un sistema formato da una
 		=\sum_{\omega\in\Omega}X(\omega)P(\{\omega\})\qedhere
 	\end{equation*}
 \end{proof}
+Questo teorema nella pratica non è utilizzato, ma permette di dimostrare alcune proprietà importanti del valor medio: siano $X,Y:\Omega\to\mathds{R}$ variabili aleatorie, siano $a,b\in\mathds{R}$, allora valgono
+\begin{enumerate}
+	\item Linearità: $E(aX+bY)=aE(X)+bE(Y)$
+	\begin{enumerate}
+		\item $E(aX)=aE(X)$
+		\begin{proof}
+			\begin{align*}
+				aX:\Omega&\to\mathds{R}\\
+				\omega&\mapsto aX(\omega)
+			\end{align*}
+			Per il teorema fondamentale:
+			\begin{align*}
+				E(X)&=\sum_{\omega\in\Omega} aX(\omega)\cdot P(\{\omega\})\\
+				&=a\sum_{\omega\in\Omega} X(\omega)\cdot P(\{\omega\})\\
+				&=aE(X)\qedhere
+			\end{align*}
+		\end{proof}
+		\item $E(X+Y)=E(X)+E(Y)$
+		\begin{proof}
+			\begin{align*}
+				X+Y:\Omega&\to\mathds{R}\\
+				\omega&\mapsto X(\omega)+Y(\omega)
+			\end{align*}
+			Per il teorema fondamentale:
+			\begin{align*}
+				E(X)&=\sum_{\omega\in\Omega} (X(\omega)+Y(\omega))\cdot P(\{\omega\})\\
+				&=\sum_{\omega\in\Omega} (X(\omega)\cdot P(\{\omega\})+Y(\omega)\cdot P(\{\omega\}))\\
+				&=\sum_{\omega\in\Omega} X(\omega)\cdot P(\{\omega\})+\sum_{\omega\in\Omega} Y(\omega)\cdot P(\{\omega\})\\
+				&=E(X)+E(Y)\qedhere
+			\end{align*}
+		\end{proof}
+	\end{enumerate}
+	\item Positività: se $X$ è una variabile aleatoria non negativa (cioè tale che $X\geq0$, cioè tale che $\mathcal{X}\subseteq\mathds{R}_+$, allora anche $E(X)$ è non negativo
+	\begin{equation*}
+		X\geq0\Rightarrow E(X)\geq0
+	\end{equation*}
+	\begin{proof}
+		Per definizione:
+		\begin{equation*}
+			E(X)=\sum_{x_k\in\mathcal{X}} x_k\cdot p_X(x_k)
+		\end{equation*}
+		Per definizione:
+		\begin{equation*}
+			p_X(x_k)\geq0\quad\forall x_k\in\mathcal{X}
+		\end{equation*}
+		Per $Hp$:
+		\begin{equation*}
+			x_k\geq0\quad\forall x_k\in\mathcal{X}
+		\end{equation*}
+		Segue che i prodotti sono non negativi, e la sommatoria è a sua volta non negativa.
+	\end{proof}
+	\item Monotonia: $X\geq Y\Rightarrow E(X)\geq E(Y)$
+	\begin{proof}
+		Segue dalle altre proprietà:
+		\begin{align*}
+			X\geq Y&\Leftrightarrow X-Y\geq0\\
+			\text{Per positività: }&\Leftrightarrow E(X-Y)\geq0\\
+			\text{Per linearità: }&\Leftrightarrow E(X)-E(Y)\geq0\\
+			&\Leftrightarrow E(X)\geq E(Y)\qedhere
+		\end{align*}
+	\end{proof}
+	\item Limiti inferiore e superiore: essendo $\mathcal{X}$ discreto, ha limiti superiore e inferiore (che potrebbero essere infiniti); indichiamo
+	\begin{align*}
+		\underline{x}&=inf(\mathcal{X})\\
+		\overline{x}&=sup(\mathcal{X})
+	\end{align*}
+	Allora:
+	\begin{equation*}
+		\underline{x}\leq E(X)\leq\overline{x}
+	\end{equation*}
+	\begin{proof}
+		Per definizione:
+		\begin{equation*}
+			\underline{x}\leq x_k\leq\overline{x}\quad\forall x_k\in\mathcal{X}
+		\end{equation*}
+		Segue:
+		\begin{align*}
+			\sum_{x_k\in\mathcal{X}} \underline{x}\cdot p_X(x_k)&\leq\sum_{x_k\in\mathcal{X}} x_k\cdot p_X(x_k)\leq\sum_{x_k\in\mathcal{X}} \overline{x}\cdot p_X(x_k)\\
+			\underline{x}\sum_{x_k\in\mathcal{X}} p_X(x_k)&\leq\sum_{x_k\in\mathcal{X}} x_k\cdot p_X(x_k)\leq\overline{x}\sum_{x_k\in\mathcal{X}} p_X(x_k)\\
+			\underline{x}\cdot1&\leq\sum_{x_k\in\mathcal{X}} x_k\cdot p_X(x_k)\leq\overline{x}\cdot1
+		\end{align*}
+		Segue la tesi.
+	\end{proof}
+\end{enumerate}
+\begin{osservazione}
+	Se $a\in\mathds{R}$, vale sempre $E(a)=a$, perchè possiamo vedere una costante come un valore assunto da una variabile aleatoria $X$ tale che $X(\omega)=a\ \forall\omega\in\Omega$, e quindi vale
+	\begin{align*}
+		\mathcal{X}&=\{a\}\\
+		p_X(a)&=1
+	\end{align*}
+\end{osservazione}
+\subsubsection{Valor Medio di una Funzione di una Variabile Aleatoria} % (fold)
+\label{ssub:valor_medio_di_una_funzione_di_una_variabile_aleatoria}
+Abbiamo visto che se $X$ è una variabile aleatoria e $g$ una funzione reale di variabile reale, possiamo definire la variabile aleatoria $Y=g\circ X$. Vogliamo ora calcolare $E(Y)$; per questo introduciamo un teorema (che non dimostriamo).
+\begin{teorema}
+	\begin{equation*}
+		E(Y)=\sum_{x_k\in\mathcal{X}} g(x_k)\cdot p_X(x_k)
+	\end{equation*}
+\end{teorema}
+Questo teorema ci permette di calcolare $E(Y)$ senza la necessità di caratterizzare completamente $Y$.
+% subsubsection valor_medio_di_una_funzione_di_una_variabile_aleatoria (end)
 % subsection valor_medio (end)
+\subsection{Varianza} % (fold)
+\label{sub:varianza}
+Mentre il valor medio quantifica un valore attorno a cui i valori assunti da una variabile aleatoria si distribuiscono, la varianza quantifica la dispersione dei valori.
+\begin{definizione}
+	Sia $X$ variabile aleatoria di alfabeto $\mathcal{X}$ e densità $p_X$; la varianza di $X$ si indica con $Var(X)$, ed è definita come
+	\begin{equation*}
+		Var(X)=\sum_{x_k\in\mathcal{X}}(x_k-E(X))^2p_X(x_k)
+	\end{equation*}
+\end{definizione}
+\begin{esempio}
+	Consideriamo le variabili aleatorie:
+	\begin{align*}
+		X_1&\in\{-1,\frac{1}{4},\frac{3}{4}\}\\
+		p_{X_1}(-1)&=p_{X_1}(\frac{1}{4})=p_{X_1}(\frac{3}{4})=\frac{1}{3}\\
+		X_2&\in\{-10,10\}\\
+		p_{X_2}(-10)&=p_{X_2}(10)=\frac{1}{2}
+	\end{align*}
+	Notiamo che
+	\begin{align*}
+		E(X_1)&=-1\cdot\frac{1}{3}+\frac{1}{4}\cdot\frac{1}{3}+\frac{3}{4}\cdot\frac{1}{3}=0\\
+		E(X_2)&=-10\cdot\frac{1}{2}+10\cdot\frac{1}{2}=0
+	\end{align*}
+	Ma
+	\begin{align*}
+		Var(X_1)&=(-1)^2\cdot\frac{1}{3}+(\frac{1}{4})^2\cdot\frac{1}{3}+(\frac{3}{4})^2\cdot\frac{1}{3}~0.524\\
+		Var(X_2)&=(-10)^2\cdot\frac{1}{2}+(10)^2\cdot\frac{1}{2}=100
+	\end{align*}
+\end{esempio}
+\begin{osservazione}
+	La varianza si può definire in funzione solo della media:
+	\begin{equation*}
+		Var(X)=E((X-E(X))^2)
+	\end{equation*}
+	Si può vedere considerando $Var(X)=E(g(X))$ con $g(x)=(x-E(X))^2$.
+\end{osservazione}
+% subsection varianza (end)
 % section variabili_aleatorie (end)
 \end{document}
