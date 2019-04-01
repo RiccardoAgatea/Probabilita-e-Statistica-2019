@@ -819,10 +819,10 @@ L'esperimento si può descrivere con un modello di probabilità dato da $\Omega=
 % subsubsection schema_di_bernoulli (end)
 % subsection indipendenza (end)
 % section approfondimenti_sulla_probabilità (end)
-\section{Variabili Aleatorie} % (fold)
-\label{sec:variabili_aleatorie}
-\subsection{Concetti Base} % (fold)
-\label{sub:concetti_base}
+\section{Variabili Aleatorie Discrete} % (fold)
+\label{sec:variabili_aleatorie_discrete}
+\subsection{Concetti Base per le Variabili Aleatorie} % (fold)
+\label{sub:concetti_base_per_le_variabili_aleatorie}
 Spesso, negli esperimenti concreti ha senso raccogliere i dati attraverso dei costrutti che si possano analizzare più approfonditamente degli spazi di probabilità.
 \begin{definizione}
 	Sia $(\Omega, \mathds{P}(\Omega), P)$ spazio di probabilità discreto. Si dice variabile aleatoria una mappa (funzione)
@@ -859,14 +859,21 @@ Siccome $X$ è una funzione, questi eventi sono disgiunti e la loro unione è $\
 	Sia $X$ variabile aleatoria sullo spazio di probabilità $(\Omega,\mathds{P}(\Omega,P)$. Si dice misura di probabilità indotta la funzione
 	\begin{align*}
 		P^X&\to [0,1]\\
-		x_k&\mapsto P^X(x_k)=P(X^{-1}(x_k))
+		\{x_k\}&\mapsto P^X(\{x_k\})=P(X^{-1}(x_k))
 	\end{align*}
 \end{definizione}
-% cerca la densità discreta di X nel libro
-$X^{-1}(x_k)$ è l'insieme degli eventi elementari che $X$ mappa in $x_k$, quindi $P^X(x_k)$ rappresenta la probabilità che l'esito dell'esperimento venga mappato nel numero $x_k$ da $X$. In altre parole, $P^X(x_k)$ rappresenta la probabilità dell'evento "si verifica un esito che viene mappato in $x_k$ da $X$".
+$X^{-1}(x_k)$ è l'insieme degli eventi elementari che $X$ mappa in $x_k$, quindi $P^X(\{x_k\})$ rappresenta la probabilità che l'esito dell'esperimento venga mappato nel numero $x_k$ da $X$. In altre parole, $P^X(\{x_k\})$ rappresenta la probabilità dell'evento "si verifica un esito che viene mappato in $x_k$ da $X$".
 \begin{lemma}
 	La misura di probabilità indotta è una misura di probabilità, definita sullo spazio campionario $\mathcal{X}$ e sulla \sigma-algebra $\mathds{P}(\mathcal{X})$.
 \end{lemma}
+In generale, vorremmo fosse possibile definire una variabile aleatoria indipendentemente dall'esperimento da cui deriva, cioè vorremmo dare una descrizione probabilistica di $X$ che non sia basata sullo spazio di probabilità $(\Omega, \mathds{P}(\Omega),P)$. È sempre possibile mostrare i valori che $X$ può assumere mostrando il suo alfabeto, ma con gli strumenti introdotti finora non è possibile caratterizzare la probabilità che assuma ciascun valore; abbiamo introdotto la probabilità indotta, che però è ancorata nello spazio di probabilità sottostante a $X$. Per separare $X$ da $\Omega$ introduciamo la densità di probabilità.
+\begin{definizione}
+	Sia $X$ variabile aleatoria con alfabeto $\mathcal{X}$, e sia $P^X$ la sua probabilità indotta. Si dice densità di probabilità di $X$ la funzione
+	\begin{align*}
+		p_X:X&\to[0,1]\\
+		x_k&\mapsto p_X(x_k)=P^X(\{x_k\})
+	\end{align*}
+\end{definizione}
 \begin{esercizio}
 	Lancio una moneta e un dado; se i risultati che ottengo hanno la stessa iniziale vinco 1€, altrimenti perdo 50cents. Sia $X$ la variabile aleatoria che descrive la vincita o la perdita. Determinare alfabeto e densità di X.
 	\begin{soluzione}
@@ -893,11 +900,7 @@ Si nota che alfabeto e densità di una variabile aleatoria non identificano l'es
 	Sia $X$ una variabile aleatoria, questa può essere definita indicando:
 	\begin{itemize}
 		\item il suo alfabeto $\mathcal{X}$
-		\item la sua densità discreta $p_X(x_k)$ $\forall x_k\in\mathcal{X}$, a condizione che
-		\begin{align*}
-			p_X(x_k)&\geq0\quad\forall x_k\in\mathcal{X}\\
-			\sum_k p_X(x_k)&=1
-		\end{align*}
+		\item la sua densità discreta $p_X(x_k)$ $\forall x_k\in\mathcal{X}$
 	\end{itemize}
 	Questa si dice definizione o descrizione probabilistica di $X$.
 \end{definizione}
@@ -961,7 +964,7 @@ Questo concetto si formalizza:
 		\item Una densità discreta %finisci
 	\end{itemize}
 \end{definizione}
-% subsection concetti_base (end)
+% subsection concetti_base_per_le_variabili_aleatorie (end)
 \subsection{Valor Medio} % (fold)
 \label{sub:valor_medio}
 Il valor medio di una variabile aleatoria $X$ rappresenta il valore attorno a cui si distribuiscono i valori assunti da $X$.
@@ -1121,7 +1124,7 @@ Mentre il valor medio quantifica un valore attorno a cui i valori assunti da una
 	\end{align*}
 	Ma
 	\begin{align*}
-		Var(X_1)&=(-1)^2\cdot\frac{1}{3}+(\frac{1}{4})^2\cdot\frac{1}{3}+(\frac{3}{4})^2\cdot\frac{1}{3}~0.524\\
+		Var(X_1)&=(-1)^2\cdot\frac{1}{3}+(\frac{1}{4})^2\cdot\frac{1}{3}+(\frac{3}{4})^2\cdot\frac{1}{3}\approx0.524\\
 		Var(X_2)&=(-10)^2\cdot\frac{1}{2}+(10)^2\cdot\frac{1}{2}=100
 	\end{align*}
 \end{esempio}
@@ -1132,6 +1135,166 @@ Mentre il valor medio quantifica un valore attorno a cui i valori assunti da una
 	\end{equation*}
 	Si può vedere considerando $Var(X)=E(g(X))$ con $g(x)=(x-E(X))^2$.
 \end{osservazione}
+Dall'osservazione possiamo ricavare alcuni risultati interessanti:
+\begin{align*}
+	Var(X)&=E((X-E(X))^2)\\
+	&=E(X^2-2\cdot X\cdot E(X)+(E(X))^2)\\
+	&\text{ricordando le proprietà del valor}\\
+	&\text{medio, e ricordando che $E(a)=a$:}\\
+	&=E(X^2)-2\cdot E(X)\cdot E(X)+(E(X))^2\\
+	&=E(X^2)-(E(X))^2
+\end{align*}
+In molti testi questa è data come definizione di varianza. Dalla definizione si ricava che $Var(X)\geq 0$, quindi deve sempre valere $E(X^2)-(E(X))^2$. Vediamo alcune proprietà della varianza:
+\begin{enumerate}
+	\item $Var(X)\geq0$, e in particolare
+	\begin{equation*}
+		Var(X)=0\Leftrightarrow X=k\in\mathds{R}
+	\end{equation*}
+	\begin{proof}
+		Segue immediatamente dalla difinizione.
+	\end{proof}
+	\item $Var(aX)=a^2\cdot Var(X)$
+	\begin{proof}
+		\begin{align*}
+			Var(aX)&=E((aX-E(aX))^2)\\
+			&=E((aX-aE(X))^2)\\
+			&=E(a^2(X-E(X))^2)\\
+			&=a^2E((X-E(X))^2)\qedhere
+		\end{align*}
+	\end{proof}
+	\item $Var(X+a)=Var(X)$
+	\begin{proof}
+		\begin{align*}
+			Var(X+a)&=E((X+a-E(X+a))^2)\\
+			&=E((X+a-E(X)+E(a))^2)\\
+			&=E((X+a-E(X)+a)^2)\\
+			&=E((X-E(X))^2)\\
+			&=Var(X)\qedhere
+		\end{align*}
+	\end{proof}
+\end{enumerate}
+\begin{esercizio}
+	Abbiamo due urne
+	\begin{enumerate}
+		\item La prima urna contiene 1 palline dorata, 4 palline verdi e 15 palline bianche
+		\item La seconda urna contiene 4 palline verdi e 25 palline bianche
+	\end{enumerate}
+	Viene spostata una pallina scelta a caso dall'urna 1 all'urna 2, e successivamente estraiamo una pallina dall'urna 2.
+	\begin{itemize}
+		\item Se estraiamo la pallina dorata, vinciamo 50€
+		\item Se estraiamo una pallina verde, perdiamo 1€
+	\end{itemize}
+	Sia $X$ la variabile aleatoria che rappresenta la vincita, si calcoli la sua varianza.
+	\begin{soluzione}
+		I valori che può assumere $X$ sono
+		\begin{equation*}
+			\mathcal{X}=\{-1,0,50\}
+		\end{equation*}
+		Per comodità di notazione, definiamo i seguenti eventi:
+		\begin{align*}
+			E_i&=\text{"Estrazione dall'urna 2 una pallina di colore $i$"}\\
+			T_i&=\text{"Trasferimento dall'urna 1 all'urna 2 una pallina di colore $i$"}
+		\end{align*}
+		Ricordando la formula di probabilità totale, la densità discreta di $X$ è:
+		\begin{align*}
+			p_X(-1)&=P(E_V)\\
+			&=P(E_V|T_D)\cdot P(T_D)+P(E_V|T_V)\cdot P(T_V)+P(E_V|T_B)\cdot P(T_B)\\
+			&=\frac{4}{30}\cdot\frac{1}{20}+\frac{5}{30}\cdot\frac{4}{20}+\frac{4}{30}\cdot\frac{15}{20}=\frac{7}{50}\\
+			p_X(0)&=P(E_B)\\
+			&=P(E_B|T_D)\cdot P(T_D)+P(E_B|T_V)\cdot P(T_V)+P(E_B|T_B)\cdot P(T_B)\\
+			&=\frac{25}{30}\cdot\frac{1}{20}+\frac{25}{30}\cdot\frac{4}{20}+\frac{26}{30}\cdot\frac{15}{20}=\frac{103}{120}\\
+			p_X(50)&=P(E_D)\\
+			&=P(E_D|T_D)\cdot P(T_D)+P(E_D|T_V)\cdot P(T_V)+P(E_D|T_B)\cdot P(T_B)\\
+			&=\frac{1}{30}\cdot\frac{1}{20}+\frac{0}{30}\cdot\frac{4}{20}+\frac{0}{30}\cdot\frac{15}{20}=\frac{1}{600}
+		\end{align*}
+		Calcoliamo ora la varianza:
+		\begin{align*}
+			Var(X)&=E(X^2)-(E(X))^2\\
+			&=\left[(-1)^2\cdot\frac{7}{50}+(0)^2\cdot\frac{103}{120}+(50)^2\cdot\frac{1}{600}\right]\\
+			&-\left[(-1)\cdot\frac{7}{50}+(0)\cdot\frac{103}{120}+(50)\cdot\frac{1}{600}\right]^2\approx4.3
+		\end{align*}
+	\end{soluzione}
+\end{esercizio}
 % subsection varianza (end)
-% section variabili_aleatorie (end)
+\subsection{Variabili Aleatorie Discrete Notevoli} % (fold)
+\label{sub:variabili_aleatorie_discrete_notevoli}
+\begin{definizione}
+	Siano $X$ e $Y$ due varibili aleatorie con lo stesso alfabeto, e con stessa densità di probabilità sugli stessi valori:
+	\begin{align*}
+		\mathcal{X}&=\mathcal{Y}\\
+		p_X(x_k)&=p_Y(y_j)\quad\forall x_k=y_j
+	\end{align*}
+	Allora $X$ e $Y$ si dicono probabilisticamente equivalenti e si indica
+	\begin{equation*}
+		X\sim Y
+	\end{equation*}
+\end{definizione}
+\begin{NB}
+	È sbagliato dire che $X=Y$, perchè le due variabili potrebbero essere definite su spazi di probabilità completamente diversi.
+\end{NB}
+\subsubsection{Alfabeto Finito} % (fold)
+\label{ssub:alfabeto_finito}
+\paragraph{Variabili Aleatorie di Bernoulli} % (fold)
+\label{par:variabili_aleatorie_di_bernoulli}
+Le variabili aleatorie di Bernoulli rappresentano il risultato di una singola prova in uno schema di Bernoulli. Una variabile $X$ è variabile di Bernoulli, e si indica con
+\begin{equation*}
+	X\sim Be(p)\quad\text{con }p\in[0,1]
+\end{equation*}
+se è caratterizzata da:
+\begin{align*}
+	\mathcal{X}&=\{0,1\}\\
+	p_X(1)&=p\\
+	p_X(0)&=1-p\\
+	E(X)&=p\\
+	Var(X)&=1-p
+\end{align*}
+\begin{esempio}
+	La variabile $\mathds{1}_E$ è una varibile di Bernoulli:
+	\begin{equation*}
+		\mathds{1}_E\sim Be(P(E))
+	\end{equation*}
+\end{esempio}
+% paragraph variabili_aleatorie_di_bernoulli (end)
+\paragraph{Variabili Aleatorie Binomiali} % (fold)
+\label{par:variabili_aleatorie_binomiali}
+Una variabile $X$ è variabile binomiale, e si indica con
+\begin{equation*}
+	X\sim Bin(n,p)\quad\text{con }p\in[0,1],n\in\mathds{N}\smallsetminus\{0\}
+\end{equation*}
+se è caratterizzata da:
+\begin{align*}
+	\mathcal{X}&=\{0,1,\dots,n\}\\
+	p_X(k)&=\binom{n}{k}\cdot p^k\cdot (1-p)^{n-k}\\
+	E(X)&=n\cdot p\\
+	Var(X)&=n\cdot p\cdot(1-p)
+\end{align*}
+Le variabili di questa famiglia sono quelle associate agli schemi di Bernoulli.
+\begin{osservazione}
+	Se all'$i$-esima prova viene associata una variabile di Bernoulli $X_i\sim Be(p)$, la variabile $X\sim Bin(n,p)$ è la somma delle $X_i$:
+	\begin{equation*}
+		X=\sum_{i=1}^n X_i\sim Bin(n,p)
+	\end{equation*}
+	Infatti, siccome $X_i$ vale $1$ se e solo se l'$i$-esima prova ha avuto successo, la somma degli $X_i$ è il numero di prove che hanno avuto successo.
+\end{osservazione}
+Dimostriamo solo il calcolo del valor medio:
+\begin{proof}
+	\begin{align*}
+		E(X)&=\sum_{k=0}^n k\cdot p_X(k)\\
+		&=\sum_{k=0}^n k\cdot\binom{n}{k}\cdot p^k\cdot (1-p)^{n-k}\\
+		&=0\cdot\binom{n}{k}\cdot p^k\cdot (1-p)^{n-k}+\sum_{k=1}^n k\cdot\binom{n}{k}\cdot p^k\cdot (1-p)^{n-k}\\
+		&=\sum_{k=1}^n k\cdot\frac{n!}{(n-k)!k!}\cdot p^k\cdot (1-p)^{n-k}\\
+		&=\sum_{k=1}^n \cdot\frac{n!}{(n-k)!(k-1)!}\cdot p^k\cdot (1-p)^{n-k}\\
+		&\text{indico $h=k-1$}\\
+		&=\sum_{h=0}^{n-1} \cdot\frac{n!}{(n-1-h)!h!}\cdot p^{h+1}\cdot (1-p)^{n-1-h}\\
+		&=n\cdot p\cdot\sum_{h=0}^{n-1} \cdot\frac{(n-1)!}{(n-1-h)!h!}\cdot p^h\cdot (1-p)^{n-1-h}\\
+	\end{align*}
+	La sommatoria corrisponde alla somma dei valori della densità discreta di una variabile aleatoria $Y\sim Bin(n-1,p)$ sui valori del suo alfabeto $\mathcal{Y}=\{0,\dots,n-1\}$; per definizione di $p_Y$, questa somma è $1$
+	\begin{equation*}
+		=n\cdot p\cdot\sum_{h=0}^{n-1} p_Y(h)=n\cdot p
+	\end{equation*}
+\end{proof}
+% paragraph variabili_aleatorie_binomiali (end)
+% subsubsection alfabeto_finito (end)
+% subsection variabili_aleatorie_discrete_notevoli (end)
+% section variabili_aleatorie_discrete (end)
 \end{document}
