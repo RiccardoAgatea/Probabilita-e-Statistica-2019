@@ -12,6 +12,7 @@
 \usepackage{dsfont}
 \usepackage{soulutf8}
 \usepackage{contour}
+\usepackage[scr]{rsfso}
 
 \theoremstyle{plain}
 \newtheorem{teorema}{Teorema}[section]
@@ -76,22 +77,22 @@ Per ricavare una stima di $I$ è possibile considerare un insieme $X=\{x_1,x_2,.
 \subsection{Definizioni} % (fold)
 \label{sub:definizioni}
 \begin{definizione}
-	Sia $\Omega$ un insieme non vuoto, sia $\mathcal{F}$ una famiglia di sottoinsiemi di $\Omega$ (cioè un insieme di sottoinsiemi di $\Omega$), e sia
+	Sia $\Omega$ un insieme non vuoto, sia $\mathscr{F}$ una famiglia di sottoinsiemi di $\Omega$ (cioè un insieme di sottoinsiemi di $\Omega$), e sia
 	\begin{equation*}
-		P:\mathcal{F}\to[0,1]
+		P:\mathscr{F}\to[0,1]
 	\end{equation*}
 	una funzione tale che $P(\Omega)=1$. Si chiama spazio di probabilità la terna ordinata
 	\begin{equation*}
-		(\Omega,\mathcal{F},P)\text{.}
+		(\Omega,\mathscr{F},P)\text{.}
 	\end{equation*}
 \end{definizione}
 \begin{itemize}
 	\item $\Omega$ si chiama spazio degli eventi elementari, contiene tutti i risultati possibili di un dato esperimento. I suoi elementi si dicono eventi elementari o esiti specifici.
-	\item $\mathcal{F}$ ha la struttura di una \sigma-algebra (concetto che verrà studiato più avanti); intuitivamente contiene tutti gli eventi che si vogliono studiare in senso probabilistico.
-	\item P si dice misura di probabilità. Se $E\in\mathcal{F}$, e quindi $E$ è un evento, $P(E)$ è la probabilità che $E$ si realizzi. Si intende che se $P(E)=0$ allora $E$ non si verifica mai, se $P(E)=1$ allora $E$ si verifica sempre.
+	\item $\mathscr{F}$ ha la struttura di una \sigma-algebra (concetto che verrà studiato più avanti); intuitivamente contiene tutti gli eventi che si vogliono studiare in senso probabilistico.
+	\item P si dice misura di probabilità. Se $E\in\mathscr{F}$, e quindi $E$ è un evento, $P(E)$ è la probabilità che $E$ si realizzi. Si intende che se $P(E)=0$ allora $E$ non si verifica mai, se $P(E)=1$ allora $E$ si verifica sempre.
 \end{itemize}
 \begin{NB}
-	Per uno stesso esperimento $\Omega$, $\mathcal{F}$ e $P$ non sono necessariamente unici. Generalmente si cerca di scegliere $\Omega$ in modo che sia il più ridotto possibile, per cercare di minimizzare la complessità degli eventi da studiare.
+	Per uno stesso esperimento $\Omega$, $\mathscr{F}$ e $P$ non sono necessariamente unici. Generalmente si cerca di scegliere $\Omega$ in modo che sia il più ridotto possibile, per cercare di minimizzare la complessità degli eventi da studiare.
 \end{NB}
 Sono dati alcuni esempi di esperimenti, e dei relativi spazi degli eventi elementari.
 \begin{esempio}
@@ -127,20 +128,20 @@ Sono dati alcuni esempi di esperimenti, e dei relativi spazi degli eventi elemen
 \begin{nota}
 	Introduciamo due concetti:
 	\begin{definizione}
-		Uno spazio di probabilità $(\Omega,\mathcal{F},P)$ si dice discreto se $\Omega$ è finito o numerabile:
+		Uno spazio di probabilità $(\Omega,\mathscr{F},P)$ si dice discreto se $\Omega$ è finito o numerabile:
 		\begin{equation*}
 			\lvert\Omega\rvert\leq\lvert\mathbb{N}\rvert
 		\end{equation*}
 	\end{definizione}
 	\begin{definizione}
-		Uno spazio di probabilità $(\Omega,\mathcal{F},P)$ si dice continuo se $\Omega$ è non numerabile:
+		Uno spazio di probabilità $(\Omega,\mathscr{F},P)$ si dice continuo se $\Omega$ è non numerabile:
 		\begin{equation*}
 			\lvert\Omega\rvert=\lvert\mathds{R}\rvert
 		\end{equation*}
 	\end{definizione}
 \end{nota}
 \begin{definizione}
-	Sia $\omega\in\Omega$ il risultato osservato dall'esecuzione di un dato esperimento, e sia $E\in\mathcal{F}$ un evento. Si dice che $E$ si è verificato se e solo se 
+	Sia $\omega\in\Omega$ il risultato osservato dall'esecuzione di un dato esperimento, e sia $E\in\mathscr{F}$ un evento. Si dice che $E$ si è verificato se e solo se 
 	\begin{equation*}
 		\omega\in E\text{.}
 	\end{equation*}
@@ -161,7 +162,7 @@ Sono dati alcuni esempi di esperimenti, e dei relativi spazi degli eventi elemen
 		\omega\in E \Rightarrow E\ \text{si è verificato}
 	\end{equation*}
 \end{esempio}
-Due particolari eventi sempre presenti in $\mathcal{F}$ sono:
+Due particolari eventi sempre presenti in $\mathscr{F}$ sono:
 \begin{itemize}
 	\item $\emptyset$ rappresenta il non presentarsi di alcuno degli eventi elementari in $\Omega$. Chiaramente almeno uno degli eventi elementari si deve presentare, quindi $\emptyset$ non si verifica mai.
 	\item $\Omega$ rappresenta il presentarsi di uno degli eventi elementari, senza limitazioni, e quindi si verifica sempre.
@@ -169,7 +170,7 @@ Due particolari eventi sempre presenti in $\mathcal{F}$ sono:
 % subsection definizioni (end)
 \subsection{Operazioni sugli Insiemi} % (fold)
 \label{sub:operazioni_sugli_insiemi}
-Consideriamo uno spazio di probabilità $(\Omega,\mathcal{F},P)$, e due eventi $E,F\in\mathcal{F}$. Essendo $\mathcal{F}$ una famiglia di sottoinsiemi di $\Omega$, $E$ e $F$ sono insiemi, e quindi si possono applicare ad essi le comuni operazioni sugli insiemi. Quelli che si ottengono sono ancora eventi di $\mathcal{F}$, di cui si può studiare il verificarsi in funzione del verificarsi di $E$ e $F$.
+Consideriamo uno spazio di probabilità $(\Omega,\mathscr{F},P)$, e due eventi $E,F\in\mathscr{F}$. Essendo $\mathscr{F}$ una famiglia di sottoinsiemi di $\Omega$, $E$ e $F$ sono insiemi, e quindi si possono applicare ad essi le comuni operazioni sugli insiemi. Quelli che si ottengono sono ancora eventi di $\mathscr{F}$, di cui si può studiare il verificarsi in funzione del verificarsi di $E$ e $F$.
 \begin{itemize}
 	\item $E\cap F$ si verifica $\Leftrightarrow$ sia $E$ che $F$ si verificano
 	\item $E\cup F$ si verifica $\Leftrightarrow$ almeno uno fra $E$ e $F$ si verifica
@@ -183,7 +184,7 @@ Consideriamo uno spazio di probabilità $(\Omega,\mathcal{F},P)$, e due eventi $
 		E\cap F=\emptyset
 	\end{equation*}
 \end{definizione}
-Chiaramente, per gli elementi di $\mathcal{F}$ continuano a valere la proprietà distributiva dell'intersezione sull'unione e dell'unione sull'intersezione, e le due leggi di De Morgan. Usando le leggi di De Morgan, è sempre possibile esprimere un'espressione in funzione del complemento e di una fra unione e intersezione.
+Chiaramente, per gli elementi di $\mathscr{F}$ continuano a valere la proprietà distributiva dell'intersezione sull'unione e dell'unione sull'intersezione, e le due leggi di De Morgan. Usando le leggi di De Morgan, è sempre possibile esprimere un'espressione in funzione del complemento e di una fra unione e intersezione.
 \paragraph{Partizioni} % (fold)
 \label{par:partizioni}
 Ricordiamo la definizione di partizione di un insieme:
@@ -222,13 +223,13 @@ In questo caso, il significato è "o si verifica $E$, e non ci interessiamo di $
 \end{esercizio}
 % paragraph partizioni (end)
 % subsection operazioni_sugli_insiemi (end)
-\subsection{\sigma-algebra $\mathcal{F}$} % (fold)
+\subsection{\sigma-algebra $\mathscr{F}$} % (fold)
 \label{sub:sigma_algebra_f}
-Abbiamo etto che $\mathcal{F}$ è una famiglia di sottoinsiemi di $\Omega$ che contiene tutti gli eventi che ci interessa analizzare. Diamo una definizione formale di evento:
+Abbiamo etto che $\mathscr{F}$ è una famiglia di sottoinsiemi di $\Omega$ che contiene tutti gli eventi che ci interessa analizzare. Diamo una definizione formale di evento:
 \begin{definizione}
-	Un sottoinsieme $E$ di $\Omega$ si dice evento se e solo se $E\in\mathcal{F}$.
+	Un sottoinsieme $E$ di $\Omega$ si dice evento se e solo se $E\in\mathscr{F}$.
 \end{definizione}
-Il fatto che $\mathcal{F}$ contenga gli eventi che ci interessano ha delle conseguenze, nello specifico significa che se un evento è presente devono essere presenti anche tutti gli eventi "equivalenti". Ad esempio, se l'evento "è uscita sempre testa" è presente, anche "non è uscita mai croce" deve essere presente, perchè danno la stessa informazione. Per questo $\mathcal{F}$ è una \sigma-algebra:
+Il fatto che $\mathscr{F}$ contenga gli eventi che ci interessano ha delle conseguenze, nello specifico significa che se un evento è presente devono essere presenti anche tutti gli eventi "equivalenti". Ad esempio, se l'evento "è uscita sempre testa" è presente, anche "non è uscita mai croce" deve essere presente, perchè danno la stessa informazione. Per questo $\mathscr{F}$ è una \sigma-algebra:
 \begin{definizione}
 	Dato un insieme $A$ e una famiglia di suoi sottoinsiemi $\mathcal{A}$, $\mathcal{A}$ è una \sigma-algebra se e solo se:
 	\begin{enumerate}
@@ -243,75 +244,75 @@ Il fatto che $\mathcal{F}$ contenga gli eventi che ci interessano ha delle conse
 Bastano queste condizioni perchè, come abbiamo detto, tutte le operazioni fra insiemi possono essere ridotte a combinazioni di complemento e unione. Due esempi particolarmente importanti di \sigma-algebre su un dato spazio degli eventi elementari $\Omega$ sono:
 \begin{esempio}
 	\begin{equation*}
-		\mathcal{F}=\{\emptyset, \Omega\}
+		\mathscr{F}=\{\emptyset, \Omega\}
 	\end{equation*}
 	Questa è una \sigma-algebra perchè:
 	\begin{enumerate}
 		\item Chiaramente non è vuota
-		\item $\emptyset^C=\Omega\in\mathcal{F}$ e $\Omega^C=\emptyset\in\mathcal{F}$
-		\item $\emptyset\cup\Omega=\Omega\in\mathcal{F}$
+		\item $\emptyset^C=\Omega\in\mathscr{F}$ e $\Omega^C=\emptyset\in\mathscr{F}$
+		\item $\emptyset\cup\Omega=\Omega\in\mathscr{F}$
 	\end{enumerate}
 \end{esempio}
 \begin{esempio}
 	\begin{equation*}
-		\mathcal{F}=\mathds{P}(\Omega)
+		\mathscr{F}=\mathds{P}(\Omega)
 	\end{equation*}
 	Con $\mathds{P}(\Omega)$ indichiamo l'insieme delle parti di $\Omega$. La dimostrazione è triviale.
 \end{esempio}
 \begin{definizione}
 	Sia $E\subseteq\Omega$, la \sigma-algebra generata da $E$ è
 	\begin{equation*}
-		\mathcal{F}=\{\emptyset,\Omega,E,E^C\}
+		\mathscr{F}=\{\emptyset,\Omega,E,E^C\}
 	\end{equation*}
 \end{definizione}
 Si dimostra che è una \sigma-algebra:
 \begin{proof}
 	\begin{enumerate}
-		\item Trivialmente, $\mathcal{F}\neq\emptyset$
+		\item Trivialmente, $\mathscr{F}\neq\emptyset$
 		\item 
 		\begin{align*}
-			\emptyset^C=\Omega&\in\mathcal{F}\\
-			\Omega^C=\emptyset&\in\mathcal{F}\\
-			E^C&\in\mathcal{F}\\
-			(E^C)^C=E&\in\mathcal{F}
+			\emptyset^C=\Omega&\in\mathscr{F}\\
+			\Omega^C=\emptyset&\in\mathscr{F}\\
+			E^C&\in\mathscr{F}\\
+			(E^C)^C=E&\in\mathscr{F}
 		\end{align*}
-		\item Per dimostrare che $\mathcal{F}$ è chiusa rispetto l'unione non è necessario considerare le unioni con $\Omega$, perchè $\Omega\cup x=\Omega\ \forall x$. Non è necessario considerare neanche $\emptyset$, perchè esso è l'elemento neutro dell'unione, e quindi $\emptyset\cup x\in\mathcal{F}\Leftrightarrow x\in\mathcal{F}\ \forall x$. Resta da dimostrare che $E\cup E^C\in\mathcal{F}$, che è triviale in quanto $E\cup E^C=\Omega$.
+		\item Per dimostrare che $\mathscr{F}$ è chiusa rispetto l'unione non è necessario considerare le unioni con $\Omega$, perchè $\Omega\cup x=\Omega\ \forall x$. Non è necessario considerare neanche $\emptyset$, perchè esso è l'elemento neutro dell'unione, e quindi $\emptyset\cup x\in\mathscr{F}\Leftrightarrow x\in\mathscr{F}\ \forall x$. Resta da dimostrare che $E\cup E^C\in\mathscr{F}$, che è triviale in quanto $E\cup E^C=\Omega$.
 	\end{enumerate}
 \end{proof}
 Le proprietà di una \sigma-algebra sono:
 \begin{itemize}
-	\item $\emptyset,\Omega\in\mathcal{F}\quad\forall\mathcal{F}$
+	\item $\emptyset,\Omega\in\mathscr{F}\quad\forall\mathscr{F}$
 	\begin{proof}
 		\begin{align*}
-			&\mathcal{F}\neq\emptyset\\
-			\Rightarrow&\exists G\in\mathcal{F}\\
-			\Rightarrow&G^C\in\mathcal{F}\\
-			\Rightarrow&G\cup G^c \in\mathcal{F}\\
-			\Rightarrow&\Omega\in\mathcal{F}\\
-			\Rightarrow&\Omega^C=\emptyset\in\mathcal{F}\qedhere
+			&\mathscr{F}\neq\emptyset\\
+			\Rightarrow&\exists G\in\mathscr{F}\\
+			\Rightarrow&G^C\in\mathscr{F}\\
+			\Rightarrow&G\cup G^c \in\mathscr{F}\\
+			\Rightarrow&\Omega\in\mathscr{F}\\
+			\Rightarrow&\Omega^C=\emptyset\in\mathscr{F}\qedhere
 		\end{align*}
 	\end{proof}
-	\item $\mathcal{F}$ è chiusa rispetto le unioni finite
+	\item $\mathscr{F}$ è chiusa rispetto le unioni finite
 	\begin{proof}
-		Sia $\{E_1,...,E_n\}\subseteq\mathcal{F}$ una famiglia finita di sottoinsiemi di $\Omega$. Questa può essere estesa definendo $E_i=\emptyset\ \forall i>n$; segue:
+		Sia $\{E_1,...,E_n\}\subseteq\mathscr{F}$ una famiglia finita di sottoinsiemi di $\Omega$. Questa può essere estesa definendo $E_i=\emptyset\ \forall i>n$; segue:
 		\begin{equation*}
-			\bigcup_{i=1}^n B_i\in\mathcal{F}=\bigcup_{i\in\mathbb{N}} B_i\in\mathcal{F}\qedhere
+			\bigcup_{i=1}^n B_i\in\mathscr{F}=\bigcup_{i\in\mathbb{N}} B_i\in\mathscr{F}\qedhere
 		\end{equation*}
 	\end{proof}
-	\item $\mathcal{F}$ è chiusa rispetto le intersezioni
+	\item $\mathscr{F}$ è chiusa rispetto le intersezioni
 	\begin{proof}
-		Sia $(E_n)_n\subseteq\mathcal{F}$ una famiglia numerabile di sottoinsiemi di $\Omega$.
+		Sia $(E_n)_n\subseteq\mathscr{F}$ una famiglia numerabile di sottoinsiemi di $\Omega$.
 		\begin{align*}
-			 &\forall i\ E_i\in\mathcal{F}\\
-			 &\Rightarrow\forall i\ E_i^C\in\mathcal{F}\\
-			 &\Rightarrow\bigcup_i E_i^C\in\mathcal{F}\\
-			 &\Rightarrow(\bigcup_i E_i^C)^C\in\mathcal{F}\\
-			 &\Rightarrow\bigcap_i E_i\in\mathcal{F}\qedhere
+			 &\forall i\ E_i\in\mathscr{F}\\
+			 &\Rightarrow\forall i\ E_i^C\in\mathscr{F}\\
+			 &\Rightarrow\bigcup_i E_i^C\in\mathscr{F}\\
+			 &\Rightarrow(\bigcup_i E_i^C)^C\in\mathscr{F}\\
+			 &\Rightarrow\bigcap_i E_i\in\mathscr{F}\qedhere
 		\end{align*}
 	\end{proof}
 \end{itemize}
 \begin{proposizione}
-	Se $\Omega$ è discreto, allora si può sempre prendere $\mathcal{F}=\mathds{P}(\Omega)$, ed è quello che si fa di solito.
+	Se $\Omega$ è discreto, allora si può sempre prendere $\mathscr{F}=\mathds{P}(\Omega)$, ed è quello che si fa di solito.
 \end{proposizione}
 % subsection sigma_algebra_f (end)
 \subsection{Misura di probabilità} % (fold)
@@ -320,12 +321,12 @@ Diamo una definizione di misura di probabilità:
 \begin{definizione}
 	Una funzione
 	\begin{equation*}
-		P\colon\mathcal{F}\to[0,1]
+		P\colon\mathscr{F}\to[0,1]
 	\end{equation*}
 	si dice misura di probabilità se
 	\begin{enumerate}
 		\item $P(\Omega)=1$
-		\item $P$ è \sigma-additiva, cioè: sia $(E_i)_i\subseteq\mathcal{F}$ una famiglia numerabile di eventi mutualmente incompatibili, allora
+		\item $P$ è \sigma-additiva, cioè: sia $(E_i)_i\subseteq\mathscr{F}$ una famiglia numerabile di eventi mutualmente incompatibili, allora
 		\begin{equation*}
 			P(\bigcup_i E_i)=\sum_i P(E_i)
 		\end{equation*}
@@ -333,7 +334,7 @@ Diamo una definizione di misura di probabilità:
 \end{definizione}
 Le proprietà di $P$ sono:
 \begin{itemize}
-	\item $\forall E\in\mathcal{F}\quad P(E^C)=1-P(E)$
+	\item $\forall E\in\mathscr{F}\quad P(E^C)=1-P(E)$
 	\begin{proof}
 		\begin{align*}
 			&E\cup E^C=\Omega\\
@@ -342,7 +343,7 @@ Le proprietà di $P$ sono:
 			&\Rightarrow P(E^C)=1-P(E)\qedhere
 		\end{align*}
 	\end{proof}
-	\item $\forall E,F\in\mathcal{F}\quad E\subseteq F\Rightarrow P(E)\leq P(F)$
+	\item $\forall E,F\in\mathscr{F}\quad E\subseteq F\Rightarrow P(E)\leq P(F)$
 	\begin{proof}
 		\begin{align*}
 			F&=(F\cap E)\cup(F\cap E^C)\\
@@ -351,7 +352,7 @@ Le proprietà di $P$ sono:
 		\end{align*}
 		Essendo $P(F\cap E^C)\geq0$, segue la tesi.
 	\end{proof}
-	\item $\forall E,F\in\mathcal{F}\quad P(E\cup F)=P(E)+P(F)-P(E\cap F)$
+	\item $\forall E,F\in\mathscr{F}\quad P(E\cup F)=P(E)+P(F)-P(E\cap F)$
 	\begin{proof}
 		Per definizione di misura di probabilità, $P$ è additiva su unioni disgiunte, quindi:
 		\begin{align*}
@@ -385,21 +386,21 @@ Le proprietà di $P$ sono:
 	\end{proof}
 	\item $P(E\Delta F)=P(E)+P(F)-2P(E\cap F)$
 \end{itemize}
-Chiaramente, $P$ non è determinata univocamente da $\Omega$ e $\mathcal{F}$, però ci sono dei metodi "standard" per costruirla, soprattutto nelle applicazioni pratiche.
+Chiaramente, $P$ non è determinata univocamente da $\Omega$ e $\mathscr{F}$, però ci sono dei metodi "standard" per costruirla, soprattutto nelle applicazioni pratiche.
 \subsubsection{Misura Empirica} % (fold)
 \label{subs:misura_empirica}
-Consideriamo una coppia $(\Omega,\mathcal{F})$ fissata in modo da rappresentare un esperimento ripetibile. Eseguendo l'esperimento $n$ volte si otterrà una sequenza di $n$ risultati
+Consideriamo una coppia $(\Omega,\mathscr{F})$ fissata in modo da rappresentare un esperimento ripetibile. Eseguendo l'esperimento $n$ volte si otterrà una sequenza di $n$ risultati
 \begin{equation*}
 	(\omega_1,...,\omega_n)\quad \omega_i\in\Omega\ \forall i\in\{1,...,n\}
 \end{equation*}
-Sia $E\in\mathcal{F}$, definiamo una quantità $n_E$ che rappresenti il numero di volte in cui $E$ si è verificato
+Sia $E\in\mathscr{F}$, definiamo una quantità $n_E$ che rappresenti il numero di volte in cui $E$ si è verificato
 \begin{equation*}
 	n_E:=\lvert\{i\in\{1,...,n\}:\omega_i\in E\}\rvert
 \end{equation*}
 \begin{definizione}
 	Si dice misura di probabilità empirica la funzione
 	\begin{align*}
-		\hat{P_n}:\mathcal{F}&\to[0,1]\\
+		\hat{P_n}:\mathscr{F}&\to[0,1]\\
 		E&\mapsto\frac{n_E}{n}
 	\end{align*}
 \end{definizione}
@@ -407,13 +408,13 @@ Questa misura in modo empirico il numero di volte in cui un dato evento si è ve
 % subsubsection misura_empirica (end)
 \subsubsection{$\Omega$ discreto} % (fold)
 \label{subs:omega_discreto}
-Nel caso in cui $\Omega$ sia discreto e $\mathcal{F}=\mathds{P}(\Omega)$, si può dimostrare che per identificare univocamente $P$ è sufficiente identificare i valori $p_\omega$ tali che
+Nel caso in cui $\Omega$ sia discreto e $\mathscr{F}=\mathds{P}(\Omega)$, si può dimostrare che per identificare univocamente $P$ è sufficiente identificare i valori $p_\omega$ tali che
 \begin{equation*}
 	p_\omega=P(\{\omega\})\quad\text{con }\sum_{\omega\in\Omega}p_\omega=1
 \end{equation*}
 Segue dalla \sigma-additività di $P$ che:
 \begin{equation*}
-	P(E)=\sum_{\omega\in E} p_\omega\quad\forall E\in\mathcal{F}
+	P(E)=\sum_{\omega\in E} p_\omega\quad\forall E\in\mathscr{F}
 \end{equation*}
 Si ricava che se $\Omega$ è finito
 \begin{equation*}
@@ -447,7 +448,7 @@ Un caso particolare del punto precedente si ha se $\Omega$ è finito e tutti gli
 		p_i=\frac{1}{n}\quad\forall i\in\{1,...,n\}
 	\end{equation*}
 \end{definizione}
-In questo caso, vale che dato un evento $E\in\mathcal{F}:$
+In questo caso, vale che dato un evento $E\in\mathscr{F}:$
 \begin{align*}
 	P(E)&=\sum_{\omega\in E} P(\{\omega\})\\
 	&=\sum_{\omega\in E} p_\omega\\
@@ -548,14 +549,14 @@ Questo caso corrisponde al trovare il numero di anagrammi di una parola con lett
 \label{sub:probabilità_condizionata}
 Finora abbiamo visto situazioni in cui la probabilità di un dato evento $E$ dipende esclusivamente da $E$, cioè in cui la misura di quanto verosimile sia $E$ è basata solo sulle caratteristiche "di partenza" dello spazio di probabilità. In alcuni casi, è utile valutare come varia la probabilità di $E$ se sono fornite informazioni aggiuntive; l'obiettivo è formalizzare il concetto molto intuitivo che, ad esempio, la probabilità che piova quando è sereno è diversa dalla probabilità che piova quando è nuvoloso. In particolare, l'informazione relativa al clima deve avere un effetto sulla probabilità che piova. Questo viene formalizzato introducendo la misura di probabilità condizionata:
 \begin{definizione}
-	Sia $(\Omega,\mathcal{F},P)$ uno spazio di probabilità, sia $F\in\mathcal{F}$ tale che $P(F)>0$; si definisce misura di probabilità condizionata a $F$ la funzione
+	Sia $(\Omega,\mathscr{F},P)$ uno spazio di probabilità, sia $F\in\mathscr{F}$ tale che $P(F)>0$; si definisce misura di probabilità condizionata a $F$ la funzione
 	\begin{align*}
-		P(\cdot|F):\mathcal{F}&\to[0,1]\\
+		P(\cdot|F):\mathscr{F}&\to[0,1]\\
 		E&\mapsto P(E|F)
 	\end{align*}
 	dove:
 	\begin{equation*}
-		P(E|F)=\frac{P(E\cap F)}{P(F)}\quad \forall E\in\mathcal{F}
+		P(E|F)=\frac{P(E\cap F)}{P(F)}\quad \forall E\in\mathscr{F}
 	\end{equation*}
 \end{definizione}
 La probabilità $P(E|F)$ misura la probabilità che se si verifica $F$, si verifichi anche $E$. Si dimostra che la misura di probabilità condizionata $P(\cdot|F)$è effettivamente una misura di probabilità:
@@ -580,7 +581,7 @@ La probabilità $P(E|F)$ misura la probabilità che se si verifica $F$, si verif
 \end{nota}
 Alcune proprietà:
 \begin{itemize}
-	\item $P(E^C|F)=1-P(E|F)\quad\forall E\in\mathcal{F}$
+	\item $P(E^C|F)=1-P(E|F)\quad\forall E\in\mathscr{F}$
 	\item $E\cap F=\emptyset \Rightarrow P(E|F)=0$
 	\item $F\subseteq E \Rightarrow P(E|F)=1$
 	\item $P(E)=0 \Rightarrow P(E|F)=0$
@@ -620,7 +621,7 @@ Inoltre, imponiamo che
 \begin{equation*}
 	P(F_i)>0\quad\forall i
 \end{equation*}
-Allora, dato un evento $E\in\mathcal{F}$ si può scrivere:
+Allora, dato un evento $E\in\mathscr{F}$ si può scrivere:
 \begin{equation*}
 	P(E)=\sum_{i=1}^n P(E|F_i)\cdot P(F_i)
 \end{equation*}
@@ -665,7 +666,7 @@ La formula di Bayes segue da un'interpretazione della formula di probabilità to
 \subsection{Indipendenza} % (fold)
 \label{sub:indipendenza}
 \begin{definizione}
-	Dati due eventi $E,F\in\mathcal{F}$, $E$ e $F$ si dicono indipendenti, e si indica
+	Dati due eventi $E,F\in\mathscr{F}$, $E$ e $F$ si dicono indipendenti, e si indica
 	\begin{equation*}
 		E\Bot F
 	\end{equation*}
@@ -687,7 +688,7 @@ Il concetto di eventi indipendenti formalizza l'idea che se due eventi sono comp
 \end{itemize}
 Per tre eventi, la definizione di indipendenza è lievemente più complessa:
 \begin{definizione}
-	Dati tre eventi $E,F,G\in\mathcal{F}$, questi si dicono indipendenti se e solo se
+	Dati tre eventi $E,F,G\in\mathscr{F}$, questi si dicono indipendenti se e solo se
 	\begin{enumerate}
 		\item
 		\begin{equation*}
@@ -704,11 +705,11 @@ Per tre eventi, la definizione di indipendenza è lievemente più complessa:
 \end{NB}
 Il concetto di indipendenza si estende a più eventi:
 \begin{definizione}
-	Data una famiglia finita di eventi $\{E_n\}_n\subseteq\mathcal{F}$, si dice famiglia di eventi indipendenti se e solo se $\forall r\in \{2,3,...,n\}$ ogni sottofamiglia di $\{E_n\}_n$ composta da $r$ eventi è indipendente.
+	Data una famiglia finita di eventi $\{E_n\}_n\subseteq\mathscr{F}$, si dice famiglia di eventi indipendenti se e solo se $\forall r\in \{2,3,...,n\}$ ogni sottofamiglia di $\{E_n\}_n$ composta da $r$ eventi è indipendente.
 \end{definizione}
 Le due condizioni continuano ad essere slegate. Si nota che il numero di casi da considerare aumenta quadraticamente al crescere del numero di eventi.
 \begin{definizione}
-	Data una famiglia numerabile di eventi $\{E_n\}_n\subseteq\mathcal{F}$, si dice famiglia di eventi indipendenti se $\forall \{F_k\}_k\subseteq\{E_n\}_n$ con $\{F_k\}_k$ famiglia finita, $\{F_k\}_k$ è famiglia di eventi indipendenti.
+	Data una famiglia numerabile di eventi $\{E_n\}_n\subseteq\mathscr{F}$, si dice famiglia di eventi indipendenti se $\forall \{F_k\}_k\subseteq\{E_n\}_n$ con $\{F_k\}_k$ famiglia finita, $\{F_k\}_k$ è famiglia di eventi indipendenti.
 \end{definizione}
 \begin{osservazione}
 	Se $\{A_n\}_n$ è una famiglia di eventi indipendenti (non importa quanti), allora anche la famiglia formata sostituendo alcuni (non necessariamente tutti) eventi con i rispettivi complementari è indipendente.
@@ -758,7 +759,7 @@ Detto anche \textit{Modello Binomiale per Eventi}. Consideriamo un esperimento c
 	\item Ciascuna prova ha solo due possibili risultati, che generalmente si indicano con $\{0,1\}$
 	\item Il risultato di ciascuna prova non influenza il risultato di nessuna delle altre
 \end{itemize}
-L'esperimento si può descrivere con un modello di probabilità dato da $\Omega=\{0,1\}^n$, $\mathcal{F}=\mathds{P}(\Omega)$, e da una misura di probabilità $P$ che rispetti le condizioni:
+L'esperimento si può descrivere con un modello di probabilità dato da $\Omega=\{0,1\}^n$, $\mathscr{F}=\mathds{P}(\Omega)$, e da una misura di probabilità $P$ che rispetti le condizioni:
 \begin{itemize}
 	\item Gli eventi
 	\begin{equation*}
