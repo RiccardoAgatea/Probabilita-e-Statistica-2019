@@ -65,11 +65,11 @@ La probabilità si prefigge di studiare eventi casuali in modo matematico. Per e
 \end{equation*}
 difficilmente risolvibile individuando un'antiderivata di $f(x)$, dal teorema della media integrale è noto che
 \begin{equation*}
-	\exists\xi\in [0,1]\colon\int_0^1 f(x)dx=f(\xi)\text{.}
+	\exists\xi\in [0,1]\colon\int_0^1 f(x)dx=f(\xi)
 \end{equation*}
 Per ricavare una stima di $I$ è possibile considerare un insieme $X=\{x_1,x_2,...,x_n\}s$ di valori casuali tale che $X\subseteq [0,1]$. La media dei valori assunti dalla funzione in questi punti, per le leggi dei grandi numeri, tende a $I$ per $n\to+\infty$:
 \begin{equation*}
-	\frac{1}{n}*\sum_{i=1}^{n}f(x_i)\xrightarrow[n\to+\infty]{}I\text{.}
+	\frac{1}{n}*\sum_{i=1}^{n}f(x_i)\xrightarrow[n\to+\infty]{}I
 \end{equation*}
 % section introduzione (end)
 \section{Spazio di Probabilità} % (fold)
@@ -83,7 +83,7 @@ Per ricavare una stima di $I$ è possibile considerare un insieme $X=\{x_1,x_2,.
 	\end{equation*}
 	una funzione tale che $P(\Omega)=1$. Si chiama spazio di probabilità la terna ordinata
 	\begin{equation*}
-		(\Omega,\mathscr{F},P)\text{.}
+		(\Omega,\mathscr{F},P)
 	\end{equation*}
 \end{definizione}
 \begin{itemize}
@@ -125,25 +125,23 @@ Sono dati alcuni esempi di esperimenti, e dei relativi spazi degli eventi elemen
 		\Omega=\mathds{R}_+\quad\text{oppure}\quad\Omega=[0,a]\subsetneqq\mathds{R}_+
 	\end{equation*}
 \end{esempio}
-\begin{nota}
-	Introduciamo due concetti:
-	\begin{definizione}
-		Uno spazio di probabilità $(\Omega,\mathscr{F},P)$ si dice discreto se $\Omega$ è finito o numerabile:
-		\begin{equation*}
-			\lvert\Omega\rvert\leq\lvert\mathbb{N}\rvert
-		\end{equation*}
-	\end{definizione}
-	\begin{definizione}
-		Uno spazio di probabilità $(\Omega,\mathscr{F},P)$ si dice continuo se $\Omega$ è non numerabile:
-		\begin{equation*}
-			\lvert\Omega\rvert=\lvert\mathds{R}\rvert
-		\end{equation*}
-	\end{definizione}
-\end{nota}
+Introduciamo alcuni concetti:
+\begin{definizione}
+	Uno spazio di probabilità $(\Omega,\mathscr{F},P)$ si dice discreto se $\Omega$ è finito o numerabile:
+	\begin{equation*}
+		\lvert\Omega\rvert\leq\lvert\mathbb{N}\rvert
+	\end{equation*}
+\end{definizione}
+\begin{definizione}
+	Uno spazio di probabilità $(\Omega,\mathscr{F},P)$ si dice continuo se $\Omega$ è non numerabile:
+	\begin{equation*}
+		\lvert\Omega\rvert=\lvert\mathds{R}\rvert
+	\end{equation*}
+\end{definizione}
 \begin{definizione}
 	Sia $\omega\in\Omega$ il risultato osservato dall'esecuzione di un dato esperimento, e sia $E\in\mathscr{F}$ un evento. Si dice che $E$ si è verificato se e solo se 
 	\begin{equation*}
-		\omega\in E\text{.}
+		\omega\in E
 	\end{equation*}
 \end{definizione}
 \begin{esempio}
@@ -162,7 +160,7 @@ Sono dati alcuni esempi di esperimenti, e dei relativi spazi degli eventi elemen
 		\omega\in E \Rightarrow E\ \text{si è verificato}
 	\end{equation*}
 \end{esempio}
-Due particolari eventi sempre presenti in $\mathscr{F}$ sono:
+Due particolari eventi sempre presenti in $\mathscr{F}$ sono $\emptyset$ e $\Omega$:
 \begin{itemize}
 	\item $\emptyset$ rappresenta il non presentarsi di alcuno degli eventi elementari in $\Omega$. Chiaramente almeno uno degli eventi elementari si deve presentare, quindi $\emptyset$ non si verifica mai.
 	\item $\Omega$ rappresenta il presentarsi di uno degli eventi elementari, senza limitazioni, e quindi si verifica sempre.
@@ -192,24 +190,24 @@ Ricordiamo la definizione di partizione di un insieme:
 	Sia $A$ un insieme, sia $(A_i)_i$ una famiglia di suoi sottoinsiemi. $(A_i)_i$ si dice partizione di $A$ se e solo se
 	\begin{align*}
 		&\bigcup_i A_i =A\\
-		&A_i\cap A_j =\emptyset \quad\forall i\not =j\text{.}
+		&A_i\cap A_j =\emptyset \quad\forall i\neq j
 	\end{align*}
 \end{definizione}
 Se l'insieme considerato è uno spazio degli eventi $\Omega$, allora una sua partizione rappresenta una famiglia di eventi incompatibili, ma per i quali c'è la garanzia che uno e uno solo di essi si verifichi. Dato un evento $F\subseteq\Omega$ e una partizione $(E_i)_i$ di $\Omega$, è sempre possibile \textit{scomporre} $F$ rispetto $(E_i)_i$, cioè si può sempre rappresentare $F$ come l'unione delle intersezioni di $F$ con gli insiemi di $(E_i)_i$:
 \begin{equation*}
-	F=\bigcup_i (F\cap E_i)\text{.}
+	F=\bigcup_i (F\cap E_i)
 \end{equation*}
 Chiaramente, siccome $(E_i)_i$ è una partizione di $\Omega$, $(F\cap E_i)_i$ è una partizione di $F$. In modo simile, è sempre possibile scomporre l'unione di due eventi in una sua partizione: se $E,F\subseteq\Omega$ allora
 \begin{equation*}
-	E\cup F=(E\cap F^C)\cup(E^C\cap F)\cup (E\cap F)\text{.}
+	E\cup F=(E\cap F^C)\cup(E^C\cap F)\cup (E\cap F)
 \end{equation*}
-Concettualmente, significa che "o si verifica solo $E$, o si verifica solo $F$, oppure si verificano entrambi".Un'altra scomposizione, più generalizzabile è:
+Concettualmente, significa che "o si verifica solo $E$, o si verifica solo $F$, oppure si verificano entrambi". Un'altra scomposizione, più generalizzabile è:
 \begin{equation*}
-	E\cup F=E\cup(F\smallsetminus E)\text{.}
+	E\cup F=E\cup(F\smallsetminus E)
 \end{equation*}
 In questo caso, il significato è "o si verifica $E$, e non ci interessiamo di $F$, oppure se $E$ non si verifica, allora si verifica $F$". Questa scomposizione si può generalizzare alla generica famiglia di eventi $\{E_n\}_n$:
 \begin{equation*}%Non so mica se è giusta. Non si capisce se alla fine sia un'unione grande o un'intersezione grande
-	\bigcup_n E_n=E_1 \cup(\bigcup_{k\neq2} E_k\smallsetminus(\bigcup_{i=1}^{k-1} E_j))
+	\bigcup_{k=1}^n E_k=E_1 \cup\left(\bigcup_{k=2}^n \left(E_k\smallsetminus\bigcup_{i=1}^{k-1} E_j\right)\right)
 \end{equation*}
 \begin{esercizio}
 	Dati tre eventi $E,F,G$, trovare l'evento corrispondente a
@@ -225,19 +223,19 @@ In questo caso, il significato è "o si verifica $E$, e non ci interessiamo di $
 % subsection operazioni_sugli_insiemi (end)
 \subsection{\sigma-algebra $\mathscr{F}$} % (fold)
 \label{sub:sigma_algebra_f}
-Abbiamo etto che $\mathscr{F}$ è una famiglia di sottoinsiemi di $\Omega$ che contiene tutti gli eventi che ci interessa analizzare. Diamo una definizione formale di evento:
+Abbiamo detto che $\mathscr{F}$ è una famiglia di sottoinsiemi di $\Omega$ che contiene tutti gli eventi che ci interessa analizzare. Diamo una definizione formale di evento:
 \begin{definizione}
 	Un sottoinsieme $E$ di $\Omega$ si dice evento se e solo se $E\in\mathscr{F}$.
 \end{definizione}
 Il fatto che $\mathscr{F}$ contenga gli eventi che ci interessano ha delle conseguenze, nello specifico significa che se un evento è presente devono essere presenti anche tutti gli eventi "equivalenti". Ad esempio, se l'evento "è uscita sempre testa" è presente, anche "non è uscita mai croce" deve essere presente, perchè danno la stessa informazione. Per questo $\mathscr{F}$ è una \sigma-algebra:
 \begin{definizione}
-	Dato un insieme $A$ e una famiglia di suoi sottoinsiemi $\mathcal{A}$, $\mathcal{A}$ è una \sigma-algebra se e solo se:
+	Dato un insieme $A$ e una famiglia di suoi sottoinsiemi $\mathscr{A}\subseteq\mathds{P}(A)$, $\mathscr{A}$ è una \sigma-algebra se e solo se:
 	\begin{enumerate}
-		\item $\mathcal{A}\neq\emptyset$
-		\item $\forall B\subseteq\Omega\quad B\in\mathcal{A}\Rightarrow B^C\in\mathcal{A}$
+		\item $\mathscr{A}\neq\emptyset$
+		\item $\forall B\subseteq A\quad B\in\mathscr{A}\Rightarrow B^C\in\mathscr{A}$
 		\item Presa comunque una famiglia numerabile $(B_n)_n$ di sottoinsiemi di $A$, vale
 		\begin{equation*}
-			\forall n\ B_n\in\mathcal{A}\Rightarrow\bigcup_i B_i\in\mathcal{A}
+			\forall n\ B_n\in\mathscr{A}\Rightarrow\bigcup_i B_i\in\mathscr{A}
 		\end{equation*}
 	\end{enumerate}
 \end{definizione}
@@ -296,7 +294,7 @@ Le proprietà di una \sigma-algebra sono:
 	\begin{proof}
 		Sia $\{E_1,...,E_n\}\subseteq\mathscr{F}$ una famiglia finita di sottoinsiemi di $\Omega$. Questa può essere estesa definendo $E_i=\emptyset\ \forall i>n$; segue:
 		\begin{equation*}
-			\bigcup_{i=1}^n B_i\in\mathscr{F}=\bigcup_{i\in\mathbb{N}} B_i\in\mathscr{F}\qedhere
+			\bigcup_{i=1}^n B_i=\bigcup_{i\in\mathbb{N}} B_i\in\mathscr{F}\qedhere
 		\end{equation*}
 	\end{proof}
 	\item $\mathscr{F}$ è chiusa rispetto le intersezioni
@@ -311,9 +309,7 @@ Le proprietà di una \sigma-algebra sono:
 		\end{align*}
 	\end{proof}
 \end{itemize}
-\begin{proposizione}
-	Se $\Omega$ è discreto, allora si può sempre prendere $\mathscr{F}=\mathds{P}(\Omega)$, ed è quello che si fa di solito.
-\end{proposizione}
+Se $\Omega$ è discreto, allora si può sempre prendere $\mathscr{F}=\mathds{P}(\Omega)$, ed è quello che si fa di solito.
 % subsection sigma_algebra_f (end)
 \subsection{Misura di probabilità} % (fold)
 \label{sub:misura_di_probabilità}
@@ -840,7 +836,7 @@ Spesso, negli esperimenti concreti ha senso raccogliere i dati attraverso dei co
 \begin{nota}
 	Dato uno spazio di probabilità ci sono infinite variabili aleatorie associate.
 \end{nota}
-Per un dato spazio di probabilità $(\Omega, \mathds{P}(\Omega), P)$ e un evento $E\in\mathds{P}(\Omega)$, una variabile aleatoria che si può sempre definire è detta \textit{uno grasso}, ed è definita come:
+Per un dato spazio di probabilità $(\Omega, \mathds{P}(\Omega), P)$ e un evento $E\in\mathds{P}(\Omega)$, una variabile aleatoria che si può sempre definire è detta variabile aleatoria indicatrice, ed è definita come:
 \begin{equation*}
 	\mathds{1}_E(\omega)=
 	\begin{cases}
