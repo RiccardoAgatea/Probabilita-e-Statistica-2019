@@ -888,7 +888,7 @@ In generale, vorremmo fosse possibile definire una variabile aleatoria indipende
 		\end{equation*}
 		Notando che $X=-\frac{1}{2}\Leftrightarrow X\neq 1$:
 		\begin{equation*}
-			p_X(-\frac{1}{2})=P(X^{-1}(-\frac{1}{2}))=P(\{(T,3),(C,5)\}^C)=1-\frac{2}{12}=\frac{10}{12}
+			p_X(-\frac{1}{2})=P(X^{-1}(-\frac{1}{2}))=P(\{(T,3),(C,5)\}^C)=1-\frac{2}{12}=\frac{10}{12}\qedhere
 		\end{equation*}
 	\end{soluzione}
 \end{esercizio}
@@ -917,7 +917,7 @@ Si nota che alfabeto e densità di una variabile aleatoria non identificano l'es
 			p_X(2)=P(X^{-1}(2))&=P(\text{"sono estratte due carte di picche"})\\
 			&=\frac{\binom{13}{2}\cdot39}{\binom{52}{3}}=\frac{234}{1700}\\
 			p_X(3)=P(X^{-1}(3))&=P(\text{"sono estratte tre carte di picche"})\\
-			&=\frac{\binom{13}{3}}{\binom{52}{3}}=\frac{22}{1700}
+			&=\frac{\binom{13}{3}}{\binom{52}{3}}=\frac{22}{1700}\qedhere
 		\end{align*}
 	\end{soluzione}
 \end{esercizio}
@@ -1208,7 +1208,7 @@ In molti testi questa è data come definizione di varianza. Dalla definizione si
 		\begin{align*}
 			Var(X)&=E(X^2)-(E(X))^2\\
 			&=\left[(-1)^2\cdot\frac{7}{50}+(0)^2\cdot\frac{103}{120}+(50)^2\cdot\frac{1}{600}\right]\\
-			&-\left[(-1)\cdot\frac{7}{50}+(0)\cdot\frac{103}{120}+(50)\cdot\frac{1}{600}\right]^2\approx4.3
+			&-\left[(-1)\cdot\frac{7}{50}+(0)\cdot\frac{103}{120}+(50)\cdot\frac{1}{600}\right]^2\approx4.3\qedhere
 		\end{align*}
 	\end{soluzione}
 \end{esercizio}
@@ -1261,9 +1261,9 @@ Una variabile $X$ è variabile binomiale, e si indica con
 se è caratterizzata da:
 \begin{align*}
 	\mathcal{X}&=\{0,1,\dots,n\}\\
-	p_X(k)&=\binom{n}{k}\cdot p^k\cdot (1-p)^{n-k}\\
-	E(X)&=n\cdot p\\
-	Var(X)&=n\cdot p\cdot(1-p)
+	p_X(k)&=\binom{n}{k} p^k (1-p)^{n-k}\quad\forall k\in\mathcal{X}\\
+	E(X)&=n p\\
+	Var(X)&=n p(1-p)
 \end{align*}
 Le variabili di questa famiglia sono quelle associate agli schemi di Bernoulli.
 \begin{osservazione}
@@ -1290,8 +1290,181 @@ Dimostriamo solo il calcolo del valor medio:
 		=n\cdot p\cdot\sum_{h=0}^{n-1} p_Y(h)=n\cdot p
 	\end{equation*}
 \end{proof}
+\begin{esercizio}
+	È più facile ottenere almeno un 6 lanciando 4 volte un dado equilibrato, oppure ottenere un doppio 6 lanciando una coppia di dadi 24 volte?
+	\begin{soluzione}
+		L'esercizio riguarda due esperimenti, entrambi consistenti di prove ripetute, e quindi li studiamo con lo schema di Bernoulli.
+		\begin{itemize}
+			\item Lanciamo un dado 4 volte, e vediamo se esce almeno un 6. Ciascun lancio si può modellare con una variabile
+			\begin{equation*}
+				X_i=
+				\begin{cases}
+					1&\text{se all'$i$-esimo lancio esce 6}\\
+					0&\text{altrimenti}
+				\end{cases}
+			\end{equation*}
+			4 lanci $\Rightarrow$ $i\in\{1,2,3,4\}$. Chiaramente:
+			\begin{equation*}
+				X_i\sim Be\left(\frac{1}{6}\right)
+			\end{equation*}
+			Il risultato dell'esperimento si può studiare con una variabile aleatoria:
+			\begin{equation*}
+				X=\sum_{i=1}^4X_i\sim Bin\left(4,\frac{1}{6}\right)
+			\end{equation*}
+			$X$ è il numero di volte in cui abbiamo ottenuto 6; calcoliamo:
+			\begin{align*}
+				P(X\geq 1)&=1-P(X<1)\\
+				&=1-P(X=0)\\
+				&=1-\binom{4}{0}\left(\frac{1}{6}\right)^0\left(1-\frac{1}{6}\right)^4\\
+				&=1-\left(\frac{5}{6}\right)^4\approx0.518
+			\end{align*}
+			\item Lanciamo due dadi 24 volte, e vediamo se esce almeno una volta un doppio 6. Ciascun lancio si può modellare con una variabile
+			\begin{equation*}
+				Y_i=
+				\begin{cases}
+					1&\text{se all'$i$-esimo lancio esce un doppio 6}\\
+					0&\text{altrimenti}
+				\end{cases}
+			\end{equation*}
+			24 lanci $\Rightarrow$ $i\in\{1,\dots, 24\}$. Chiaramente:
+			\begin{equation*}
+				Y_i\sim Be\left(\frac{1}{36}\right)
+			\end{equation*}
+			Il risultato dell'esperimento si può studiare con una variabile aleatoria:
+			\begin{equation*}
+				Y=\sum_{i=1}^4Y_i\sim Bin\left(24,\frac{1}{36}\right)
+			\end{equation*}
+			$Y$ è il numero di volte in cui abbiamo ottenuto un doppio 6; analogamente a prima:
+			\begin{align*}
+				P(Y\geq 1)&=1-P(Y<1)\\
+				&=1-P(Y=0)\\
+				&=1-\binom{24}{0}\left(\frac{1}{36}\right)^0\left(1-\frac{1}{36}\right)^{24}\\
+				&=1-\left(\frac{35}{36}\right)^{24}\approx0.49
+			\end{align*}
+		\end{itemize}
+		Quindi è più probabile ottenere un 6 con un dado che ottenere una coppia di 6 con due dadi, anche con molti più lanci. Notevole è il fatto che le due variabili $X$ e $Y$ hanno stesso valor medio e stessa varianza, ma ciò non significa che le due variabili si comportano allo stesso modo.
+	\end{soluzione}
+\end{esercizio}
 % paragraph variabili_aleatorie_binomiali (end)
 % subsubsection alfabeto_finito (end)
+\subsubsection{Alfabeto Infinito} % (fold)
+\label{ssub:alfabeto_infinito}
+\paragraph{Variabili Aleatorie Geometriche} % (fold)
+\label{par:variabili_aleatorie_geometriche}
+Una variabile $X$ si dice geometrica, e si indica
+\begin{equation*}
+	X\sim Ge(p)\quad\text{con }p\in[0,1]
+\end{equation*}
+\begin{NB}
+	Indichiamo:
+	\begin{align*}
+		\mathds{N}=\{1,2,3,\dots\}\\
+		\mathds{N}_0=\{0,1,2,3,\dots\}
+	\end{align*}
+\end{NB}
+se è caratterizzata da:
+\begin{align*}
+	\mathcal{X}=\mathds{N}\\
+	p_X(k)=(1-p)^{k-1}p\\
+	E(X)=\frac{1}{p}\\
+	Var(X)=\frac{1-p}{p^2}
+\end{align*}
+Una variabile aleatoria geometrica rappresenta, in uno schema di Bernoulli, l'indice della prima prova che ha successo. Se consideriamo le variabili $X_i\sim Be(p)$, con $p$ probabilità che una prova abbia successo e $i\in\mathds{N}$ allora:
+\begin{equation*}
+	X=min\{i\in\mathds{N}|X_i=1\}\sim Ge(p)
+\end{equation*}
+La densità discreta di $X$ segue da questa osservazione: se $X=k$, allora $X_i=0$ $\forall i<k$ e $X_k=1$. Segue:
+\begin{align*}
+	p_X(k)&=P(X=k)\\
+	&=P(X_1=0, X_2=0,\dots, X_{k-1}=0, X_k=1)\\
+	&\text{per l'indipendenza e l'equiprobabilità delle prove:}\\
+	&=\prod_{j=1}^{k-1} P(X_j=0)P(X_k=1)\\
+	&=(1-p)^{k-1}p
+\end{align*}
+\begin{osservazione}
+	La funzione
+	\begin{equation*}
+		p_X(k)=(1-p)^{k-1}p\quad k\in\mathds{N}
+	\end{equation*}
+	è una densità discreta di probabilità. Infatti:
+	\begin{itemize}
+		\item $p_X(k)\geq0$ $\forall k\in\mathds{N}$, trivialmente
+		\item $\sum_{k\in\mathds{N}}p_X(k)=1$, perchè
+		\begin{align*}
+			\sum_{k\in\mathds{N}}p_X(k)&=\sum_{k\in\mathds{N}}(1-p)^{k-1}p\\
+			&=p\sum_{k\in\mathds{N}}(1-p)^{k-1}\\
+			&\text{indicando }h=k-1\\
+			&=p\sum_{h\in\mathds{N}_0}(1-p)^h\\
+			&\text{per la convergenza della serie geometrica:}\\
+			&=p\cdot\frac{1}{1-(1-p)}=1
+		\end{align*}
+	\end{itemize}
+\end{osservazione}
+Dimostriamo il calcolo del valor medio:
+\begin{align*}
+	E(X)&=\sum_{k\in\mathds{N}}k\cdot p_X(k)\\
+	&=\sum_{k\in\mathds{N}}k\cdot(1-p)^{k-1}\cdot p\\
+	&=p\sum_{k\in\mathds{N}}k\cdot(1-p)^{k-1}\\
+	&\text{ricordiamo che:}\\
+	&k(1-p)^{k-1}=-\frac{d}{dp}[(1-p)^k]\\
+	&\text{segue:}\\
+	&=-p\sum_{k\in\mathds{N}}\frac{d}{dp}[(1-p)^k]\\
+	&\text{per la linearità della derivata:}\\
+	&=-p\frac{d}{dp}\left[\sum_{k\in\mathds{N}}(1-p)^k\right]\\
+	&\text{per $k=1$ risulta un termine $1$ della somma,}\\
+	&\text{che quindi è irrilevante per la derivata,}\\
+	&\text{e quindi si può far partire la sommatoria da $0$}\\
+	&=-p\frac{d}{dp}\left[\sum_{k\in\mathds{N}_0}(1-p)^k\right]\\
+	&=-p\frac{d}{dp}\left[\frac{1}{p}\right]\\
+	&=-p\left(-\frac{1}{p^2}\right)=\frac{1}{p}
+\end{align*}
+Per il calcolo della varianza si utilizza lo stesso "trucco", ma utilizzando la derivata seconda, perchè invece di $k$ c'è $k^2$.
+\begin{nota}
+	In alcuni libri, la variabile geometrica è definita come il numero di insuccessi prima del primo successo, invece dell'indice del primo successo stesso. Risulta che il valore di questa variabile è traslato di $-1$ rispetto alla variabile geometrica che usiamo noi. Le differenze sono poche: l'alfabeto è $\mathds{N}_0$ e la densità discreta ha $k$ invece di $k-1$ all'esponente; valor medio e varianza si possono ottenere considerando $E(X-1)$ e $Var(X-1)$.
+\end{nota}
+\begin{esercizio}
+	Una probabilità notevole da calcolare relativa alle variabili aleatorie geometriche è detta probabilità di lunga attesa, cioè la probabilità che il primo successo avvenga dopo una certa prova $k$:
+	\begin{equation*}
+		P(X>k)
+	\end{equation*}
+	\begin{soluzione}
+		\begin{align*}
+			P(X>k)&=\sum_{j=k+1}^{+\infty}P(X=j)\\
+			&=\sum_{j=k+1}^{+\infty}(1-p)^{j-1}p\\
+			&=p\sum_{j=k+1}^{+\infty}(1-p)^{j-1}\\
+			&\text{indico }h=j-k-1\\
+			&=p\sum_{h=0}^{+\infty}(1-p)^{h+k}\\
+			&=p(1-p)^k\sum_{h=0}^{+\infty}(1-p)^h\\
+			&=p(1-p)^k\frac{1}{p}=(1-p)^k\qedhere
+		\end{align*}
+	\end{soluzione}
+\end{esercizio}
+\begin{esercizio}
+	Alla roulette (numeri da 0 a 36) si scommette ripetutamente su un numero tra 1 e 12 (compresi). Si calcoli:
+	\begin{enumerate}
+		\item La probabilità di perdere nelle prime 5 giocate
+		\item La probabilità di vincere alla sesta giocata
+	\end{enumerate}
+	\begin{soluzione}
+		La situazione si può inserire in uno schema di Bernoulli: ciascuna prova corrisponde ad una giocata, e una prova ha successo se in quella giocata esce un numro compreso in senso largo fra 1 e 12. Ciascuna prova ha successo con probabilità $\frac{12}{37}$, e a priori non sappiamo quante prove vengono eseguite. Definiamo una variabile geometrica associata all'esperimento:
+		\begin{equation*}
+			X\sim Ge\left(\frac{12}{37}\right)
+		\end{equation*}
+		Possiamo risolvere i due quesiti:
+		\begin{enumerate}
+			\item La probabilità di perdere nelle prime 5 giocate è data dalla probabilità di lunga attesa:
+			\begin{equation*}
+				P(X\geq 5)=\left(1-\frac{12}{37}\right)^5\approx0.14
+			\end{equation*}
+			\item La probabilità di vincere alla sesta giocata è:
+			\begin{equation*}
+				P(X=6)=p_X(6)=\left(1-\frac{12}{37}\right)^5\cdot\frac{12}{37}\approx0.046\qedhere
+			\end{equation*}
+		\end{enumerate}
+	\end{soluzione}
+\end{esercizio}
+% paragraph variabili_aleatorie_geometriche (end)
+% subsubsection alfabeto_infinito (end)
 % subsection variabili_aleatorie_discrete_notevoli (end)
 % section variabili_aleatorie_discrete (end)
 \end{document}
