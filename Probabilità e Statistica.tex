@@ -1351,10 +1351,6 @@ Dimostriamo solo il calcolo del valor medio:
 \label{ssub:alfabeto_infinito}
 \paragraph{Variabili Aleatorie Geometriche} % (fold)
 \label{par:variabili_aleatorie_geometriche}
-Una variabile $X$ si dice geometrica, e si indica
-\begin{equation*}
-	X\sim Ge(p)\quad\text{con }p\in[0,1]
-\end{equation*}
 \begin{NB}
 	Indichiamo:
 	\begin{align*}
@@ -1362,6 +1358,10 @@ Una variabile $X$ si dice geometrica, e si indica
 		\mathds{N}_0=\{0,1,2,3,\dots\}
 	\end{align*}
 \end{NB}
+Una variabile $X$ si dice geometrica, e si indica
+\begin{equation*}
+	X\sim Ge(p)\quad\text{con }p\in[0,1]
+\end{equation*}
 se è caratterizzata da:
 \begin{align*}
 	\mathcal{X}=\mathds{N}\\
@@ -1464,6 +1464,174 @@ Per il calcolo della varianza si utilizza lo stesso "trucco", ma utilizzando la 
 	\end{soluzione}
 \end{esercizio}
 % paragraph variabili_aleatorie_geometriche (end)
+\paragraph{Variabili Aleatorie di Poisson} % (fold)
+\label{par:variabili_aleatorie_di_poisson}
+Una variabile aleatoria $X$ si dice di Poisson, o con distribuzione come Poisson, e si indica
+\begin{equation*}
+	X\sim Po(\lambda)
+\end{equation*}
+se è caratterizzata da
+\begin{align*}
+	\mathcal{X}&=\mathds{N}_0\\
+	p_X(k)&=e^{-\lambda}\frac{\lambda^k}{k!}\\
+	E(X)&=\lambda\\
+	Var(X)&=\lambda
+\end{align*}
+$p_X(k)$ è una densità discreta perchè lo sviluppo in serie di Taylor di $e^x$ è:
+\begin{equation*}
+	e^x=\sum_{n=0}^{+\infty}\frac{x^n}{n!}
+\end{equation*}
+quindi:
+\begin{align*}
+	\sum_{k=0}^{+\infty}p_X(k)&=\sum_{k=0}^{+\infty}e^{-\lambda}\frac{\lambda^k}{k!}\\
+	&=e^{-\lambda}\sum_{k=0}^{+\infty}\frac{\lambda^k}{k!}\\
+	&=e^{-\lambda}\cdot e^{\lambda}=1
+\end{align*}
+Dimostriamo $E(X)$:
+\begin{proof}
+	\begin{align*}
+		E(X)&=\sum_{k\in\mathds{N}_0}k\cdot p_X(k)\\
+		&=\sum_{k=0}^{+\infty}k\cdot e^{-\lambda}\frac{\lambda^k}{k!}\\
+		&\text{per }k=0\text{ si ottiene un addendo pari a }0\\
+		&=e^{-\lambda}\sum_{k=1}^{+\infty}k\cdot\frac{\lambda^k}{k!}\\
+		&k\neq0\Rightarrow\text{si semplifica:}\\
+		&=e^{-\lambda}\sum_{k=1}^{+\infty}\frac{\lambda^k}{(k-1)!}\\
+		&\text{indico }h=k-1\\
+		&=e^{-\lambda}\sum_{h=0}^{+\infty}\frac{\lambda^{h+1}}{h!}\\
+		&=e^{-\lambda}\lambda\sum_{h=0}^{+\infty}\frac{\lambda^h}{h!}\\
+		&=e^{-\lambda}\lambda e^{\lambda}=\lambda\qedhere
+	\end{align*}
+\end{proof}
+Per la varianza il ragionamento è molto simile. Le variabili di Poisson si usano per studiare eventi che si verificano molto poco probabilmente, ma per cui vengono eseguite molte prove. Si possono vedere come un limite per $n\to+\infty$ di $Bin(n,p)$; in particolare, il valore di una variabile aleatoria $Po(\lambda)$ è, come per $Bin(n,p)$, il numero di volte in cui una prova ha successo in uno schema di Bernoulli, in cui vengano eseguite molte prove, con una $p$ molto piccola. Formalizzeremo questo concetto.
+\begin{esercizio}
+	Il numero di meteoriti che colpiscono un satellite durante la sua orbita si distribuisce come una variabile aleatoria di Poisson di parametro $\lambda$. Il satellite compie un'orbita in un giorno, ed in media è colpito da 3 meteoriti. Si calcoli la probabilità che nel percorrere 5 orbite il numero di meteoriti che colpiscono il satellite sia $\leq3$.
+	\begin{soluzione}
+		Dal testo, il numero di meteoriti che colpiscono un satellite durante la sua orbita è $X\sim Po(\lambda)$. Siccome la domanda si riferisce a 5 orbite, studieremo questo caso specifico. In media il satellite viene colpito da 3 meteoriti per orbita, quindi in media in 5 orbite verrà colpito da 15 meteoriti. Quindi:
+		\begin{equation*}
+			E(X)=15\wedge E(X)=\lambda\Rightarrow \lambda=15
+		\end{equation*}
+		Segue:
+		\begin{equation*}
+			p_X(k)=e^{-15}\frac{15^k}{k!}
+		\end{equation*}
+		Calcoliamo:
+		\begin{align*}
+			P(X\leq3)&=p_X(0)+p_X(1)+p_X(2)+p_X(3)\\
+			&=e^{-15}\frac{15^0}{0!}+e^{-15}\frac{15^1}{1!}+e^{-15}\frac{15^2}{2!}+e^{-15}\frac{15^3}{3!}\approx 0.0002\qedhere
+		\end{align*}
+	\end{soluzione}
+\end{esercizio}
+Formaliziamo l'intuizione che $Po(\lambda)$ sia il limite di $Bin(n,p)$ per n grandi attraverso un teorema:
+\begin{teorema}[Limite di Poisson]
+	Siano $X_n$ e $Y$ due variabili aleatorie tali che
+	\begin{align*}
+		X_n&\sim Bin\left(n, \frac{\lambda}{n}\right)\\
+		Y\sim Po(\lambda)
+	\end{align*}
+	Allora
+	\begin{equation*}
+		\forall k\in\mathds{N}_0\quad \lim_{n\to+\infty}p_{X_n}(k)=p_Y(k)
+	\end{equation*}
+\end{teorema}
+\begin{proof}
+	Dalle caratteristiche di $X_n$ vale:
+	\begin{align*}
+		p_X_n(k)&=\binom{n}{k}\left(\frac{\lambda}{n}\right)^k\left(1-\frac{\lambda}{n}\right)^{n-k}\\
+		&=\frac{n!}{(n-k)!k!}\frac{\lambda^k}{n^k}\left(1-\frac{\lambda}{n}\right)^{n-k}\\
+		&=\frac{n\cdot(n-1)\cdot\dots\cdot(n-k+1)}{n^k}\cdot\frac{\lambda^k}{k!}\cdot\frac{\left(1-\frac{\lambda}{n}\right)^n}{\left(1-\frac{\lambda}{n}\right)^k}\\
+	\end{align*}
+	Portando al limite:
+	\begin{equation*}
+		\lim_{n\to+\infty}\frac{n\cdot(n-1)\cdot\dots\cdot(n-k+1)}{n^k}\cdot\frac{\lambda^k}{k!}\cdot\frac{\left(1-\frac{\lambda}{n}\right)^n}{\left(1-\frac{\lambda}{n}\right)^k}
+	\end{equation*}
+	Per le proprietà dei limiti:
+	\begin{align*}
+		&\lim_{n\to+\infty}\frac{n\cdot(n-1)\cdot\dots\cdot(n-k+1)}{n^k}=\lim_{n\to+\infty}\frac{n^k+o(n^k)}{n^k}=1\\
+		&\lim_{n\to+\infty}\frac{\lambda^k}{k!}=\frac{\lambda^k}{k!}\\
+		&\lim_{n\to+\infty}\left(1-\frac{\lambda}{n}\right)^n=e^{-\lambda}\\
+		&\lim_{n\to+\infty}\left(1-\frac{\lambda}{n}\right)^k=1
+	\end{align*}
+	Segue:
+	\begin{align*}
+		\lim_{n\to+\infty}p_{X_n}(k)&=\lim_{n\to+\infty}\frac{n\cdot(n-1)\cdot\dots\cdot(n-k+1)}{n^k}\cdot\frac{\lambda^k}{k!}\cdot\frac{\left(1-\frac{\lambda}{n}\right)^n}{\left(1-\frac{\lambda}{n}\right)^k}\\
+		&=1\cdot\frac{\lambda^k}{k!}\cdot \frac{e^{-\lambda}}{1}\\
+		&=e^{-\lambda}\frac{\lambda^k}{k!}=p_Y(k)\qedhere
+	\end{align*}
+\end{proof}
+Euristicamente si verifica che $Bin(n,p)$ si può approssimare con $Po(np)$ se
+\begin{align*}
+	n&>100\\
+	p&<0.01\\
+	np&\leq20
+\end{align*}
+Si può dimostrare che dal Teorema Limite di Poisson seguono anche
+\begin{align*}
+	\lim_{n\to+\infty}E(X_n)&=E(Y)\\
+	\lim_{n\to+\infty}Var(X_n)&=Var(Y)\\
+\end{align*}
+Nelle applicazioni reali il teorema si può applicare a situazioni compatibili con lo schema di Bernoulli in cui si verificano un numero $n\gg1$ di prove ripetute indipendenti, ciascuna con una probabilità $p\ll1$ di avere successo. Generalmente $n$ e $p$ non sono noti (ad esempio, il numero di terremoti di intensità più alta di una certa soglia in una zona sismica non è misurabile, non si possono contare uno per uno, e soprattutto non si può calcolare con una certa accuratezza la probabilità che se ne verifichi uno), ma si può calcolare la media (eseguendo misurazioni ripetute nel tempo), che per le variabili di famiglia $Bin(n,p)$ è $np$. Non essendo noti $n$ e $p$ non si può usare una variabile binomiale, e quindi si approssima con una variabile di Poisson $Po(\lambda)=Po(np)$. Oltretutto, per $n$ grandi il calcolo dei coefficienti binomiali nella densità discreta di $Bin(n,p)$ diventa molto difficoltoso, mentre la densità discreta di $Po(\lambda)$ è sempre molto calcolabile. Negli esercizi, le possibilità di applicazione del Teorema Limite sono due:
+\begin{itemize}
+	\item Può essere che siano dati un numero di prove e una probabilità di successo che rispettano l'euristica, e per cui i calcoli con $B(n,p)$ sono difficili
+	\item Può essere che non siano dati $n$ e $p$ ma direttamente il valore medio $np$, e quindi si usa direttamente $Po(np)$
+\end{itemize}
+\begin{esercizio}
+	La probabilità che in una partita di poker venga servito un full è $0.0014$. Vengono giocate 1000 partite. Calcolare la probabilità che vengano serviti alpiù 3 full.
+	\begin{soluzione}
+		L'esercizio si può studiare attraverso uno schema di Bernoulli in cui:
+		\begin{itemize}
+			\item La prova ripetuta è una partita di poker, e il successo consiste nel servizio di un full.
+			\item Il numero di prove ripetute è $n=1000$
+			\item la probabilità di successo è $p=0.0014$
+		\end{itemize}
+		Il numero di successi su $n$ prove si può rappresentare con una variabile aleatoria $X$ tale che:
+		\begin{equation*}
+			X\sim Bin(n,p)=Bin(1000,0.0014)
+		\end{equation*}
+		Valgono
+		\begin{align*}
+			n&=1000>100\\
+			p&=0.0014<0.01\\
+			np&=1.4\leq20
+		\end{align*}
+		Possiamo quindi utilizzare l'approssimazione di Poisson: consideriamo una variabile aleatoria $Y$ tale che:
+		\begin{equation*}
+			Y\sim Po(np)=Po(1.4)
+		\end{equation*}
+		Calcoliamo la probabilità richiesta:
+		\begin{align*}
+			&P(X\leq3)\approx\\
+			& P(Y\leq3)=\\
+			&P(Y=0)+P(Y=1)+P(Y=2)+P(Y=3)=\\
+			&e^{-1.4}\frac{(1.4)^0}{0!}+e^{-1.4}\frac{(1.4)^1}{1!}+e^{-1.4}\frac{(1.4)^2}{2!}+e^{-1.4}\frac{(1.4)^3}{3!}\approx0.95\qedhere
+		\end{align*}
+	\end{soluzione}
+\end{esercizio}
+\begin{esercizio}
+	Il numero di influenze che una data persona contrae in un anno si distribuisce come $Po(5)$. Viene proposto un vaccino che fa diminuire a $3$ il numero di influenze contratte annualmente, ma funziona solo nel $75\%$ dei casi. Se un individuo si vaccina e quell'anno contrae solo 2 influenze, qual è la probabilità che il vaccino sia stato efficace?
+	\begin{soluzione}
+		Definiamo alcuni eventi di interesse:
+		\begin{align*}
+			E&=\{\text{"il vaccino è stato efficace"}\}\\
+			F&=\{\text{"l'individuo è vaccinato e contrae 2 influenze"}\}\\
+		\end{align*}
+		Definiamo inoltre le variabili aleatorie
+		\begin{equation*}
+			X_i=Po(i)\quad i\in\{3,5\}
+		\end{equation*}
+		Dobbiamo calcolare la probabilità $P(E|F)$. Non abbiamo informazioni su questa probabilità condizionata, ma possiamo ricavarne sul contrario, quindi applichiamo il Teorema di Bayes e la formula di probabilità totale:
+		\begin{align*}
+			P(E|F)&=\frac{P(F|E)P(E)}{P(F)}\\
+			&=\frac{P(F|E)P(E)}{P(F|E)P(E)+P(F|E^C)P(E^C)}\\
+		\end{align*}
+		Dal testo, $P(E)=0.75$, e quindi $P(E^C)=0.25$. Le probabilità condizionate a $E$ e $E^C$ sono date dalle probabilità che le rispettive variabili aleatorie di Poisson valgano 2:
+		\begin{align*}
+			&\frac{P(F|E)P(E)}{P(F|E)P(E)+P(F|E^C)P(E^C)}=\\
+			&\frac{P(X_3=2)P(E)}{P(X_3=2)P(E)+P(X_5=2)P(E^C)}=\\
+			&\frac{e^{-3}\frac{3^2}{2!}\cdot0.75}{e^{-3}\frac{3^2}{2!}\cdot0.75+e^{-5}\frac{5^2}{2!}\cdot0.25}
+		\end{align*}
+	\end{soluzione}
+\end{esercizio}
+% paragraph variabili_aleatorie_di_poisson (end)
 % subsubsection alfabeto_infinito (end)
 % subsection variabili_aleatorie_discrete_notevoli (end)
 % section variabili_aleatorie_discrete (end)
