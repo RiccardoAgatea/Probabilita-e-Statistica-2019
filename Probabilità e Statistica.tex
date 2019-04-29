@@ -1,6 +1,8 @@
 \documentclass{article}
 
 \usepackage[italian]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -13,6 +15,7 @@
 \usepackage{soulutf8}
 \usepackage{contour}
 \usepackage[scr]{rsfso}
+\usepackage{bm}
 
 \theoremstyle{plain}
 \newtheorem{teorema}{Teorema}[section]
@@ -48,6 +51,12 @@
 
 \title{Appunti di Probabilità e Statistica}
 \author{Riccardo Agatea}
+
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=black,  %choose some color if you want links to stand out
+}
 
 \begin{document}
 \pagenumbering{gobble}
@@ -1635,4 +1644,99 @@ Nelle applicazioni reali il teorema si può applicare a situazioni compatibili c
 % subsubsection alfabeto_infinito (end)
 % subsection variabili_aleatorie_discrete_notevoli (end)
 % section variabili_aleatorie_discrete (end)
+\section{Vettori Aleatori Discreti} % (fold)
+\label{sec:vettori_aleatori_discreti}
+Con gli strumenti che abbiamo non siamo ancora in grado di calcolare alcune cose che idealmente dovrebbero essere semplici, ad esempio $E(XY)$ oppure $Var(X+Y)$, con $X$ e $Y$ variabili aleatorie. Consideriamo in particolare $Var(X+Y)$:
+\begin{align*}
+	Var(X+Y)&=E[(X+Y-E(X+Y))^2]\\
+	&=E[(X-E(X)+Y-E(Y))^2]\\
+	&=E[(X-E(X))^2+(Y-E(Y))^2+2(X-E(X))(Y-E(Y))]\\
+	&=E[(X-E(X))^2]+E[(Y-E(Y))^2]+2E[(X-E(X))(Y-E(Y))]
+\end{align*}
+Definiamo una grandezza che caratterizza $X$ e $Y$:
+\begin{definizione}
+	Si definisce la covarianza fra due variabili aleatorie $X$ e $Y$:
+	\begin{equation*}
+		Cov(X,Y)=E[(X-E(X))(Y-E(Y))]
+	\end{equation*}
+\end{definizione}
+Risulta:
+\begin{equation*}
+	Var(X+Y)=Var(X)+Var(Y)+2Cov(X,Y)
+\end{equation*}
+Dobbiamo analizzare la covarianza più nel dettaglio. Osserviamo, dalla definizione, due cose:
+\begin{osservazione}
+	\begin{equation*}
+		Y=X \Rightarrow Cov(X,Y)=Cov(X,X)=Var(X)
+	\end{equation*}
+\end{osservazione}
+\begin{osservazione}
+	\begin{align*}
+		Cov(X,Y)&=E[(X-E(X))(Y-E(Y))]\\
+		&=E[XY-YE(X)-XE(Y)+E(X)E(Y))]\\
+		&=E(XY)-E(X)E(Y)\cancel{-E(X)E(Y)}\cancel{+E(X)E(Y)}\\
+		&=E(XY)-E(X)E(Y)
+	\end{align*}
+	Questa è una definizione alternativa della covarianza.
+\end{osservazione}
+Per calcolare la covarianza sfruttando l'Osservazione 2, avendo caratterizzato $X$ e $Y$ attraverso i rispettivi alfabeti e le rispettive densità discrete, è piuttosto semplice calcolare $E(X)$ e $E(Y)$; per calcolare $E(XY)$ è necessario caratterizzare la variabile $XY$, e in particolare calcolare $p_{XY}(x_i\cdot y_j)$ per ogni coppia $(x_i,y_j)\in\mathcal{X}\times\mathcal{Y}$. Questi valori della densità discreta corrispondono alle probabilità $P(X=x_i,Y=y_j)$, che corrispondono alle probabilità delle intersezioni fra i due eventi $\{X=x_i\}$ e $\{Y=y_j\}$; queste probabilità sono calcolabili esplicitamente solo se i due eventi sono indipendenti. Il motivo per cui non sono calcolabili in generale a partire da $p_X$ e $p_Y$ è che racchiudono e codificano tutte le informazioni sul modo in cui $X$ e $Y$ si relazionano, che sono assenti dalle densità discrete prese singolarmente. Dobbiamo quindi definire un costrutto più potente delle variabili aleatorie per trattare questi casi:
+\begin{definizione}
+	Sia $(\Omega, \mathds{P}(\Omega), P)$ uno spazio di probabilità discreto. Si dice vettore aleatorio $n$-dimensionale una funzione:
+	\begin{align*}
+		\bm{V}:\Omega&\to\Mathds{R}^n\\
+		\omega&\mapsto\bm{V}(\omega)=(X_1 (\omega),\dots,X_n (\omega))
+	\end{align*}
+\end{definizione}
+Noi ci concentreremo sul caso $n=2$:
+\begin{align*}
+	\bm{V}:\Omega&\to\Mathds{R}^2\\
+		\omega&\mapsto\bm{V}(\omega)=(X(\omega),Y(\omega))
+\end{align*}
+$X$ e $Y$ sono variabili aleatorie discrete, come quelle che abbiamo visto fino adesso, con alfabeti $\mathcal{X}$ e $\mathcal{Y}$ e densità discrete $p_X$ e $p_Y$.
+\subsection{Caratterizzazione dei Vettori Aleatori} % (fold)
+\label{sub:caratterizzazione_dei_vettori_aleatori}
+Cerchiamo adesso di caratterizzare i vettori aleatori come abbiamo fatto per le variabili aleatorie.
+\begin{definizione}
+	Sia $\bm{V}$ un vettore aleatorio discreto bidimensionale. Si dice alfabeto di $\bm{V}$ l'insieme delle coppie di valori che il vettore può assumere. Si ha
+	\begin{equation*}
+		\mathcal{V}\subseteq\mathcal{X}\times\mathcal{Y}
+	\end{equation*}
+\end{definizione}
+Generalemente l'inclusione $\mathcal{V}\subseteq\mathcal{X}\times\mathcal{Y}$ è un'inclusione stretta. Si verifica l'uguaglianza quando $\{X=x_i\}$ e $\{Y=y_j\}$ sono eventi indipendenti per ogni coppia $(x_i,y_j)\in\mathcal{X}\times\mathcal{Y}$. Definiamo andesso il corrispettivo della densità discreta:
+\begin{definizione}
+	Si chiama densità discreta congiunta di un vettore aleatorio $\bm{V}=(X,Y)$, o più comunemente delle variabili $X$ e $Y$, la mappa
+	\begin{align*}
+		p_{XY}:\mathcal{X}\times\mathcal{Y}&\to[0,1]\\
+		(x_i,y_j)&\mapsto P(X=x_i,Y=y_j)
+	\end{align*}
+\end{definizione}
+\begin{osservazione}
+	Si considera $\mathcal{X}\times\mathcal{Y}$ come dominio di $p_{XY}$ per comodità. Per i punti $(x_i,y_j)\notin\mathcal{V}$ vale $p_{XY}(x_i,y_j)=0$, perchè se $\bm{V}$ non può assumere valore $(x_i,y_j)$, significa che $\{X=x_i\}\cap\{Y=y_j\}=\emptyset$
+\end{osservazione}
+La densità congiunta è una misura di probabilità, quindi vale
+\begin{enumerate}
+	\item
+	\begin{equation*}
+		p_{XY}(x_i , y_j)\geq0\quad\forall(x_i , y_j)\in\mathcal{V}
+	\end{equation*}
+	\item 
+	\begin{equation*}
+		\sum_{x_i\in\mathcal{X}}\sum_{y_j\in\mathcal{Y}}p_{XY}(x_i,y_j)=1
+	\end{equation*}
+\end{enumerate}
+\begin{lemma}
+	Le densità discrete $p_X$ e $p_Y$ di $X$ e $Y$ rispettivamente (dette anche densità marginali) si ottengono da $p_{XY}$ come
+	\begin{align*}
+		p_X(x_i)=\sum_{y_j\in\mathcal{Y}}p_{XY}(y_j)&& p_Y(y_j)=\sum_{x_i\in\mathcal{X}}p_{XY}(x_i)
+	\end{align*}
+\end{lemma}
+Mentre è possibile calcolare le densità marginali dalla densità congiunta, non è sempre possibile il viceversa. Si possono adesso definire valor medio e varianza di variabili aleatorie ottenute come funzioni di più variabili aleatorie (cioè come funzioni di vettori aleatori):
+\begin{definizione}
+	Sia $(X,Y)$ vettore aleatorio discreto, sia $g:\mathds{R}^2\to\mathds{R}$ funzione sufficientemente regolare. Allora si definisce
+	\begin{equation*}
+		E[g(X,Y)]=\sum_{x_i\in\mathcal{X}}\sum_{y_j\in\mathcal{Y}}g(x_i,y_j)p_{XY}(x_i,y_j)
+	\end{equation*}
+\end{definizione}
+% subsection caratterizzazione_dei_vettori_aleatori (end)
+% section vettori_aleatori_discreti (end)
 \end{document}

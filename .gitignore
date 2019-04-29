@@ -1,5 +1,6 @@
-*.aux
+﻿*.aux
 *.log
 *.synctex.gz
 *.toc
+*.out
 appunti_probabilità.pdf
