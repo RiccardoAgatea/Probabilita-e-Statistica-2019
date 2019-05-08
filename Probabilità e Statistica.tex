@@ -1868,6 +1868,182 @@ Non vedremo molto sull'indipendenza di più variabili, ma una proprietà importa
 		\end{align*}
 	\end{soluzione}
 \end{esercizio}
+\begin{esercizio}
+	Sul tavolo ci sono due monete, delle quali una sola è equilibrata. Quella truccata ha una probabilità di ottenere testa di $\frac{1}{3}$. Si sceglie a caso una delle due monete e si lancia due volte. Consideriamo le variabili aleatorie
+	\begin{equation*}
+		X_i=
+		\begin{cases}
+			1&\text{se all'}i\text{-esimo lancio si ottiene testa}\\
+			0&\text{altrimenti}
+		\end{cases}
+	\end{equation*}
+	per $i=1,2$.
+	\begin{enumerate}
+		\item Calcolare la densità congiunta di $(X_1,X_2)$
+		\item Calcolare $E(X_1)$ e $E(X_2)$
+		\item Dire se $X_1$ e $X_2$ sono indipendenti
+	\end{enumerate}
+	\begin{soluzione}
+		\begin{enumerate}
+			\item Definiamo l'evento
+			\begin{equation*}
+				F=\text{"prendiamo la moneta onesta"}
+			\end{equation*}
+			Possiamo adesso calcolare la densità congiunta di $(X_1,X_2)$, considerando che l'alfabeto di $(X_1,X_2)$ è $\{0,1\}^2$, ed utilizzando la formula di probabilità totale:
+			\begin{align*}
+				p_{X_1X_2}(0,0)&=P(X_1=0\cap X_2=0)\\
+				&=P(X_1=0\cap X_2=0|F)P(F)+P(X_1=0\cap X_2=0|F^C)P(F^C)\\
+				&=\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{1}{2}+\frac{2}{3}\cdot\frac{2}{3}\cdot\frac{1}{2}=\frac{25}{72}\\
+				p_{X_1X_2}(0,1)&=P(X_1=0\cap X_2=1)\\
+				&=P(X_1=0\cap X_2=1|F)P(F)+P(X_1=0\cap X_2=1|F^C)P(F^C)\\
+				&=\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{1}{2}+\frac{2}{3}\cdot\frac{1}{3}\cdot\frac{1}{2}=\frac{17}{72}\\
+				p_{X_1X_2}(1,0)&=P(X_1=1\cap X_2=0)\\
+				&=P(X_1=1\cap X_2=0|F)P(F)+P(X_1=1\cap X_2=0|F^C)P(F^C)\\
+				&=\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{1}{2}+\frac{1}{3}\cdot\frac{2}{3}\cdot\frac{1}{2}=\frac{17}{72}\\
+				p_{X_1X_2}(1,1)&=P(X_1=1\cap X_2=1)\\
+				&=P(X_1=1\cap X_2=1|F)P(F)+P(X_1=1\cap X_2=1|F^C)P(F^C)\\
+				&=\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{1}{2}+\frac{1}{3}\cdot\frac{1}{3}\cdot\frac{1}{2}=\frac{13}{72}
+			\end{align*}
+			\item Notiamo che
+			\begin{equation*}
+				X_i\sim Be(p_i)
+			\end{equation*}
+			Quindi, $E(X_i)=p_i$. È quindi sufficiente calcolare le due densità marginali:
+			\begin{align*}
+				E(X_1)&=p_{X_1}(1)\\
+				&=p_{X_1X_2}(1,0)+p_{X_1X_2}(1,1)\\
+				&=\frac{17}{72}+\frac{13}{72}=\frac{5}{12}\\
+				E(X_2)&=p_{X_1}(2)\\
+				&=p_{X_1X_2}(0,1)+p_{X_1X_2}(1,1)\\
+				&=\frac{17}{72}+\frac{13}{72}=\frac{5}{12}
+			\end{align*}
+			\item Non sono indipendenti, perchè si ha
+			\begin{equation*}
+				p_{X_1X_2}(1,1)\neq p_{X_1}(1)p_{X_2}(1)\qedhere
+			\end{equation*}
+		\end{enumerate}
+	\end{soluzione}
+\end{esercizio}
 % subsection indipendenza_fra_variabili_aleatorie (end)
 % section vettori_aleatori_discreti (end)
+\section{Variabili Aleatorie Assolutamente Continue} % (fold)
+\label{sec:variabili_aleatorie_assolutamente_continue}
+La definizione essenzialmente è la stessa delle variabili aleatorie discrete, se non che lo spazio campionario sottostante sarà continuo invece che discreto. In realtà c'è un problema nella definizione della misura di probabilità per spazi campionari di questo tipo, che ha svariate sfaccettature, e che noi non vedremo. Noi daremo una descrizione probabilistica delle variabili aleatorie assolutamente continue, lasciando che lo spazio di probabilità rimanga implicito.
+\begin{definizione}
+	Una variabile aleatoria $X$ si dice (assolutamente) continua se esiste una funzione $f_X:\mathds{R}\to\mathds{R}$, detta densità di probabilità, tale che per ogni intervallo $[a,b]\subseteq\mathds{R}$ vale
+	\begin{equation*}
+		P(a\leq X\leq b)=\int_a^bf_X(x)dx
+	\end{equation*}
+\end{definizione}
+\begin{nota}
+	\begin{enumerate}
+		\item Se non ci sono ambiguità, generalmente la $X$ a pedice di $f$ si omette.
+		\item Esistono anche variabili aleatorie continue non assolutamente, ma noi non le vedremo, quindi spesso ometteremo il termine "assolutamente".
+	\end{enumerate}
+\end{nota}
+La funzione $f$ deve soddisfare
+\begin{enumerate}
+	\item Positività
+	\begin{equation*}
+		f_X(x)\geq0\quad\forall x\in\mathds{R}
+	\end{equation*}
+	\item Normalizzazione
+	\begin{equation*}
+		\int_\mathds{R}f(x)dx=1
+	\end{equation*}
+\end{enumerate}
+\begin{nota}
+	La funzione densità di probabilità ha un significato diverso dalla densità discreta, perchè quest'ultima è effettivamente una probabilità, invece la funzione $f$ non lo è, mentre lo è il suo integrale.
+\end{nota}
+\begin{osservazione}
+	\begin{itemize}
+		\item La funzione $f$ non è necessariamente continua.
+		\item La probabilità che $X$ appartenga all'intervallo $[a,b]$ è data dall'area sottesa dal grafico di $f_X$, l'asse $x$ e le due rette $x=a$ e $x=b$.
+		\item Non si può parlare di "probabilità che $X$ assuma valore $a$", perchè la questa sarebbe data da
+		\begin{align*}
+			P(X=a)&=\lim_{\varepsilon\to0}P(a-\varepsilon\leq X\leq a+\varepsilon)\\
+			&=\lim_{\varepsilon\to0}\int_{a-\varepsilon}^{a+\varepsilon}f_X(x)dx=0
+		\end{align*}
+		Questo non va interpretato come "l'evento $X=a$ è impossibile", ma il significato è che la probabilità $P(X=a)$ non ha significato nell'ambito delle variabili aleatorie continue.
+		\item La funzione $f_x$ va intesa come una densità in senso fisico: per un certo valore $a\in\mathds{R}$, $f_x(a)$ rappresenta non la probabilità di $a$ ma il modo in cui la massa di probabilità di $X$ si distribuisce attorno ad $a$. In un senso molto approssimato, si può intendere $f_X(a)$ come la probabilità che $X$ assuma un valore in un intorno di $a$ diviso l'ampiezza dell'intorno, quando questa ampiezza tende a $0$.
+	\end{itemize}
+\end{osservazione}
+\begin{esercizio}
+	Sia $X$ variabile aleatoria continua con densità
+	\begin{equation*}
+		f_X(x)=
+		\begin{cases}
+			c(4x-2x^2)&\text{se }0<x<2\\
+			0&\text{altrimenti}
+		\end{cases}
+	\end{equation*}
+	Calcoliamo $c$ e $P(X>1)$.
+	\begin{soluzione}
+		Siccome $f_X$ è una densità deve valere:
+		\begin{align*}
+			\int_\mathds{R}f(x)dx&=1\\
+			\int_{-\infty}^00+\int_0^2c(4x-2x^2)dx+\int_2^{+\infty}&=1\\
+			0+c\left[2x^2-\frac{2}{3}x^3\right]_0^2+0&=1\\
+			\frac{8}{3}c&=1\\
+			c&=\frac{3}{8}
+		\end{align*}
+		Possiamo calcolare $P(X>1)$:
+		\begin{align*}
+			P(X>1)&=\int_1^{+\infty}f_X(x)dx\\
+			&=\frac{3}{8}\int_1^2(4x-2x^2)=\frac{1}{2}\qedhere
+		\end{align*}
+	\end{soluzione}
+\end{esercizio}
+In alcuni casi le stesse informazioni fornite dalla funzione di densità vengono date da un'altra funzione, detta di distribuzione o ripartizione, che può essere più comoda. In questo modo si ottiene una caratterizzazione equivalente della variabile aleatoria in esame.
+\begin{definizione}
+	Sia $X$ una variabile aleatoria continua. Si dice funzione di distribuzione o di ripartizione di $X$ la funzione
+	\begin{align*}
+		F_X:\mathds{R}&\to[0,1]\\
+		x&\mapsto F_X(x)=P(X\leq x)
+	\end{align*}
+\end{definizione}
+\begin{osservazione}
+	Se $F_X$ è nota, possiamo calcolare $P(X\in(a,b])$; infatti:
+	\begin{align*}
+		P(X\in(a,b])&=P(a<X\leq b)\\
+		&=P(\{X\leq b\}\smallsetminus\{X\leq a\})\\
+		&=P(\{X\leq b\})-P(\{X\leq a\})\\
+		&=F_X(b)-F_X(a)
+	\end{align*}
+\end{osservazione}
+Vediamo due proprietà della funzione di distribuzione
+\begin{enumerate}
+	\item 
+	\begin{align*}
+		\lim_{x\to-\infty}F_X(x)=0&&\lim_{x\to+\infty}F_X(x)=1
+	\end{align*}
+	\item
+	\begin{equation*}
+		x\leq y\Rightarrow F_X(x)\leq F_X(y)
+	\end{equation*}
+\end{enumerate}
+Fra funzione densità di probabilità e funzione di ripartizione c'è un legame piuttosto stretto, che deriva direttamente dalla definizione di $F_X$:
+\begin{align*}
+	F_X(x)&=\int_{-\infty}^xf_X(t)dt\\
+	f_X(x)&=\frac{d}{dx}F_X(x)
+\end{align*}
+La funzione di distribuzione si può utilizzare per calcolare la densità di funzioni invertibili di variabili aleatorie; questo non lo formalizziamo, ma lo vediamo con un esempio.
+\begin{esempio}
+	Supponiamo che $X$ sia una variabile continua con densità $f_X$ e funzione di distribuzione $F_X$. Definiamo $Y=2X$, e determiniamo la densità di $Y$.
+	\begin{soluzione}
+		La cosa più semplice è caratterizzare la funzione di distribuzione di $Y$:
+		\begin{align*}
+			F_Y(y)&=P(Y\leq y)\\
+			&=P(2X\leq y)\\
+			&=P\left(X\leq \frac{y}{2}\right)=F_X\left(\frac{y}{2}\right)
+		\end{align*}
+		Possiamo quindi calcolare la densità:
+		\begin{align*}
+			f_Y(y)&=\frac{d}{dy}F_Y(y)\\
+			&=\frac{d}{dy}F_X\left(\frac{y}{2}\right)\\
+			&=F_X'\left(\frac{y}{2}\right)\cdot\frac{1}{2}=\frac{f_X\left(\frac{y}{2}\right)}{2}\qedhere
+		\end{align*}
+	\end{soluzione}
+\end{esempio}
+% section variabili_aleatorie_assolutamente_continue (end)
 \end{document}
