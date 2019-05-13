@@ -2045,5 +2045,138 @@ La funzione di distribuzione si può utilizzare per calcolare la densità di fun
 		\end{align*}
 	\end{soluzione}
 \end{esempio}
+\subsection{Valor Medio e Varianza di Variabili Aleatorie Continue} % (fold)
+\label{sub:valor_medio_e_varianza_di_variabili_aleatorie_continue}
+\begin{definizione}
+	Sia $X$ variabile aleatoria continua con densità $f_X$; il suo valor medio è dato da
+	\begin{equation*}
+		E(X)=\int_{-\infty}^{+\infty}xf_X(x)dx
+	\end{equation*}
+	se l'integrale esiste finito.
+\end{definizione}
+\begin{NB}
+	Non tutte le variabili aleatorie continue hanno valor medio. Ad esempio, le variabili aleatorie di Cauchy, cioè con densità
+	\begin{equation*}
+		f_X(x)=\frac{1}{\pi}\frac{1}{x^2+1}
+	\end{equation*}
+	non hanno valor medio.
+\end{NB}
+\begin{teorema}
+	Sia $X$ una variabile aleatoria continua, sia $g:\mathds{R}\to\mathds{R}$ una funzione sufficientemente regolare. Allora $g(X)$ è ancora una variabile aleatoria continua, ed il suo valor medio è
+	\begin{equation*}
+		E(g(X))=\int_{-\infty}^{+\infty}g(x)f_X(x)dx
+	\end{equation*}
+	se l'integrale esiste finito.
+\end{teorema}
+\begin{nota}
+	Chiaramente, potrebbe essere che $X$ abbia valor medio, ma che $g(X)$ non ce l'abbia
+\end{nota}
+Come applicazione del teorema, possiamo scegliere $g(x)=(x-E(X))^2$ ed ottenere la varianza di $X$ come
+\begin{equation*}
+	Var(X)=E[(X-E(X))^2]=\int_{-\infty}^{+\infty}(x-E(X))^2f_X(x)dx
+\end{equation*}
+Come per le variabili aleatorie discrete, vale
+\begin{equation*}
+	Var(X)=E(X^2)-E(X)^2
+\end{equation*}
+Chiaramente, anche per calcolare $E(X^2)$ è necessario applicare il teorema.
+% subsection valor_medio_e_varianza_di_variabili_aleatorie_continue (end)
+\subsection{Variabili Aleatorie Continue Notevoli} % (fold)
+\label{sub:variabili_aleatorie_continue_notevoli}
+Analogamente alle variabili aleatorie discrete, si possono considerare due variabili equivalenti se hanno la stessa probabilità:
+\begin{definizione}
+	Siano $X$ e $Y$ due varibili aleatorie continue con stessa funzione densità di probabilità:
+	\begin{equation*}
+		f_X(x)=f_Y(x)\quad\forall x\in\mathds{R}
+	\end{equation*}
+	Allora $X$ e $Y$ si dicono probabilisticamente equivalenti e si indica
+	\begin{equation*}
+		X\sim Y
+	\end{equation*}
+\end{definizione}
+\paragraph{Vaiabili Aleatorie Uniformi} % (fold)
+\label{par:vaiabili_aleatorie_uniformi}
+Una variabile $X$ si dice uniforme e si indica
+\begin{equation*}
+	X\sim U(a,b)\quad\text{con }a<b
+\end{equation*}
+se è caratterizzata da
+\begin{align*}
+	f_X(x)&=
+	\begin{cases}
+		\frac{1}{b-a}&\text{se }x\in[a,b]\\
+		0&\text{se }x\notin[a,b]
+	\end{cases}\\
+	F_X(x)&=
+	\begin{cases}
+		0&\text{se }x<a\\
+		\frac{x-a}{b-a}&\text{se }a\leq x\leq b\\
+		1&\text{se }x>b
+	\end{cases}\\
+	E(X)&=\frac{b+a}{2}\\
+	Var(X)&=\frac{(b-a)^2}{12}
+\end{align*}
+Le espressioni di $F_X(x)$, $E(X)$ e $Var(X)$ si ricavano da $f_X(x)$ applicando le definizioni.
+% paragraph vaiabili_aleatorie_uniformi (end)
+\paragraph{Variabili Aleatorie Esponenziali} % (fold)
+\label{par:variabili_aleatorie_esponenziali}
+Una variabile $X$ si dice esponenziale e si indica
+\begin{equation*}
+	X\sim Exp(\lambda)\quad\text{con }\lambda>0
+\end{equation*}
+se è caratterizzata da
+\begin{align*}
+	f_X(x)&=
+	\begin{cases}
+		\lambda e^{-\lambda x}&\text{se }x\geq0\\
+		0&\text{se }x<0
+	\end{cases}\\
+	F_X(x)&=
+	\begin{cases}
+		0&\text{se }x<0\\
+		1-e^{-\lambda x}&\text{se }x\geq0
+	\end{cases}\\
+	E(X)&=\frac{1}{\lambda}\\
+	Var(X)&=\frac{1}{\lambda^2}
+\end{align*}
+Le espressioni di $F_X(x)$, $E(X)$ e $Var(X)$ si ricavano attraverso le definizioni (per calcolare $E(X)$e $Var(X)$ bisogna integrare per parti).
+\subparagraph{Usi delle Variabili Aleatorie Esponenziali} % (fold)
+\label{subp:usi_delle_variabili_aleatorie_esponenziali}
+Le variabili esponenziali si utilizzano per modellare tempi di primo arrivo o tempi di attesa, e infatti sono fortemente legate alle variabili di Poisson. Supponiamo ad esempio che $N_1$ sia la variabile aleatoria che modella le richieste di servizio di un server per unità di tempo. Tipicamente si assume che $N_1\sim Po(\lambda)$, dove $\lambda$ è il numero medio di richieste al server per unità di tempo. Il numero di richieste in $t$ unità di tempo sarà quindi $N_t\sim Po(\lambda t)$. Definiamo ora $W$ la variabile aleatoria che rappresenta il tempo di attesa fino all'arrivo della prima richiesta; si ha
+\begin{equation*}
+	P(W>t)=P(N_t=0)=e^{-\lambda t}
+\end{equation*}
+Segue che
+\begin{equation*}
+	P(W\leq t)=1-P(W>t)=1-e^{-\lambda t}
+\end{equation*}
+Se $t$ è un istante infinitesimo di tempo, questa è la funzione di ripartizione di $W$:
+\begin{equation*}
+	F_X(t)=1-e^{-\lambda t}
+\end{equation*}
+Quindi $W\sim Exp(\lambda)$.
+% subparagraph usi_delle_variabili_aleatorie_esponenziali (end)
+\subparagraph{Proprietà di Assenza di Memoria} % (fold)
+\label{subp:proprietà_di_assenza_di_memoria}
+Se $X\sim Exp(\lambda)$, allora $X$ "non ha memoria":
+\begin{equation*}
+	P(X\geq T+t|X\geq T)=P(X\geq t)
+\end{equation*}
+\begin{proof}
+	\begin{align*}
+		P(X\geq T+t|X\geq T)&=\frac{P(X\geq T+t,X\geq T)}{P(X\geq T)}\\
+		&=\frac{P(X\geq T+t)}{P(X\geq T)}\\
+		&=\frac{1-P(X\leq T+t)}{1-P(X\leq T)}\\
+		&=\frac{1-F_X(T+t)}{1-F_X(T)}\\
+		&=\frac{e^{-\lambda (T+t)}}{e^{-\lambda T}}\\
+		&=e^{-\lambda t}\\
+		&=1-F_X(t)\\
+		&=1-P(X\leq t)\\
+		&=P(X\geq t)\qedhere
+	\end{align*}
+\end{proof}
+% subparagraph proprietà_di_assenza_di_memoria (end)
+% paragraph variabili_aleatorie_esponenziali (end)
+% subsection variabili_aleatorie_continue_notevoli (end)
 % section variabili_aleatorie_assolutamente_continue (end)
 \end{document}
