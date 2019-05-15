@@ -2175,8 +2175,193 @@ Se $X\sim Exp(\lambda)$, allora $X$ "non ha memoria":
 		&=P(X\geq t)\qedhere
 	\end{align*}
 \end{proof}
+Le variabili esponenziali sono le uniche variabili assolutamente continue ad avere questa proprietà.
 % subparagraph proprietà_di_assenza_di_memoria (end)
+\begin{esercizio}
+	La lunghezza di una telefonata (in minuti) è una variabile aleatoria $X\sim Exp(\frac{1}{10}$. Se qualcuno arriva prima di noi alla cabina telefonica, determinare la probabilità di dover aspettare
+	\begin{enumerate}
+		\item più di 10 minuti
+		\item tra 10 e 20 minuti
+	\end{enumerate}
+	\begin{soluzione}
+		\begin{enumerate}
+			\item 
+			\begin{align*}
+				P(X>10)&=1-P(X\leq 10)\\
+				&=1-F_X(10)\\
+				&=1-1+e^{-10\cdot\frac{1}{10}}=e^{-1}\approx 0.368
+			\end{align*}
+			\item 
+			\begin{align*}
+				P(10< X< 20)&=F_X(20)-F_X(10)\\
+				&=1-e^{-20\cdot\frac{1}{10}}-1+e^{-10\cdot\frac{1}{10}}\\
+				&=e^{-1}-e^{-2}\approx 0.233\qedhere
+			\end{align*}
+		\end{enumerate}
+	\end{soluzione}
+\end{esercizio}
+\begin{esercizio}
+	Il numero di km che un'automo percorre prima che la batteria ceda è una variabile aleatoria esponenziale di media $10000$. Se una persona desidera fare un viaggio di $5000km$, qual è la probabilità che effettui il viaggio senza cambiare la batteria?
+	\begin{soluzione}
+		Definiamo $X$ la variabile aleatoria che descrive la durata della batteria misurata in $Mm=10^6m$. Quindi, siccome la media di $X$ è $10$, vale
+		\begin{equation*}
+			X\sim Exp(\frac{1}{10})
+		\end{equation*}
+		Sia $T$ il tempo di usura attuale della batteria. Vogliamo calcolare
+		\begin{equation*}
+			P(X>T+5|X>T)
+		\end{equation*}
+		Per l'assenza di memoria delle variabili esponenziali:
+		\begin{equation*}
+			P(X>T+5|X>T)=P(X>5)
+		\end{equation*}
+		Segue:
+		\begin{align*}
+			P(X>5)&=1-P(X\leq 5)\\
+			&=1-F_X(5)\\
+			&=e^{-5\cdot\frac{1}{10}}\\
+			&=e^{-\frac{1}{2}}\approx 0.604\qedhere
+		\end{align*}
+	\end{soluzione}
+\end{esercizio}
 % paragraph variabili_aleatorie_esponenziali (end)
+\paragraph{Varaibile Aleatorie Gaussiane o Normali} % (fold)
+\label{par:varaibile_aleatorie_gaussiane_o_normali}
+Una variabile si dice gaussiana o normale e si indica
+\begin{equation*}
+	X\sim N(\mu, \sigma^2)\quad\text{con }\mu\in\mathds{R},\sigma^2>0
+\end{equation*}
+se è caratterizzata da
+\begin{equation*}
+	f_X(x)=\frac{1}{\sqrt{2\pi\sigma^2}}\cdot e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\end{equation*}
+\begin{osservazione}
+	Per le variabili normali non è possibile dare la funzione di distribuzione perchè $e^{-x^2}$ non ammette primitiva in modo analitico.
+\end{osservazione}
+La funzione densità di $X$ ha un grafico detto "a campana". Il grafico è simmetrico rispetto $\mu$, e la larghezza è data dalla varianza. Calcoliamo $E(X)$:
+\begin{align*}
+	E(X)&=\int_{-\infty}^{+\infty}x\frac{1}{\sqrt{2\pi\sigma^2}}\cdot e^{-\frac{(x-\mu)^2}{2\sigma^2}}dx\\
+	&\text{sommo e sottraggo }\mu\\
+	&=\int_{-\infty}^{+\infty}\frac{x-\mu+\mu}{\sqrt{2\pi\sigma^2}}\cdot e^{-\frac{(x-\mu)^2}{2\sigma^2}}dx\\
+	&=\int_{-\infty}^{+\infty}\frac{x-\mu}{\sqrt{2\pi\sigma^2}}\cdot e^{-\frac{(x-\mu)^2}{2\sigma^2}}dx+\mu\int_{-\infty}^{+\infty}\frac{1}{\sqrt{2\pi\sigma^2}}\cdot e^{-\frac{(x-\mu)^2}{2\sigma^2}}dx\\
+	&\text{il secondo integrale è }1\text{, in quanto la funzione integranda è }f_X(x)\\
+	&\text{cambio variabile nel primo integrale: }y=\frac{x-\mu}{\sqrt{2\sigma^2}},\ dy=dx\\
+	&=\int_{-\infty}^{+\infty}\frac{y}{\sqrt{\pi}}e^{-y^2}dy+\mu\\
+	&\text{la funzine integranda è dispari, e il dominio è simmetrico rispetto }0\\
+	&\text{quindi l'integrale è nullo}\\
+	&=0+\mu=\mu
+\end{align*}
+Per calcolare la varianza invece di usare la relazione $Var(X)=E(X^2)-(E(X))^2$ in questo caso è più comodo usare la definizione, perchè con lo stesso cambio di variabile di prima e un'integrazione per parti si ricava. Il risultato è $Var(X)=\sigma^2$.
+\begin{notazione}
+	$\sigma$ si dice deviazione standard.
+\end{notazione}
+\subparagraph{Trasformazioni Affini di Variabili Normali} % (fold)
+\label{subp:trasformazioni_affini_di_variabili_normali}
+Sia $X\sim N(\mu,\sigma^2)$, definiamo $Y=aX+b$. Allora
+\begin{equation*}
+	Y\sim N(a\mu+b,a^2\sigma^2)
+\end{equation*}
+Quindi non è solo possibile ricavare valor medio e varianza di $Y$ (che sono noti dalle loro proprietà), ma sappiamo anche che $Y$ è ancora normale.
+\begin{proof}
+	Caratterizziamo i parametri:
+	\begin{itemize}
+		\item 
+		\begin{align*}
+			E(Y)&=E(aX+b)\\
+			&=aE(X)+b\\
+			&=a\mu+b
+		\end{align*}
+		\item
+		\begin{align*}
+			Var(Y)&=Var(aX+b)\\
+			&=Var(aX)\\
+			&=a^2Var(X)\\
+			&=a^2\sigma^2
+		\end{align*}
+	\end{itemize}
+	Determiniamo ora la funzione di distribuzione di $Y$: per un generico $y\in\mathds{R}$
+	\begin{align*}
+		F_Y(y)&=P(Y\leq y)\\
+		&=P(aX+b\leq y)\\
+		&=P\left(X\leq \frac{y-b}{a}\right)\\
+		&=F_X\left(\frac{y-b}{a}\right)
+	\end{align*}
+	Deriviamo:
+	\begin{align*}
+		f_Y(y)&=\frac{d}{dy}F_Y(y)\\
+		&=\frac{d}{dy}F_X\left(\frac{y-b}{a}\right)\\
+		&=F_X'\left(\frac{y-b}{a}\right)\frac{d}{dy}\frac{y-b}{a}\\
+		&=f_Y\left(\frac{y-b}{a}\right)\cdot\frac{1}{a}\\
+		&=\frac{1}{\sqrt{2\pi\sigma^2}}\cdot e^{-\frac{\left(\frac{y-b}{a}-\mu\right)^2}{2\sigma^2}}\frac{1}{a}\\
+		&=\frac{1}{\sqrt{2\pi a^2\sigma^2}}\cdot e^{-\frac{(y-(a\mu+b))^2}{2a^2\sigma^2}}\qedhere
+	\end{align*}
+\end{proof}
+La conseguenza più importante di questa proprietà è che tutte le variabili aleatorie normali si possono ricondurre ad una variabile normale detta centrata standard, che si indica generalmente con $Z$, che ha media $0$ e varianza $1$. Se $X\sim N(\mu,\sigma^2)$, allora la normale centrata standard è data da
+\begin{equation*}
+	Z=\frac{X-\mu}{\sigma}
+\end{equation*}
+Questo è molto utile per due motivi:
+\begin{enumerate}
+	\item Siccome $F_X$ non si può calcolare analiticamente, va stimata con l'analisi numerica; in tabella è fornita la funzione di ripartizione della centrata standard, e tutte le altre vanno ricavate.
+	\item Si possono confrontare dati che si distribuiscono con normali molto diverse, riconducendosi alla centrata standard.
+\end{enumerate}
+\begin{lemma}
+	Se $X_1,\dots,X_n$ sono variabili aleatorie normali indipendenti, con
+	\begin{equation*}
+		X_i\sim N(\mu_i,\sigma_i^2)
+	\end{equation*}
+	Siano $a_1,\dots,a_n\in\mathds{R}$. Allora
+	\begin{equation*}
+		\sum_{i=n}^n a_iX_i\sim N(\sum_{i=n}^na_i\mu_i,\sum_{i=n}^na_i^2\sigma_i^2)
+	\end{equation*}
+\end{lemma}
+\begin{notazione}
+	La funzione di distribuzione di una variabile normale centrata standard si indica
+	\begin{equation*}
+		\Phi(z)
+	\end{equation*}
+\end{notazione}
+\begin{esercizio}
+	Una macchina confeziona barattoli di caffè del contenuto nominale di $250g$ di caffè. Il peso reale è invece una variabile aleatoria normale di media $250g$.
+	\begin{enumerate}
+		\item Calcolare la deviazione standard del peso sapendo che il $5\%$ dei barattoli pesa più di $250g$
+		\item Calcolare la probabilità che un barattolo pesi meno di $245g$
+	\end{enumerate}
+	\begin{soluzione}
+		\begin{enumerate}
+			\item Indichiamo con $X$ il peso dei barattoli, quindi:
+			\begin{equation*}
+				X\sim N(250, \sigma^2)
+			\end{equation*}
+			Vogliamo fissare $\sigma$ in modo che
+			\begin{equation*}
+				P(X>252)=0.05
+			\end{equation*}
+			Ci riportiamo alla normale centrata standard:
+			\begin{align*}
+				P\left(\frac{X-250}{\sigma}>\frac{252-250}{\sigma}\right)&=P\left(Z>\frac{2}{\sigma}\right)\\
+				&=1-\Phi\left(\frac{2}{\sigma}\right)=0.05\\
+			\end{align*}
+			Si ha
+			\begin{equation*}
+				\Phi\left(\frac{2}{\sigma}\right)=0.95
+			\end{equation*}
+			Da tabella si ricava
+			\begin{equation*}
+				\frac{2}{\sigma}\approx1.645\Rightarrow \sigma\approx1.22
+			\end{equation*}
+			\item Normalizziamo e risolviamo:
+			\begin{align*}
+				P(X<245)&=P\left(\frac{X-250}{1.22}<\frac{245-250}{1.22}\right)\\
+				&=P(Z<-4.098)\\
+				&=\Phi(-4.098)\\
+				&=1-\Phi(4.098)\approx1-1=0\qedhere
+			\end{align*}
+		\end{enumerate}
+	\end{soluzione}
+\end{esercizio}
+% subparagraph trasformazioni_affini_di_variabili_normali (end)
+% paragraph varaibile_aleatorie_gaussiane_o_normali (end)
 % subsection variabili_aleatorie_continue_notevoli (end)
 % section variabili_aleatorie_assolutamente_continue (end)
 \end{document}
