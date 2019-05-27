@@ -2225,8 +2225,8 @@ Le variabili esponenziali sono le uniche variabili assolutamente continue ad ave
 	\end{soluzione}
 \end{esercizio}
 % paragraph variabili_aleatorie_esponenziali (end)
-\paragraph{Varaibile Aleatorie Gaussiane o Normali} % (fold)
-\label{par:varaibile_aleatorie_gaussiane_o_normali}
+\paragraph{Variabili Aleatorie Gaussiane o Normali} % (fold)
+\label{par:variabili_aleatorie_gaussiane_o_normali}
 Una variabile si dice gaussiana o normale e si indica
 \begin{equation*}
 	X\sim N(\mu, \sigma^2)\quad\text{con }\mu\in\mathds{R},\sigma^2>0
@@ -2361,7 +2361,85 @@ Questo è molto utile per due motivi:
 	\end{soluzione}
 \end{esercizio}
 % subparagraph trasformazioni_affini_di_variabili_normali (end)
-% paragraph varaibile_aleatorie_gaussiane_o_normali (end)
+% paragraph variabili_aleatorie_gaussiane_o_normali (end)
 % subsection variabili_aleatorie_continue_notevoli (end)
 % section variabili_aleatorie_assolutamente_continue (end)
+\section{Teoremi Limite} % (fold)
+\label{sec:teoremi_limite}
+I teoremi limite sono due teoremi che trattano dei limiti di successioni di variabili aleatorie. Li vediamo nel dettaglio.
+\subsection{Legge dei Grandi Numeri} % (fold)
+\label{sub:legge_dei_grandi_numeri}
+Nell'ambito sperimentale delle scienze, un requisito pressochè fondamentale è che gli esperimenti siano ripetibili, e che abbiano sempre lo stesso risultato. Nella pratica, però, è impossibile ripetere un esperimento in modo esattamente identico, e questo porta ad una certa variabilità nei risultati. D'altro canto, questa variabilità non è completamente caotica, e i risultati sono comunque "piuttosto vicini" al risultato reale. Quest'idea informale si formalizza introducendo il concetto di media empirica: invece di eseguire un dato esperimento una volta sola si esegue più volte e si costruisce la media aritmetica dei valori osservati; questa media, detta empirica, tende ad essere molto più regolare dei singoli risultati, anche al vaglio di ri-esecuzioni dell'esperimento ripetuto. Inoltre, più alto è il numero di ripetizioni, più la media empirica si avvicina al valore reale. Questo risultato sperimentale si formalizza ulteriormente con un risultato molto importante della teoria della probabilità: la legge dei grandi numeri. Consideriamo un dato esperimento ripetuto, e consideriamo $X_i$ la variabile aleatoria associata all'$i$-esima prova. Resta definita quindi una successione $(X_i)_{i\geq1}$ di variabili aleatorie indipendenti (in quanto ogni esecuzione dell'esperimento non influenza le altre) ed identicamente distribuite (perchè l'esperimento che viene eseguito è sempre lo stesso) con media finita $\mu$ (hanno tutte la stessa media perchè la distribuzione è la stessa). Si può quindi costruire la successione $(\overline{X}_n)_{n\geq1}$ delle medie empiriche come:
+\begin{equation*}
+	\overline{X}_n=\frac{1}{n}\sum_{i=1}^nX_i
+\end{equation*}
+Allora si dimostra che vale
+\begin{teorema}[Legge dei Grandi Numeri]
+	\begin{equation*}
+		\lim_{n\to+\infty}P(|\overline{X}_n-\mu|>\varepsilon)=0\quad\forall\varepsilon>0
+	\end{equation*}
+	equivalentemente:
+	\begin{equation*}
+		\lim_{n\to+\infty}P(|\overline{X}_n-\mu|\leq\varepsilon)=1\quad\forall\varepsilon>0
+	\end{equation*}
+\end{teorema}
+Essenzialmente, il limite esprime il concetto che abbiamo intuito precedentemente: per un numero $n$ di prove sufficientemente grande la media empirica si avvicina al valor medio (cioè il valore reale), e la distanza fra i due diventa arbitrariamente piccola (infatti, al limite, diventa talmente piccola da essere minore di qualunque $\varepsilon$ positivo piccolo a piacere). Lo stesso risultato si può ottenere per funzioni di variabili aleatorie:
+\begin{corollario}
+	Sia $(X_i)_{i\geq1}$ una successione di variabili aleatorie come sopra, sia $g:\mathds{R}\to\mathds{R}$ funzione sufficientemente regolare tale che $E(g(X_i))<\infty$ $\forall i$, allora vale
+	\begin{equation*}
+		\lim_{n\to+\infty}P\left(\left|\frac{1}{n}\sum_{i=1}^ng(X_i)-E(g(X_1))\right|>\varepsilon\right)=0\quad\forall\varepsilon>0
+	\end{equation*}
+\end{corollario}
+\subsubsection{Applicazione: Metodo Montecarlo per il Calcolo di Integrali Definiti} % (fold)
+\label{ssub:applicazione_metodo_montecarlo_per_il_calcolo_di_integrali_definiti}
+Sappiamo già che alcuni integrali non sono risolvibili analiticamente, perchè alcune funzioni non ammettono primitiva. Uno dei metodi più famosi di risoluzione numerica è il metodo Montecarlo, che si basa sull'idea di considerare l'integrale come media di un'opportuna variabile aleatoria ed applicare la legge dei grandi numeri. SUpponiamo di dover calcolare l'integrale
+\begin{equation*}
+	I=\int_a^bg(x)dx
+\end{equation*}
+Utilizziamo semplici manipolazioni algebriche per scrivere l'integrale come valore atteso di una variabile aleatoria: cerchiamo di portarlo in una forma simile alla funzione densità di una variabile uniforme.
+\begin{equation*}
+	I=(b-a)\int_a^b\frac{g(x)}{b-a}dx
+\end{equation*}
+Se $X\sim U(a,b)$, allora:
+\begin{equation*}
+	I=(b-a)E(g(X))
+\end{equation*}
+A questo punto consideriamo $n$ variabili aleatorie $X_1,X_2,\dots,X_n$ indipendenti ed identicamente distribuite, tutte con distribuzione $U(a,b)$, ad esempio generando $n$ copie della stessa variabile aleatoria. Con $n$ sufficientemente grande, per il corollario alla legge dei grandi numeri si può stimare
+\begin{equation*}
+	\frac{1}{n}\sum_{i=1}^ng(X)\approx E(g(X))=\frac{I}{b-a}
+\end{equation*}
+Da cui si può ricavare un'approssimazione per $I$.
+% subsubsection applicazione_metodo_montecarlo_per_il_calcolo_di_integrali_definiti (end)
+% subsection legge_dei_grandi_numeri (end)
+\subsection{Teorema del Limite Centrale} % (fold)
+\label{sub:teorema_del_limite_centrale}
+Nelle applicazioni della Legge dei Grandi Numeri è importante valutare $P(|\overline{X}_n-\mu|>\varepsilon)$ per sapere se $n$ è stato scelto sufficientemente grande affinchè $\overline{X}_n$ sia una buona stima di $\mu$. Questa probabilità generalmente non è facile da valutare, perchè $(\overline{X}_n)_{n\geq1}$ non è una successione di variabili indipendenti e identicamente distribuite. Si può calcolare esattamente solo nel caso in cui le variabili $X_i$ siano tutte normali $N(\mu,\sigma^2)$, perchè in questo caso $\overline{X}_n$ è ancora una variabile normale (per le proprietà delle trasformazioni affini di variabili normali, essendo una combinazione lineare di variabili normali). In particolare:
+\begin{align*}
+	\overline{X}_n=\frac{1}{n}\sum_{i=1}^nX_i&\sim N\left(\frac{1}{n}\sum_{i=1}^nE(X_i),\frac{1}{n^2}\sum_{i=1}^nVar(X_i)\right)\\
+	&=N\left(\frac{1}{n}\sum_{i=1}^n\mu,\frac{1}{n^2}\sum_{i=1}^n\sigma^2\right)\\
+	&=N\left(\frac{1}{n}n\mu,\frac{1}{n^2}n\sigma^2\right)\\
+	&=N\left(\mu,\frac{\sigma^2}{n}\right)
+\end{align*}
+Si ottiene quindi:
+\begin{align*}
+	P(|\overline{X}_n-\mu|>\varepsilon)&=P\left(\frac{|\overline{X}_n-\mu|}{\frac{\sigma}{\sqrt{n}}}>\frac{\varepsilon}{\frac{\sigma}{\sqrt{n}}}\right)\\
+	&=2\Phi\left(\frac{\varepsilon}{\frac{\sigma}{\sqrt{n}}}\right)-1
+\end{align*}
+Quindi, in questo caso è sempre possibile fissare una tolleranza $\varepsilon$ e una confidenza (cioè una probabilità) $p$, e ricavare il numero $n$ di prove necessarie a stimare $\mu$ con $\overline{X}_n$ con confidenza $p$ e commettendo un errore di alpiù $\varepsilon$. Se le variabili $X_i$ non sono normali, ci possiamo ricondurre a questo caso particolare attraverso il teorema del limite centrale. Consideriamo $(X_i)_{i\geq1}$ una successione di variabili aleatorie indipendenti e identicamente distribuite, con valore atteso $E(X_i)=\mu<\infty$ e varianza $Var(X_i)=\sigma^2<+\infty$; costruiamo la successione $(Z_n)_{n\geq1}$ data da
+\begin{equation*}
+	Z_n=\frac{\overline{X}_n-\mu}{\frac{\sigma}{\sqrt{n}}}
+\end{equation*}
+$Z_n$ si dice standardizzazione della variabile $X_n$. Resta definita la successione $(F_{Z_n})_{n\geq1}$ delle funzioni di ripartizione di queste variabili.
+\begin{teorema}[del Limite Centrale]
+	\begin{equation*}
+		\lim_{n\to+\infty}F_{Z_n}(z)=\Phi(z)\quad\forall z\in\mathds{R}
+	\end{equation*}
+	con $\Phi(z)$ funzione di ripartizione di $Z\sim N(0,1)$.
+\end{teorema}
+L'idea è che, per $n$ grandi, si può sempre approssimare la probabilità di eventi relativi alla media empirica standardizzata calcolando la probabilità dei rispettivi eventi equivalenti per una variabile aleatoria normale centrata standard. Quest'approssimazione è detta \textit{approssimazione normale}.
+\begin{osservazione}
+	Va notato che non c'è nessuna ipotesi sulle variabili $X_i$ (oltre alla loro indipendenza ed identica distribuzione); il teorema del Limite Centrale si può applicare a variabili aleatorie qualunque.
+\end{osservazione}
+% subsection teorema_del_limite_centrale (end)
+% section teoremi_limite (end)
 \end{document}
