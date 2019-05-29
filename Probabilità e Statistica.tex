@@ -2442,4 +2442,109 @@ L'idea è che, per $n$ grandi, si può sempre approssimare la probabilità di ev
 \end{osservazione}
 % subsection teorema_del_limite_centrale (end)
 % section teoremi_limite (end)
+\section{Cenni di Statistica} % (fold)
+\label{sec:cenni_di_statistica}
+La statistica non è una scienza esatta, perchè raccoglie dati, li analizza, li interpreta, e cerca di ricavare informazioni generali su una popolazione  partire da una sua porzione ristretta. A tutti questi livelli, in particolare per quanto riguarda l'interpretazione ma non solo, è presente un livello piuttosto alto di empirismo, che si traduce in un'influenza soggettiva sul risultato. La statistica ha due aspetti:
+\begin{itemize}
+	\item La statistica descrittiva cerca di estrapolare informazioni quantitative da un insieme di dati per descriverlo, attraverso tabelle di frequenza, indici, e altre quantità informative
+	\item La statistica inferenziale cerca di prevedere, con livelli diversi di affidabilità, eventi futuri sulla base di osservazioni presenti o passate; la statistica inferenziale è più vicina alla probabilità che abbiamo visto, perchè cerca di inquadrare i dati in un modello probabilistico, e usa questo modello per calcolare con quale probabilità si verificheranno specifici eventi futuri
+\end{itemize}
+\subsection{Statistica Descrittiva} % (fold)
+\label{sub:statistica_descrittiva}
+I mezzi utilizzati dalla statistica descrittiva sono:
+\begin{itemize}
+	\item Tabelle e grafici, per una rappresentazione sintetica dei dati
+	\item Strumenti matematici (come media, mediana, e altri indici), per dare informazioni quantitative sui dati
+\end{itemize}
+I dati analizzati possono essere:
+\begin{itemize}
+	\item Numerici, se sono numeri. Possono essere
+	\begin{itemize}
+		\item Variabili discrete (ad esempio età, o numero di scarpe)
+		\item Variabili continue (come misure di lunghezze, o tempi di vita)
+	\end{itemize}
+	\item Categorici, se non sono numerici
+\end{itemize}
+I dati presentati in una tabella così come sono stati raccolti si dicono \textit{dati grezzi} e sono piuttosto difficili da analizzare, quindi vanno "sgrezzati". Un modo di pulire i dati si ha dividendoli in classi ed analizzando le frequenze per ciascuna classe. C'è una forte arbitrarietà sull'ampiezza delle classi: non si è ancora definito un metodo rigoroso per decidere l'ampiezza ottimale. La frequenza di una classe può essere di tre tipi:
+\begin{itemize}
+	\item Assoluta: rappresenta il numero di volte in cui un dato ha assunto un valore interno alla classe nel campione analizzato
+	\item Relativa: rappresenta il rapporto fra la frequenza assoluta e la numerosità del campione; è fortemente analoga al concetto di probabilità
+	\item Relativa Cumulativa: rappresenta la somma delle frequenze relative di tutte le classi precedenti, fino alla classe in esame (compresa); è analoga al concetto di funzione di ripartizione
+\end{itemize}
+Una proprietà delle frequenze è che la somma delle frequenze assolute deve essere uguale alla numerosità del campione, la somma delle frequenze relative deve essere $1$, e la frequenza cumulativa dell'ultima classe deve essere $1$. Mentre per dati discreti la divisione in classi è opzionale, ma spesso molto utile, per i dati continui è necessaria. Per i dati categorici non ha senso parlare di frequenze cumulative, perchè spesso non è presente un ordinamento.
+\paragraph{Metodi Grafici} % (fold)
+\label{par:metodi_grafici}
+Servono per rappresentare i dati in modo più immediatamente riconoscibile.
+\subparagraph{Istogramma} % (fold)
+\label{subp:istogramma}
+Utilizzabile per dati numerici; formato da rettangoli con le basi adiacenti che rappresentano le frequenze delle varie classi. Se le classi sono date da degli intervalli $(a_j,b_j)$, il $j$-esimo rettangolo avrà per base il segmento delimitato da $a_j$ e $b_j$ sull'asse $x$. L'altezza si può scegliere pari alla frequenza (relativa o assoluta), oppure pari alla frequenza divisa per l'ampiezza della classe. Nel secondo caso, la frequenza sarà data dall'area del rettangolo.
+% subparagraph istogramma (end)
+\subparagraph{Diagramma a Barre} % (fold)
+\label{subp:diagramma_a_barre}
+Equivalente all'istogramma, ma per dati categorici; la differenza fondamentale è che le basi dei rettangoli non hanno nessun significato, e devono essere non adiacenti (separate da dello spazio) perchè sia immediatamente evidente che i dati non sono numerici.
+% subparagraph diagramma_a_barre (end)
+% paragraph metodi_grafici (end)
+\paragraph{Indici Numerici} % (fold)
+\label{par:indici_numerici}
+Sono degli indici che danno alcune idee sulla forma dei dati e sul modo in cui si distribuiscono. Consideriamo una sequenza $(x_i)_{1\leq i\leq n}$ di $n$ valori.
+\begin{NB}
+	Generalmente i dati in un campione hanno un'unità di misura, quinid gli indice devono avere unità di misura consistenti.
+\end{NB}
+\subparagraph{Media Campionaria} % (fold)
+\label{subp:media_campionaria}
+È un indice di centralità, dà una stima della posizione del centro dei dati, cioè un numero vicino al quale si posizionano i dati; corrisponde alla media aritmetica dei dati:
+\begin{equation*}
+	\overline{x}=\frac{1}{n}\sum_{i=1}^nx_i
+\end{equation*}
+Risente fortemente di dati estremi, o estremamente distanti dagli altri.
+% subparagraph media_campionaria (end)
+\subparagraph{Mediana} % (fold)
+\label{subp:mediana}
+Ancora un indice di centralità; se i dati vengono disposti in ordine non decrescente, la mediana è il numero centrale nella sequenza, cioè quello che divide il campione in due parti di egual numerosità, e quindi non risente dei dati estremi:
+\begin{equation*}
+	M=
+	\begin{cases}
+		x_{\frac{n+1}{2}}&\text{se }n\text{ è dispari}\\
+		\frac{1}{2}(x_{\frac{n}{2}}+x_{\frac{n}{2}+1})&\text{se }n\text{ è pari}
+	\end{cases}
+\end{equation*}
+% subparagraph mediana (end)
+\subparagraph{Moda} % (fold)
+\label{subp:moda}
+Un ulteriore indice di centralità; rappresenta il dato (o la classe) con frequenza assoluta più alta. Per un dato campione ci possono essere più mode, cioè più dati che hanno tutti la stessa frequenza, più alta degli altri; un campione di questo tipo si dice plurimodale.
+% subparagraph moda (end)
+\subparagraph{Varianza Campionaria} % (fold)
+\label{subp:varianza_campionaria}
+Stima la dispersione dei dati: più è piccola, più i dati sono concentrati attorno alla media campionaria
+\begin{equation*}
+	s^2=\frac{1}{n-1}\sum_{i=1}^n(x_i-\overline{x})^2
+\end{equation*}
+Si divide per $n-1$ e non per $n$ per un motivo teorico che vedremo più avanti.
+% subparagraph varianza_campionaria (end)
+\subparagraph{Deviazione Standard Campionaria} % (fold)
+\label{subp:deviazione_standard_campionaria}
+Corisponde alla radice quadrata (positiva) della varianza campionaria
+\begin{equation*}
+	s=+\sqrt{s^2}
+\end{equation*}
+% subparagraph deviazione_standard_campionaria (end)
+\subparagraph{$p$-esimo Quantile} % (fold)
+\label{subp:p_esimo_quantile}
+Generalizzazione del concetto di mediana: se il campione è ordinato in modo non decrescente, si può cercare quale dato divide il campione in una porzione contenente una certa frazione $p$ ($0<p<1$) dei dati, e una porzione contenente il resto.
+\begin{equation*}
+	q_p=
+	\begin{cases}
+		x_{\lfloor{np}\rfloor+1}&\text{se }np\text{ non è intero}\\
+		\frac{1}{2}(x_{np}+x_{np+1})&\text{se }np\text{ è intero}
+	\end{cases}
+\end{equation*}
+Il $p$-esimo quantile si dice anche $(100p)$-esimo percentile. Il $25°$, $50°$ e $75°$ percentile si chiamano primo, secondo e terzo quartile, si indicano $Q_1$, $Q_2$ e $Q_3$, e dividono il campione in quattro parti uguali. Il secondo quartile è la mediana. I quantili sono indici di posizione, ma possono definire un indice di dispersione: la differenza interquartile, pari alla differenza fra il terzo e il primo quartile
+\begin{equation*}
+	IQR=|Q_3-Q_1|
+\end{equation*}
+Generalmente si considerano validi solo i dati compresi fra un limite inferiore $L=Q_1-k_1IQR$ e un limite superiore $U=Q_3+k_2IQR$, mentre gli altri si considerano outliers, cioè dati estremi che devono essere riconsiderati perchè molto distanti dal trend generale. Le costanti $k_1$ e $k_2$ si possono scegliere in modi diversi; molti programmi usano $k_1=k_2=1.5$. Per rappresentare questa situazione si usa un grafico boxplot, o box and whisker plot: si rappresenta sull'asse delle ascisse il range di appartenenza dei dati, si fissano i tre quartili, e si rappresenta con un quadrato (la scatola) l'insieme dei dati compresi fra $Q_1$ e $Q_3$ (che avrà numerosità $IQR$). Sotto e sopra il quadrato si posizionano due segmenti verticali (i baffi) che si allungano fino rispettivamente $L$ e $U$, ad indicare il range dei dati considerati validi. I dati outlier si indicano con dei circoletti. Plottando più boxplot nello stesso grafico si possono confrontare misure analoghe su campioni diversi.
+% subparagraph p_esimo_quantile (end)
+% paragraph indici_numerici (end)
+% subsection statistica_descrittiva (end)
+% section cenni_di_statistica (end)
 \end{document}
