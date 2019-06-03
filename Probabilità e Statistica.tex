@@ -2546,5 +2546,56 @@ Generalmente si considerano validi solo i dati compresi fra un limite inferiore 
 % subparagraph p_esimo_quantile (end)
 % paragraph indici_numerici (end)
 % subsection statistica_descrittiva (end)
+\subsection{Statistica Inferenziale} % (fold)
+\label{sub:statistica_inferenziale}
+Si occupa di descrivere dati attraverso modelli probabilistici, al fine di ricercare proprietà generali di una popolazione a partire da osservazioni relative a un campione ristretto. Supponiamo che i dati siano realizzazioni di una variabile aleatoria $X$, la cui caratterizzazione è però ignota. Grazie alla statistica descrittiva è possibile intuire (approssimativamente) la forma della funzione $f_\theta(x)$ con cui si distribuisce $X$, ma rimane ignoto il parametro $\theta$; questo parametro dovrà essere stimato, per poi causare un'eventuale modifica della forma di $f_\theta(x)$ per carcare una stima migliore. Diamo alcune definizioni:
+\begin{definizione}
+	Un modello statistico è una famiglia di densità dipendenti da un parametro $\theta$, eventualmente vettoriale:
+	\begin{equation*}
+		\{f_{\theta}(x)|\theta\in\Theta\}
+	\end{equation*}
+\end{definizione}
+\begin{definizione}
+	Si dice campione casuale una $n$-upla di variabili aleatorie aventi tutte la stessa distribuzione.
+\end{definizione}
+\begin{definizione}
+	Si dice campione una realizzazione di un campione casuale.
+\end{definizione}
+\begin{definizione}
+	Sia $(X_1,\dots,X_n)$ un campione casuale e sia $g:\mathds{R}^n\to\mathds{R}$ una funzione sufficientemente regolare. Si dice statistica una variabile aleatoria
+	\begin{equation*}
+		T=g(X_1,\dots,X_n)
+	\end{equation*}
+	che sia funzione solo del campione (e non del parametro $\theta$).
+\end{definizione}
+\begin{definizione}
+	Si dice stimatore una %BHO
+\end{definizione}
+\begin{definizione}
+	Si dice stima il valore assunto da uno stimatore quando il campione casuale viene sostituito con il campione (cioè con i dati).
+\end{definizione}
+Segue dalla definizione che da campioni diversi si calcolano stime diverse, ma ci sono alcuni criteri per assicurare che al crescere del campione diminuisca l'errore commesso considerando la stima invece del valore reale.
+\begin{definizione}
+	Uno stimatore $T$ si dice corretto o non distorto se $E_{\theta}=\tau(\theta)$.
+\end{definizione}
+\begin{definizione}
+	Uno stimatore $T$ si dice consistente se
+	\begin{equation*}
+		Var_\theta(T)\xrightarrow{n\to+\infty}0
+	\end{equation*}
+\end{definizione}
+L'utilizzo di statistiche per ricavare una stima del valore vero è detta stima puntuale; è una metodologia molto ottimistica, perchè al variare del campione può cambiare pesantemente. Per considerare questa variabilità si può usare la sima per intervalli, cioè ricavare degli intervalli entro i quali è più probabile trovare il valor vero, ma noi non la facciamo. In generle, uno stimatore molto buono del valor medio è la media campionaria, perchè è corretto e consistente. Per stimare la varianza $\sigma^2$ non si può usare lo stimatore
+\begin{equation*}
+	T=\frac{1}{n}\sum_{i=1}^n(X_i-\overline{X})^2
+\end{equation*}
+perchè è leggermente distorto: risulta
+\begin{equation*}
+	E(T)=\frac{n-1}{n}\sigma^2
+\end{equation*}
+segue che uno stimatore corretto e consistente è
+\begin{equation*}
+	\frac{n}{n-1}T=\frac{1}{n-1}\sum_{i=1}^n(X_i-\overline{X})^2
+\end{equation*}
+% subsection statistica_inferenziale (end)
 % section cenni_di_statistica (end)
 \end{document}
