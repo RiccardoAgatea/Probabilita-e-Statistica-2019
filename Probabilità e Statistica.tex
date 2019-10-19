@@ -216,8 +216,8 @@ Concettualmente, significa che "o si verifica solo $E$, o si verifica solo $F$, 
 	E\cup F=E\cup(F\smallsetminus E)
 \end{equation*}
 In questo caso, il significato è "o si verifica $E$, e non ci interessiamo di $F$, oppure se $E$ non si verifica, allora si verifica $F$". Questa scomposizione si può generalizzare alla generica famiglia di eventi $\{E_n\}_n$:
-\begin{equation*}%Non so mica se è giusta. Non si capisce se alla fine sia un'unione grande o un'intersezione grande
-	\bigcup_{k=1}^n E_k=E_1 \cup\left(\bigcup_{k=2}^n \left(E_k\smallsetminus\bigcup_{i=1}^{k-1} E_j\right)\right)
+\begin{equation*}
+	\bigcup_{k=1}^n E_k=E_1 \cup\left(\bigcup_{k=2}^n \left(E_k\smallsetminus\bigcup_{j=1}^{k-1} E_j\right)\right)
 \end{equation*}
 \begin{esercizio}
 	Dati tre eventi $E,F,G$, trovare l'evento corrispondente a
@@ -237,7 +237,7 @@ Abbiamo detto che $\mathscr{F}$ è una famiglia di sottoinsiemi di $\Omega$ che 
 \begin{definizione}
 	Un sottoinsieme $E$ di $\Omega$ si dice evento se e solo se $E\in\mathscr{F}$.
 \end{definizione}
-Il fatto che $\mathscr{F}$ contenga gli eventi che ci interessano ha delle conseguenze, nello specifico significa che se un evento è presente devono essere presenti anche tutti gli eventi "equivalenti". Ad esempio, se l'evento "è uscita sempre testa" è presente, anche "non è uscita mai croce" deve essere presente, perchè danno la stessa informazione. Per questo $\mathscr{F}$ è una \sigma-algebra:
+Il fatto che $\mathscr{F}$ contenga gli eventi che ci interessano ha delle conseguenze, nello specifico significa che se un evento è presente devono essere presenti anche tutti gli eventi "equivalenti". Ad esempio, se l'evento "è uscita sempre testa" è presente, anche "non è uscita mai croce" deve essere presente, perché danno la stessa informazione. Per questo $\mathscr{F}$ è una \sigma-algebra:
 \begin{definizione}
 	Dato un insieme $A$ e una famiglia di suoi sottoinsiemi $\mathscr{A}\subseteq\mathds{P}(A)$, $\mathscr{A}$ è una \sigma-algebra se e solo se:
 	\begin{enumerate}
@@ -249,12 +249,12 @@ Il fatto che $\mathscr{F}$ contenga gli eventi che ci interessano ha delle conse
 		\end{equation*}
 	\end{enumerate}
 \end{definizione}
-Bastano queste condizioni perchè, come abbiamo detto, tutte le operazioni fra insiemi possono essere ridotte a combinazioni di complemento e unione. Due esempi particolarmente importanti di \sigma-algebre su un dato spazio degli eventi elementari $\Omega$ sono:
+Bastano queste condizioni perché, come abbiamo detto, tutte le operazioni fra insiemi possono essere ridotte a combinazioni di complemento e unione. Due esempi particolarmente importanti di \sigma-algebre su un dato spazio degli eventi elementari $\Omega$ sono:
 \begin{esempio}
 	\begin{equation*}
 		\mathscr{F}=\{\emptyset, \Omega\}
 	\end{equation*}
-	Questa è una \sigma-algebra perchè:
+	Questa è una \sigma-algebra perché:
 	\begin{enumerate}
 		\item Chiaramente non è vuota
 		\item $\emptyset^C=\Omega\in\mathscr{F}$ e $\Omega^C=\emptyset\in\mathscr{F}$
@@ -284,7 +284,7 @@ Si dimostra che è una \sigma-algebra:
 			E^C&\in\mathscr{F}\\
 			(E^C)^C=E&\in\mathscr{F}
 		\end{align*}
-		\item Per dimostrare che $\mathscr{F}$ è chiusa rispetto l'unione non è necessario considerare le unioni con $\Omega$, perchè $\Omega\cup x=\Omega\ \forall x$. Non è necessario considerare neanche $\emptyset$, perchè esso è l'elemento neutro dell'unione, e quindi $\emptyset\cup x\in\mathscr{F}\Leftrightarrow x\in\mathscr{F}\ \forall x$. Resta da dimostrare che $E\cup E^C\in\mathscr{F}$, che è triviale in quanto $E\cup E^C=\Omega$.
+		\item Per dimostrare che $\mathscr{F}$ è chiusa rispetto l'unione non è necessario considerare le unioni con $\Omega$, perché $\Omega\cup x=\Omega\ \forall x$. Non è necessario considerare neanche $\emptyset$, perché esso è l'elemento neutro dell'unione, e quindi $\emptyset\cup x\in\mathscr{F}\Leftrightarrow x\in\mathscr{F}\ \forall x$. Resta da dimostrare che $E\cup E^C\in\mathscr{F}$, che è triviale in quanto $E\cup E^C=\Omega$.
 	\end{enumerate}
 \end{proof}
 Le proprietà di una \sigma-algebra sono:
@@ -374,22 +374,22 @@ Le proprietà di $P$ sono:
 			F=(F\cap E)\cup(F\cap E^C)
 		\end{equation*}
 		Sostituendo:
-		\begin{equation*}
-			F\smallsetminus E=F\cap E^C
-		\end{equation*}
-		(ecc)%finisci
+		\begin{align*}
+			&F=(F\cap E)\cup(F\smallsetminus E)\\
+			\Rightarrow &P(F)=P(F\cap E)+P(F\smallsetminus E)\\
+			\Rightarrow &P(F\smallsetminus E)=P(F)-P(F\cap E)
+		\end{align*}
+		Sostituendo ancora:
+		\begin{align*}
+			P(E\cup F)&=P(E)+P(F\smallsetminus E)\\
+			&=P(E)+P(F)-P(F\cap E)\qedhere
+		\end{align*}
 	\end{proof}
 	\item La precedente si può generalizzare a una famiglia $\{E_n\}_n$ di eventi non necessariamente disgiunti:
 	\begin{equation*}
 		P(\bigcup_n E_n)\leq \sum_n P(E_n)
 	\end{equation*}
-	\begin{proof}
-		(ecc)
-	\end{proof}
 	\item $P(E\cup F\cup G)=P(E)+P(F)+P(G)-P(E\cap F)-P(E\cap G)-P(F\cap G)+P(E\cap F\cap G)$
-	\begin{proof}
-		(per casa)
-	\end{proof}
 	\item $P(E\Delta F)=P(E)+P(F)-2P(E\cap F)$
 \end{itemize}
 Chiaramente, $P$ non è determinata univocamente da $\Omega$ e $\mathscr{F}$, però ci sono dei metodi "standard" per costruirla, soprattutto nelle applicazioni pratiche.
@@ -435,7 +435,7 @@ tale che
 	\sum_{i=1}^n p_i=1
 \end{equation*}
 \begin{osservazione}
-	In realtà sono sufficienti $n-1$ valori $p_i$, perchè vale necessariamente:
+	In realtà sono sufficienti $n-1$ valori $p_i$, perché vale necessariamente:
 	\begin{equation*}
 		p_n=1-\sum_{i=1}^{n-1}p_i
 	\end{equation*}
@@ -725,7 +725,12 @@ Le due condizioni continuano ad essere slegate. Si nota che il numero di casi da
 	\begin{soluzione}
 		\begin{align*}
 			P(A^C\cap B^C)&=P((A\cup B)^C)\\
-			&%continua
+			&=1-P(A\cup B)\\
+			&=1-P(A)-P(B)+P(A\cap B)\\
+			&=1-P(A)+1-P(B)+P(A)P(B)-1\\
+			&=P(A^C)+P(B^C)+(1-P(A^C))(1-P(B^C))-1\\
+			&=\cancel{P(A^C)}+\cancel{P(B^C)}+\cancel{1}-\cancel{P(A^C)}-\cancel{P(B^C)}+P(A^C)P(B^C)-\cancel{1}\\
+			&=P(A^C)P(B^C)\qedhere
 		\end{align*}
 	\end{soluzione}
 \end{esercizio}
@@ -861,7 +866,7 @@ Possiamo assegnare ad un certo alfabeto $\mathcal{X}$ una probabilità, asegnand
 \begin{equation*}
 	E_k=\{\omega\in\Omega|X(\omega)=x_k\}=X^{-1}(x_k)
 \end{equation*}
-Siccome $X$ è una funzione, questi eventi sono disgiunti e la loro unione è $\Omega$ (perchè per definizione di funzione \uline{ogni} $\omega\in\Omega$ viene mappato in \uline{uno e un solo} $x_k\in\mathcal{X}$), quindi formano una partizione di $\Omega$. Possiamo definire la probabilità $P^X$ come $P$ calcolata sugli eventi $E_k$:
+Siccome $X$ è una funzione, questi eventi sono disgiunti e la loro unione è $\Omega$ (perché per definizione di funzione \uline{ogni} $\omega\in\Omega$ viene mappato in \uline{uno e un solo} $x_k\in\mathcal{X}$), quindi formano una partizione di $\Omega$. Possiamo definire la probabilità $P^X$ come $P$ calcolata sugli eventi $E_k$:
 \begin{definizione}
 	Sia $X$ variabile aleatoria sullo spazio di probabilità $(\Omega,\mathds{P}(\Omega,P)$. Si dice misura di probabilità indotta la funzione
 	\begin{align*}
@@ -968,7 +973,10 @@ Questo concetto si formalizza:
 		\begin{equation*}
 			\mathcal{Y}=g(\mathcal{X})
 		\end{equation*}
-		\item Una densità discreta %finisci
+		\item Una densità discreta $p_Y$, tale che $p_Y(y_j)$ è la somma delle densità discrete di tutti i valori $x_i$ che $g$ associa a $y_j$:
+		\begin{equation*}
+			\forall y_i\in\mathcal{Y}\quad p_Y(y_j)=\sum_{x_i\in\{x_i|g(x_i)=y_j\}}p_X(x_i)
+		\end{equation*}
 	\end{itemize}
 \end{definizione}
 % subsection concetti_base_per_le_variabili_aleatorie (end)
@@ -1090,7 +1098,7 @@ Questo teorema nella pratica non è utilizzato, ma permette di dimostrare alcune
 	\end{proof}
 \end{enumerate}
 \begin{osservazione}
-	Se $a\in\mathds{R}$, vale sempre $E(a)=a$, perchè possiamo vedere una costante come un valore assunto da una variabile aleatoria $X$ tale che $X(\omega)=a\ \forall\omega\in\Omega$, e quindi vale
+	Se $a\in\mathds{R}$, vale sempre $E(a)=a$, perché possiamo vedere una costante come un valore assunto da una variabile aleatoria $X$ tale che $X(\omega)=a\ \forall\omega\in\Omega$, e quindi vale
 	\begin{align*}
 		\mathcal{X}&=\{a\}\\
 		p_X(a)&=1
@@ -1237,7 +1245,7 @@ In molti testi questa è data come definizione di varianza. Dalla definizione si
 	\end{equation*}
 \end{definizione}
 \begin{NB}
-	È sbagliato dire che $X=Y$, perchè le due variabili potrebbero essere definite su spazi di probabilità completamente diversi.
+	È sbagliato dire che $X=Y$, perché le due variabili potrebbero essere definite su spazi di probabilità completamente diversi.
 \end{NB}
 \subsubsection{Alfabeto Finito} % (fold)
 \label{ssub:alfabeto_finito}
@@ -1374,10 +1382,10 @@ Una variabile $X$ si dice geometrica, e si indica
 \end{equation*}
 se è caratterizzata da:
 \begin{align*}
-	\mathcal{X}=\mathds{N}\\
-	p_X(k)=(1-p)^{k-1}p\\
-	E(X)=\frac{1}{p}\\
-	Var(X)=\frac{1-p}{p^2}
+	\mathcal{X}&=\mathds{N}\\
+	p_X(k)&=(1-p)^{k-1}p\\
+	E(X)&=\frac{1}{p}\\
+	Var(X)&=\frac{1-p}{p^2}
 \end{align*}
 Una variabile aleatoria geometrica rappresenta, in uno schema di Bernoulli, l'indice della prima prova che ha successo. Se consideriamo le variabili $X_i\sim Be(p)$, con $p$ probabilità che una prova abbia successo e $i\in\mathds{N}$ allora:
 \begin{equation*}
@@ -1399,7 +1407,7 @@ La densità discreta di $X$ segue da questa osservazione: se $X=k$, allora $X_i=
 	è una densità discreta di probabilità. Infatti:
 	\begin{itemize}
 		\item $p_X(k)\geq0$ $\forall k\in\mathds{N}$, trivialmente
-		\item $\sum_{k\in\mathds{N}}p_X(k)=1$, perchè
+		\item $\sum_{k\in\mathds{N}}p_X(k)=1$, perché
 		\begin{align*}
 			\sum_{k\in\mathds{N}}p_X(k)&=\sum_{k\in\mathds{N}}(1-p)^{k-1}p\\
 			&=p\sum_{k\in\mathds{N}}(1-p)^{k-1}\\
@@ -1428,7 +1436,7 @@ Dimostriamo il calcolo del valor medio:
 	&=-p\frac{d}{dp}\left[\frac{1}{p}\right]\\
 	&=-p\left(-\frac{1}{p^2}\right)=\frac{1}{p}
 \end{align*}
-Per il calcolo della varianza si utilizza lo stesso "trucco", ma utilizzando la derivata seconda, perchè invece di $k$ c'è $k^2$.
+Per il calcolo della varianza si utilizza lo stesso "trucco", ma utilizzando la derivata seconda, perché invece di $k$ c'è $k^2$.
 \begin{nota}
 	In alcuni libri, la variabile geometrica è definita come il numero di insuccessi prima del primo successo, invece dell'indice del primo successo stesso. Risulta che il valore di questa variabile è traslato di $-1$ rispetto alla variabile geometrica che usiamo noi. Le differenze sono poche: l'alfabeto è $\mathds{N}_0$ e la densità discreta ha $k$ invece di $k-1$ all'esponente; valor medio e varianza si possono ottenere considerando $E(X-1)$ e $Var(X-1)$.
 \end{nota}
@@ -1487,7 +1495,7 @@ se è caratterizzata da
 	E(X)&=\lambda\\
 	Var(X)&=\lambda
 \end{align*}
-$p_X(k)$ è una densità discreta perchè lo sviluppo in serie di Taylor di $e^x$ è:
+$p_X(k)$ è una densità discreta perché lo sviluppo in serie di Taylor di $e^x$ è:
 \begin{equation*}
 	e^x=\sum_{n=0}^{+\infty}\frac{x^n}{n!}
 \end{equation*}
@@ -1712,7 +1720,7 @@ Generalemente l'inclusione $\mathcal{V}\subseteq\mathcal{X}\times\mathcal{Y}$ è
 	\end{align*}
 \end{definizione}
 \begin{osservazione}
-	Si considera $\mathcal{X}\times\mathcal{Y}$ come dominio di $p_{XY}$ per comodità. Per i punti $(x_i,y_j)\notin\mathcal{V}$ vale $p_{XY}(x_i,y_j)=0$, perchè se $\bm{V}$ non può assumere valore $(x_i,y_j)$, significa che $\{X=x_i\}\cap\{Y=y_j\}=\emptyset$
+	Si considera $\mathcal{X}\times\mathcal{Y}$ come dominio di $p_{XY}$ per comodità. Per i punti $(x_i,y_j)\notin\mathcal{V}$ vale $p_{XY}(x_i,y_j)=0$, perché se $\bm{V}$ non può assumere valore $(x_i,y_j)$, significa che $\{X=x_i\}\cap\{Y=y_j\}=\emptyset$
 \end{osservazione}
 La densità congiunta è una misura di probabilità, quindi vale
 \begin{enumerate}
@@ -1795,7 +1803,7 @@ Da questo teorema seguono due conseguenze: se $X$ e $Y$ sono indipendenti
 	\end{proof}
 \end{enumerate}
 \begin{NB}
-	Dal punto 2. sappiamo che se le variabili sono indipendenti la varianza è additiva, ma non lineare, perchè mentre si distribuisce sulle somme, le costanti continuano ad essere "portate fuori" al quadrato.
+	Dal punto 2. sappiamo che se le variabili sono indipendenti la varianza è additiva, ma non lineare, perché mentre si distribuisce sulle somme, le costanti continuano ad essere "portate fuori" al quadrato.
 \end{NB}
 \subsubsection{Generalizzazione a più Variabili} % (fold)
 \label{ssub:generalizzazione_a_più_variabili}
@@ -1913,11 +1921,11 @@ Non vedremo molto sull'indipendenza di più variabili, ma una proprietà importa
 				E(X_1)&=p_{X_1}(1)\\
 				&=p_{X_1X_2}(1,0)+p_{X_1X_2}(1,1)\\
 				&=\frac{17}{72}+\frac{13}{72}=\frac{5}{12}\\
-				E(X_2)&=p_{X_1}(2)\\
+				E(X_2)&=p_{X_2}(1)\\
 				&=p_{X_1X_2}(0,1)+p_{X_1X_2}(1,1)\\
 				&=\frac{17}{72}+\frac{13}{72}=\frac{5}{12}
 			\end{align*}
-			\item Non sono indipendenti, perchè si ha
+			\item Non sono indipendenti, perché si ha
 			\begin{equation*}
 				p_{X_1X_2}(1,1)\neq p_{X_1}(1)p_{X_2}(1)\qedhere
 			\end{equation*}
@@ -1953,13 +1961,13 @@ La funzione $f$ deve soddisfare
 	\end{equation*}
 \end{enumerate}
 \begin{nota}
-	La funzione densità di probabilità ha un significato diverso dalla densità discreta, perchè quest'ultima è effettivamente una probabilità, invece la funzione $f$ non lo è, mentre lo è il suo integrale.
+	La funzione densità di probabilità ha un significato diverso dalla densità discreta, perché quest'ultima è effettivamente una probabilità, invece la funzione $f$ non lo è, mentre lo è il suo integrale.
 \end{nota}
 \begin{osservazione}
 	\begin{itemize}
 		\item La funzione $f$ non è necessariamente continua.
 		\item La probabilità che $X$ appartenga all'intervallo $[a,b]$ è data dall'area sottesa dal grafico di $f_X$, l'asse $x$ e le due rette $x=a$ e $x=b$.
-		\item Non si può parlare di "probabilità che $X$ assuma valore $a$", perchè la questa sarebbe data da
+		\item Non si può parlare di "probabilità che $X$ assuma valore $a$", perché la questa sarebbe data da
 		\begin{align*}
 			P(X=a)&=\lim_{\varepsilon\to0}P(a-\varepsilon\leq X\leq a+\varepsilon)\\
 			&=\lim_{\varepsilon\to0}\int_{a-\varepsilon}^{a+\varepsilon}f_X(x)dx=0
@@ -2236,7 +2244,7 @@ se è caratterizzata da
 	f_X(x)=\frac{1}{\sqrt{2\pi\sigma^2}}\cdot e^{-\frac{(x-\mu)^2}{2\sigma^2}}
 \end{equation*}
 \begin{osservazione}
-	Per le variabili normali non è possibile dare la funzione di distribuzione perchè $e^{-x^2}$ non ammette primitiva in modo analitico.
+	Per le variabili normali non è possibile dare la funzione di distribuzione perché $e^{-x^2}$ non ammette primitiva in modo analitico.
 \end{osservazione}
 La funzione densità di $X$ ha un grafico detto "a campana". Il grafico è simmetrico rispetto $\mu$, e la larghezza è data dalla varianza. Calcoliamo $E(X)$:
 \begin{align*}
@@ -2251,7 +2259,7 @@ La funzione densità di $X$ ha un grafico detto "a campana". Il grafico è simme
 	&\text{quindi l'integrale è nullo}\\
 	&=0+\mu=\mu
 \end{align*}
-Per calcolare la varianza invece di usare la relazione $Var(X)=E(X^2)-(E(X))^2$ in questo caso è più comodo usare la definizione, perchè con lo stesso cambio di variabile di prima e un'integrazione per parti si ricava. Il risultato è $Var(X)=\sigma^2$.
+Per calcolare la varianza invece di usare la relazione $Var(X)=E(X^2)-(E(X))^2$ in questo caso è più comodo usare la definizione, perché con lo stesso cambio di variabile di prima e un'integrazione per parti si ricava. Il risultato è $Var(X)=\sigma^2$.
 \begin{notazione}
 	$\sigma$ si dice deviazione standard.
 \end{notazione}
@@ -2324,7 +2332,7 @@ Questo è molto utile per due motivi:
 \begin{esercizio}
 	Una macchina confeziona barattoli di caffè del contenuto nominale di $250g$ di caffè. Il peso reale è invece una variabile aleatoria normale di media $250g$.
 	\begin{enumerate}
-		\item Calcolare la deviazione standard del peso sapendo che il $5\%$ dei barattoli pesa più di $250g$
+		\item Calcolare la deviazione standard del peso sapendo che il $5\%$ dei barattoli pesa più di $252g$
 		\item Calcolare la probabilità che un barattolo pesi meno di $245g$
 	\end{enumerate}
 	\begin{soluzione}
@@ -2369,7 +2377,7 @@ Questo è molto utile per due motivi:
 I teoremi limite sono due teoremi che trattano dei limiti di successioni di variabili aleatorie. Li vediamo nel dettaglio.
 \subsection{Legge dei Grandi Numeri} % (fold)
 \label{sub:legge_dei_grandi_numeri}
-Nell'ambito sperimentale delle scienze, un requisito pressochè fondamentale è che gli esperimenti siano ripetibili, e che abbiano sempre lo stesso risultato. Nella pratica, però, è impossibile ripetere un esperimento in modo esattamente identico, e questo porta ad una certa variabilità nei risultati. D'altro canto, questa variabilità non è completamente caotica, e i risultati sono comunque "piuttosto vicini" al risultato reale. Quest'idea informale si formalizza introducendo il concetto di media empirica: invece di eseguire un dato esperimento una volta sola si esegue più volte e si costruisce la media aritmetica dei valori osservati; questa media, detta empirica, tende ad essere molto più regolare dei singoli risultati, anche al vaglio di ri-esecuzioni dell'esperimento ripetuto. Inoltre, più alto è il numero di ripetizioni, più la media empirica si avvicina al valore reale. Questo risultato sperimentale si formalizza ulteriormente con un risultato molto importante della teoria della probabilità: la legge dei grandi numeri. Consideriamo un dato esperimento ripetuto, e consideriamo $X_i$ la variabile aleatoria associata all'$i$-esima prova. Resta definita quindi una successione $(X_i)_{i\geq1}$ di variabili aleatorie indipendenti (in quanto ogni esecuzione dell'esperimento non influenza le altre) ed identicamente distribuite (perchè l'esperimento che viene eseguito è sempre lo stesso) con media finita $\mu$ (hanno tutte la stessa media perchè la distribuzione è la stessa). Si può quindi costruire la successione $(\overline{X}_n)_{n\geq1}$ delle medie empiriche come:
+Nell'ambito sperimentale delle scienze, un requisito pressochè fondamentale è che gli esperimenti siano ripetibili, e che abbiano sempre lo stesso risultato. Nella pratica, però, è impossibile ripetere un esperimento in modo esattamente identico, e questo porta ad una certa variabilità nei risultati. D'altro canto, questa variabilità non è completamente caotica, e i risultati sono comunque "piuttosto vicini" al risultato reale. Quest'idea informale si formalizza introducendo il concetto di media empirica: invece di eseguire un dato esperimento una volta sola si esegue più volte e si costruisce la media aritmetica dei valori osservati; questa media, detta empirica, tende ad essere molto più regolare dei singoli risultati, anche al vaglio di ri-esecuzioni dell'esperimento ripetuto. Inoltre, più alto è il numero di ripetizioni, più la media empirica si avvicina al valore reale. Questo risultato sperimentale si formalizza ulteriormente con un risultato molto importante della teoria della probabilità: la legge dei grandi numeri. Consideriamo un dato esperimento ripetuto, e consideriamo $X_i$ la variabile aleatoria associata all'$i$-esima prova. Resta definita quindi una successione $(X_i)_{i\geq1}$ di variabili aleatorie indipendenti (in quanto ogni esecuzione dell'esperimento non influenza le altre) ed identicamente distribuite (perché l'esperimento che viene eseguito è sempre lo stesso) con media finita $\mu$ (hanno tutte la stessa media perché la distribuzione è la stessa). Si può quindi costruire la successione $(\overline{X}_n)_{n\geq1}$ delle medie empiriche come:
 \begin{equation*}
 	\overline{X}_n=\frac{1}{n}\sum_{i=1}^nX_i
 \end{equation*}
@@ -2392,7 +2400,7 @@ Essenzialmente, il limite esprime il concetto che abbiamo intuito precedentement
 \end{corollario}
 \subsubsection{Applicazione: Metodo Montecarlo per il Calcolo di Integrali Definiti} % (fold)
 \label{ssub:applicazione_metodo_montecarlo_per_il_calcolo_di_integrali_definiti}
-Sappiamo già che alcuni integrali non sono risolvibili analiticamente, perchè alcune funzioni non ammettono primitiva. Uno dei metodi più famosi di risoluzione numerica è il metodo Montecarlo, che si basa sull'idea di considerare l'integrale come media di un'opportuna variabile aleatoria ed applicare la legge dei grandi numeri. SUpponiamo di dover calcolare l'integrale
+Sappiamo già che alcuni integrali non sono risolvibili analiticamente, perché alcune funzioni non ammettono primitiva. Uno dei metodi più famosi di risoluzione numerica è il metodo Montecarlo, che si basa sull'idea di considerare l'integrale come media di un'opportuna variabile aleatoria ed applicare la legge dei grandi numeri. SUpponiamo di dover calcolare l'integrale
 \begin{equation*}
 	I=\int_a^bg(x)dx
 \end{equation*}
@@ -2413,7 +2421,7 @@ Da cui si può ricavare un'approssimazione per $I$.
 % subsection legge_dei_grandi_numeri (end)
 \subsection{Teorema del Limite Centrale} % (fold)
 \label{sub:teorema_del_limite_centrale}
-Nelle applicazioni della Legge dei Grandi Numeri è importante valutare $P(|\overline{X}_n-\mu|>\varepsilon)$ per sapere se $n$ è stato scelto sufficientemente grande affinchè $\overline{X}_n$ sia una buona stima di $\mu$. Questa probabilità generalmente non è facile da valutare, perchè $(\overline{X}_n)_{n\geq1}$ non è una successione di variabili indipendenti e identicamente distribuite. Si può calcolare esattamente solo nel caso in cui le variabili $X_i$ siano tutte normali $N(\mu,\sigma^2)$, perchè in questo caso $\overline{X}_n$ è ancora una variabile normale (per le proprietà delle trasformazioni affini di variabili normali, essendo una combinazione lineare di variabili normali). In particolare:
+Nelle applicazioni della Legge dei Grandi Numeri è importante valutare $P(|\overline{X}_n-\mu|>\varepsilon)$ per sapere se $n$ è stato scelto sufficientemente grande affinchè $\overline{X}_n$ sia una buona stima di $\mu$. Questa probabilità generalmente non è facile da valutare, perché $(\overline{X}_n)_{n\geq1}$ non è una successione di variabili indipendenti e identicamente distribuite. Si può calcolare esattamente solo nel caso in cui le variabili $X_i$ siano tutte normali $N(\mu,\sigma^2)$, perché in questo caso $\overline{X}_n$ è ancora una variabile normale (per le proprietà delle trasformazioni affini di variabili normali, essendo una combinazione lineare di variabili normali). In particolare:
 \begin{align*}
 	\overline{X}_n=\frac{1}{n}\sum_{i=1}^nX_i&\sim N\left(\frac{1}{n}\sum_{i=1}^nE(X_i),\frac{1}{n^2}\sum_{i=1}^nVar(X_i)\right)\\
 	&=N\left(\frac{1}{n}\sum_{i=1}^n\mu,\frac{1}{n^2}\sum_{i=1}^n\sigma^2\right)\\
@@ -2444,10 +2452,10 @@ L'idea è che, per $n$ grandi, si può sempre approssimare la probabilità di ev
 % section teoremi_limite (end)
 \section{Cenni di Statistica} % (fold)
 \label{sec:cenni_di_statistica}
-La statistica non è una scienza esatta, perchè raccoglie dati, li analizza, li interpreta, e cerca di ricavare informazioni generali su una popolazione  partire da una sua porzione ristretta. A tutti questi livelli, in particolare per quanto riguarda l'interpretazione ma non solo, è presente un livello piuttosto alto di empirismo, che si traduce in un'influenza soggettiva sul risultato. La statistica ha due aspetti:
+La statistica non è una scienza esatta, perché raccoglie dati, li analizza, li interpreta, e cerca di ricavare informazioni generali su una popolazione  partire da una sua porzione ristretta. A tutti questi livelli, in particolare per quanto riguarda l'interpretazione ma non solo, è presente un livello piuttosto alto di empirismo, che si traduce in un'influenza soggettiva sul risultato. La statistica ha due aspetti:
 \begin{itemize}
 	\item La statistica descrittiva cerca di estrapolare informazioni quantitative da un insieme di dati per descriverlo, attraverso tabelle di frequenza, indici, e altre quantità informative
-	\item La statistica inferenziale cerca di prevedere, con livelli diversi di affidabilità, eventi futuri sulla base di osservazioni presenti o passate; la statistica inferenziale è più vicina alla probabilità che abbiamo visto, perchè cerca di inquadrare i dati in un modello probabilistico, e usa questo modello per calcolare con quale probabilità si verificheranno specifici eventi futuri
+	\item La statistica inferenziale cerca di prevedere, con livelli diversi di affidabilità, eventi futuri sulla base di osservazioni presenti o passate; la statistica inferenziale è più vicina alla probabilità che abbiamo visto, perché cerca di inquadrare i dati in un modello probabilistico, e usa questo modello per calcolare con quale probabilità si verificheranno specifici eventi futuri
 \end{itemize}
 \subsection{Statistica Descrittiva} % (fold)
 \label{sub:statistica_descrittiva}
@@ -2471,7 +2479,7 @@ I dati presentati in una tabella così come sono stati raccolti si dicono \texti
 	\item Relativa: rappresenta il rapporto fra la frequenza assoluta e la numerosità del campione; è fortemente analoga al concetto di probabilità
 	\item Relativa Cumulativa: rappresenta la somma delle frequenze relative di tutte le classi precedenti, fino alla classe in esame (compresa); è analoga al concetto di funzione di ripartizione
 \end{itemize}
-Una proprietà delle frequenze è che la somma delle frequenze assolute deve essere uguale alla numerosità del campione, la somma delle frequenze relative deve essere $1$, e la frequenza cumulativa dell'ultima classe deve essere $1$. Mentre per dati discreti la divisione in classi è opzionale, ma spesso molto utile, per i dati continui è necessaria. Per i dati categorici non ha senso parlare di frequenze cumulative, perchè spesso non è presente un ordinamento.
+Una proprietà delle frequenze è che la somma delle frequenze assolute deve essere uguale alla numerosità del campione, la somma delle frequenze relative deve essere $1$, e la frequenza cumulativa dell'ultima classe deve essere $1$. Mentre per dati discreti la divisione in classi è opzionale, ma spesso molto utile, per i dati continui è necessaria. Per i dati categorici non ha senso parlare di frequenze cumulative, perché spesso non è presente un ordinamento.
 \paragraph{Metodi Grafici} % (fold)
 \label{par:metodi_grafici}
 Servono per rappresentare i dati in modo più immediatamente riconoscibile.
@@ -2481,7 +2489,7 @@ Utilizzabile per dati numerici; formato da rettangoli con le basi adiacenti che 
 % subparagraph istogramma (end)
 \subparagraph{Diagramma a Barre} % (fold)
 \label{subp:diagramma_a_barre}
-Equivalente all'istogramma, ma per dati categorici; la differenza fondamentale è che le basi dei rettangoli non hanno nessun significato, e devono essere non adiacenti (separate da dello spazio) perchè sia immediatamente evidente che i dati non sono numerici.
+Equivalente all'istogramma, ma per dati categorici; la differenza fondamentale è che le basi dei rettangoli non hanno nessun significato, e devono essere non adiacenti (separate da dello spazio) perché sia immediatamente evidente che i dati non sono numerici.
 % subparagraph diagramma_a_barre (end)
 % paragraph metodi_grafici (end)
 \paragraph{Indici Numerici} % (fold)
@@ -2542,17 +2550,17 @@ Il $p$-esimo quantile si dice anche $(100p)$-esimo percentile. Il $25°$, $50°$
 \begin{equation*}
 	IQR=|Q_3-Q_1|
 \end{equation*}
-Generalmente si considerano validi solo i dati compresi fra un limite inferiore $L=Q_1-k_1IQR$ e un limite superiore $U=Q_3+k_2IQR$, mentre gli altri si considerano outliers, cioè dati estremi che devono essere riconsiderati perchè molto distanti dal trend generale. Le costanti $k_1$ e $k_2$ si possono scegliere in modi diversi; molti programmi usano $k_1=k_2=1.5$. Per rappresentare questa situazione si usa un grafico boxplot, o box and whisker plot: si rappresenta sull'asse delle ascisse il range di appartenenza dei dati, si fissano i tre quartili, e si rappresenta con un quadrato (la scatola) l'insieme dei dati compresi fra $Q_1$ e $Q_3$ (che avrà numerosità $IQR$). Sotto e sopra il quadrato si posizionano due segmenti verticali (i baffi) che si allungano fino rispettivamente $L$ e $U$, ad indicare il range dei dati considerati validi. I dati outlier si indicano con dei circoletti. Plottando più boxplot nello stesso grafico si possono confrontare misure analoghe su campioni diversi.
+Generalmente si considerano validi solo i dati compresi fra un limite inferiore $L=Q_1-k_1IQR$ e un limite superiore $U=Q_3+k_2IQR$, mentre gli altri si considerano outliers, cioè dati estremi che devono essere riconsiderati perché molto distanti dal trend generale. Le costanti $k_1$ e $k_2$ si possono scegliere in modi diversi; molti programmi usano $k_1=k_2=1.5$. Per rappresentare questa situazione si usa un grafico boxplot, o box and whisker plot: si rappresenta sull'asse delle ascisse il range di appartenenza dei dati, si fissano i tre quartili, e si rappresenta con un quadrato (la scatola) l'insieme dei dati compresi fra $Q_1$ e $Q_3$ (che avrà numerosità $IQR$). Sotto e sopra il quadrato si posizionano due segmenti verticali (i baffi) che si allungano fino rispettivamente $L$ e $U$, ad indicare il range dei dati considerati validi. I dati outlier si indicano con dei circoletti. Plottando più boxplot nello stesso grafico si possono confrontare misure analoghe su campioni diversi.
 % subparagraph p_esimo_quantile (end)
 % paragraph indici_numerici (end)
 % subsection statistica_descrittiva (end)
 \subsection{Statistica Inferenziale} % (fold)
 \label{sub:statistica_inferenziale}
-Si occupa di descrivere dati attraverso modelli probabilistici, al fine di ricercare proprietà generali di una popolazione a partire da osservazioni relative a un campione ristretto. Supponiamo che i dati siano realizzazioni di una variabile aleatoria $X$, la cui caratterizzazione è però ignota. Grazie alla statistica descrittiva è possibile intuire (approssimativamente) la forma della funzione $f_\theta(x)$ con cui si distribuisce $X$, ma rimane ignoto il parametro $\theta$; questo parametro dovrà essere stimato, per poi causare un'eventuale modifica della forma di $f_\theta(x)$ per carcare una stima migliore. Diamo alcune definizioni:
+Si occupa di descrivere dati attraverso modelli probabilistici, al fine di ricercare proprietà generali di una popolazione a partire da osservazioni relative a un campione ristretto. Supponiamo che i dati siano realizzazioni di una variabile aleatoria $X$, la cui caratterizzazione è però ignota. Grazie alla statistica descrittiva è possibile intuire (approssimativamente) la forma della funzione $f_\theta(x)$ con cui si distribuisce $X$, ma rimane ignoto il parametro $\theta$; questo parametro dovrà essere stimato, per poi causare un'eventuale modifica della forma di $f_\theta(x)$ per cercare una stima migliore. Diamo alcune definizioni:
 \begin{definizione}
 	Un modello statistico è una famiglia di densità dipendenti da un parametro $\theta$, eventualmente vettoriale:
 	\begin{equation*}
-		\{f_{\theta}(x)|\theta\in\Theta\}
+		\{f_\theta(x)|\theta\in\Theta\}
 	\end{equation*}
 \end{definizione}
 \begin{definizione}
@@ -2569,7 +2577,7 @@ Si occupa di descrivere dati attraverso modelli probabilistici, al fine di ricer
 	che sia funzione solo del campione (e non del parametro $\theta$).
 \end{definizione}
 \begin{definizione}
-	Si dice stimatore una %BHO
+	Dato un modello statistico $\{f_\theta(x)|\theta\in\Theta\}$ e una funzione $\tau:\Theta\to\mathds{R}$, una statistica $T$ si dice stimatore di $\tau$ se è usata per stimare il suo valore.
 \end{definizione}
 \begin{definizione}
 	Si dice stima il valore assunto da uno stimatore quando il campione casuale viene sostituito con il campione (cioè con i dati).
@@ -2584,11 +2592,11 @@ Segue dalla definizione che da campioni diversi si calcolano stime diverse, ma c
 		Var_\theta(T)\xrightarrow{n\to+\infty}0
 	\end{equation*}
 \end{definizione}
-L'utilizzo di statistiche per ricavare una stima del valore vero è detta stima puntuale; è una metodologia molto ottimistica, perchè al variare del campione può cambiare pesantemente. Per considerare questa variabilità si può usare la sima per intervalli, cioè ricavare degli intervalli entro i quali è più probabile trovare il valor vero, ma noi non la facciamo. In generle, uno stimatore molto buono del valor medio è la media campionaria, perchè è corretto e consistente. Per stimare la varianza $\sigma^2$ non si può usare lo stimatore
+L'utilizzo di statistiche per ricavare una stima del valore vero è detta stima puntuale; è una metodologia molto ottimistica, perché al variare del campione può cambiare pesantemente. Per considerare questa variabilità si può usare la stima per intervalli, cioè ricavare degli intervalli entro i quali è più probabile trovare il valor vero, ma noi non la facciamo. In generale, uno stimatore molto buono del valor medio è la media campionaria, perché è corretto e consistente. Per stimare la varianza $\sigma^2$ non si può usare lo stimatore
 \begin{equation*}
 	T=\frac{1}{n}\sum_{i=1}^n(X_i-\overline{X})^2
 \end{equation*}
-perchè è leggermente distorto: risulta
+perché è leggermente distorto: risulta
 \begin{equation*}
 	E(T)=\frac{n-1}{n}\sigma^2
 \end{equation*}
